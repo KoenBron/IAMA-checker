@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
 # Create your views here.
-def hello_world(request):
-    return HttpResponse("Hello world, de scriptie coderen begint!!!!!!!!")
+def redirect(request):
+    return HttpResponseRedirect(reverse("base:greeting", args=()))
+
+def greeting(request):
+    return render(request, "base/temp_base.html")
