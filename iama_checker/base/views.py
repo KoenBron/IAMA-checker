@@ -8,4 +8,7 @@ def redirect(request):
     return HttpResponseRedirect(reverse("base:greeting", args=()))
 
 def greeting(request):
-    return render(request, "base/temp_base.html")
+    return render(request, "base/temp_list.html")
+
+def bink_test(request):
+    return render(request, "base/temp_bink.html")
