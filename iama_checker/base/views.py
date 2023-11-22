@@ -1,12 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def redirect(request):
-    return HttpResponseRedirect(reverse("base:greeting", args=()))
-
+@login_required
 def greeting(request):
     return render(request, "base/temp_list.html")
 

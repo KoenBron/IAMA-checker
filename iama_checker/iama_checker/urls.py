@@ -21,6 +21,8 @@ from base import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.redirect, name="redirect"),
-    path("home/", include("base.urls")),
+    path("", views.greeting, name="greeting"),
+    path("base/", include("base.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
