@@ -6,7 +6,7 @@ def user_sentinel():
     return User.objects.get_or_create(username="Default_user", password="Default_password")[0]
 
 def user_pk_sentinel():
-    return user_sentinel.pk
+    return user_sentinel().pk
 
 # Create your models here.
 class Assesment(models.Model):

@@ -1,6 +1,6 @@
 <h2>Register</h2>
-<form method="POST" class="form-group">
+<form method="POST" action="{% url 'regiser' %}">
 	{% csrf_token %}
 	{{ form }}
-	<button type="submit" class="btn btn-success">Register</button>
+	<button type="submit">Register</button>
 </form>

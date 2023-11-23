@@ -12,6 +12,10 @@
 {% block content %}
 {% if user.is_authenticated %}
 <h2>Hello {{ user.get_username }}</h2>
-{{ form }}
+<form method="post" action="{% url 'base:create_assesment' %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="+">
+</form>
 {% endif %}
 {% endblock %}

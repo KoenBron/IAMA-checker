@@ -5,4 +5,4 @@ from .models import Assesment
 class AssesmentForm(ModelForm):
     class Meta:
         model = Assesment
-        fields = ["name", "organisation", "complete_status"]
+        fields = ["name", "organisation"]
