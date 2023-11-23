@@ -12,5 +12,6 @@
 {% block content %}
 {% if user.is_authenticated %}
 <h2>Hello {{ user.get_username }}</h2>
+{{ form }}
 {% endif %}
 {% endblock %}
