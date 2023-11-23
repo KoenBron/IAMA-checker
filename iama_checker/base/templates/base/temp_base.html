@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     {% block title %}
-      <title>Local Library</title>
+      <title>IAMA</title>
     {% endblock %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,11 +19,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-2">
+          <p><a href="{% url 'greeting' %}">Home</a></p>
           {% block sidebar %}
             <ul class="sidebar-nav">
               <li><a href="{% url 'base:greeting' %}">Home</a></li>
-              <li><a href="">All books</a></li>
-              <li><a href="">All authors</a></li>
             </ul>
           {% endblock %}
         </div>

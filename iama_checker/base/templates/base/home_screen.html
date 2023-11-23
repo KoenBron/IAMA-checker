@@ -1,0 +1,16 @@
+{% extends "base/temp_base.html" %}
+
+
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'base:bink_test' %}">Test bink</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2>Hello {{ user.get_username }}</h2>
+{% endif %}
+{% endblock %}
