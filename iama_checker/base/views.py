@@ -10,7 +10,7 @@ def greeting(request):
     # Get all the assesments associated to the logged in user en present them descendingly
     assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
     form = AssesmentForm()# To allow users to create a new assesment 
-    return render(request, "base/home_screen.html", {"form": form, "assesments_list": assesments_list})
+    return render(request, "base/home.html", {"form": form, "assesments_list": assesments_list})
 
 
 # Create a new assesment

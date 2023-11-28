@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-6">
+            Content1
+        </div>
+        <div class="col-6">
+            Tabl1
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
