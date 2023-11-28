@@ -12,6 +12,6 @@ def user_pk_sentinel():
 class Assesment(models.Model):
     name = models.CharField(max_length=40)# Name of the assesment
     organisation = models.CharField(max_length=50)# Name of the organisation performing the assesment
-    complete_status = models.BooleanField(default=False)
-    date_last_saved = models.DateField(auto_now=True)
+    complete_status = models.BooleanField(default=False)# Complete when all questions have been answered
+    date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)

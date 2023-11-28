@@ -3,11 +3,56 @@
 {% block content %}
 {% if user.is_authenticated %}
     <div class="row">
-        <div class="col-6">
-            Content1
-        </div>
-        <div class="col-6">
-            Tabl1
+        <h1 class="iama">IAMA Introductie</h1>
+    </div>
+    <div class="row">
+        <div class="iama">This is an introduction to IAMA</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Jouw Assesements</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        Naam
+                    </th>
+                    <th>
+                        Uitgevoerd Door
+                    </th>
+                    <th>
+                        Laatst Bewerkt
+                    </th>
+                    <th>
+                        Compleetheids Status
+                    </th>
+                    </thead>
+                    <tbody>
+                    {% for item in assesments_list %}
+                    <tr>
+                        <td>
+                        {{ item.name }}
+                        </td>
+                        <td>
+                        {{ item.organisation }}
+                        </td>
+                        <td>
+                        {{ item.date_last_saved|date:"d-m-Y" }}
+                        </td>
+                        <td>
+                        {{ item.complete_status }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 {% endif %}
