@@ -12835,5 +12835,10 @@
     .iama {
       margin: 0 auto;
     }
+
+    .iama-bottom-border
+    {
+    border-bottom: 1px solid purple;
+    }
   /*# sourceMappingURL=material-dashboard.css.map */
   

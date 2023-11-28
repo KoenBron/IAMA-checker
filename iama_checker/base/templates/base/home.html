@@ -11,47 +11,66 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">Jouw Assesements</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                <table class="table">
-                    <thead class=" text-primary">
-                    <th>
-                        Naam
-                    </th>
-                    <th>
-                        Uitgevoerd Door
-                    </th>
-                    <th>
-                        Laatst Bewerkt
-                    </th>
-                    <th>
-                        Compleetheids Status
-                    </th>
-                    </thead>
-                    <tbody>
-                    {% for item in assesments_list %}
-                    <tr>
-                        <td>
-                        {{ item.name }}
-                        </td>
-                        <td>
-                        {{ item.organisation }}
-                        </td>
-                        <td>
-                        {{ item.date_last_saved|date:"d-m-Y" }}
-                        </td>
-                        <td>
-                        {{ item.complete_status }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Jouw Assesements</h4>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table iama-bottom-border">
+                        <thead class=" text-primary">
+                        <th>
+                            Naam
+                        </th>
+                        <th>
+                            Uitgevoerd Door
+                        </th>
+                        <th>
+                            Laatst Bewerkt
+                        </th>
+                        <th>
+                            Compleetheids Status
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for item in assesments_list %}
+                        <tr>
+                            <td>
+                            {{ item.name }}
+                            </td>
+                            <td>
+                            {{ item.organisation }}
+                            </td>
+                            <td>
+                            {{ item.date_last_saved|date:"d-m-Y" }}
+                            </td>
+                            <td>
+                            {{ item.complete_status }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    <form action="{% url 'base:create_assesment' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Naam assesment</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
+                                    <input type="text" class="form-control" name="organisation">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">Maak nieuwe assesment</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
