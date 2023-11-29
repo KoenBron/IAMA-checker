@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm
 from .models import Assesment
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 @login_required
-def greeting(request):
+def home(request):
     # Get all the assesments associated to the logged in user en present them descendingly
     assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
     form = AssesmentForm()# To allow users to create a new assesment 
@@ -25,6 +25,14 @@ def create_assesment(request):
             assesment = Assesment(name=form.cleaned_data['name'], organisation=form.cleaned_data['organisation'], user=request.user)
             assesment.save()
             return HttpResponseRedirect("/")# Reload the page to show the newly added assesment
+
+@login_required
+def detail(request, assesment_id):
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+    except (KeyError, Assesment.DoesNotExist):
+        return HttpResponse("Page doesn't exist, 404 page comes later")
+    return render(request, "base/detail.html", {"assesment": assesment})
 
 def bink_test(request):
     return render(request, "base/temp_bink.html")
