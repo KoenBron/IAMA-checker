@@ -1,12 +1,61 @@
 {% extends "base/base.html" %}
 
+{% block navigation %}
+Dashboard
+{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
     <div class="row">
-        <h1 class="iama">IAMA Introductie</h1>
+        <h2 class="iama">IAMA Checker</h2>
     </div>
     <div class="row">
-        <div class="iama">This is an introduction to IAMA</div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title">IAMA Introductie</h4>
+                </div>
+                <div class="card-body">
+                    <h4>Impact Assesment Mensenrechten en Algoritmes</h4>
+                    <p style="color: grey">
+                        IAMA dient als een vragenlijst die organisaties grondig en kritisch laat kijken naar de noodzaak voor het inzetten, ontwikkelen, aankopen of aanpassen van algoritmes door overheidsorganen.
+                         Het laat alle disciplines die betrokken zijn bij de inzet van een dergelijk algoritme samenkomen om vroegtijdig te proberen om toekomstige risico’s, nalatigheid en mogelijke inbreuk op grondrechten te voorkomen en te kijken of het gebruik van een algoritme noodzakelijk is. 
+                         Om deze reden wordt IAMA ook als instrument gebruikt om de besluitvorming rondom desbetreffende algoritmes te leiden. Door met IAMA dit proces vast te leggen creëert een organisatie het naslagwerk dat later verantwoording kan afleggen omtrent de besluiten die zijn gemaakt met verhouding tot het algoritme. 
+                         Het is ook belangrijk om op te merken dat IAMA erg nauw samenhangt met andere richtlijnen en regulaties die gaan over het gebruikt van algoritmes zoals de GEB/DPIA, dit is ook de reden dat een aantal van de antwoorden die gegeven worden op deze vragen uitwisselbaar zijn onder dergelijke richtlijnen.
+                         Het originele IAMA document opgesteld door Prof. mr. Janneke Gerards, Dr. Mirko Tobias Schäfer, Arthur Vankan en Iris Muis is <a href="https://www.rijksoverheid.nl/documenten/rapporten/2021/02/25/impact-assessment-mensenrechten-en-algoritmes">hier</a> te vinden.
+                    <br>
+                    <br>
+                        Het IAMA bestaat uit 4 fases met ieder een aantal vragen.
+                         Waarvan de eerste drie toepasbaar zijn op het belsuitingsproces rondom ieder algoritme en fase 4 specifiek gaat over hoe het algoritme omgaat met mensenrechten.
+                         Zoals eerder is genoemd is het van belang dat meerdere disciplines betrokken zijn bij het uitvoeren deze assesment, daarom zal bij iedere vraag vermeld worden welke disciplines geadviseerd wordt om betrokken te zijn bij het geven van een antwoord.
+                         Tevens, is er de mogelijkheid om te kijken welke personen met welke functie betrokken waren bij het geven van het antwoord en personen toe te voegen aan deze lijst. 
+                         Op deze manier wordt er verantwoording afgelegd voor de invulling van de IAMA.
+                         Wees tijdens het invullen van de IAMA zo grondig and vooruitdenkend mogelijk te wezen, denk na over de consequenties en mogelijke maatregelen die het effect van deze kan mitigeren.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Over IAMA Checker</h4>
+                </div>
+                <div class="card-body">
+                    <h4>Een toegankelijkere IAMA assesment</h4>
+                    <p style="color: grey;">
+                        De IAMA Checker is ontworpen als software tool om organisaties door het proces van een IAMA assesment heen te begeleiden, zonder dat de personen betrokken bij deze assesment uitgebreidde kennis nodig hebben van het IAMA.
+                        De tool zal je begeleiden door alle 4 de fases van een IAMA assesments en voor iedere fase de benodigde achtergrond informatie en motivatie vermelden om zo het doel van iedere stap in het proces duidelijk te maken.
+                        <br>
+                        Bij iedere vraag staat vermeld wie er mee gewerkt heeft aan een antwoord en wat hun functie is in verhouding tot de organisatie die de asssesment doet.
+                        Verder is er naast verdere verduidelijking rondom termen en doelen die in het originele IAMA document vernoemd zijn ook de mogelijkheid om bronnen te raadplegen die relevant kunnen zijn bij het beantwoorden van de desbetreffende vraag.
+                        Op deze manier probeert IAMA Checker het proces van een assesment zo efficiënt en toegankelijk mogelijk te maken.
+                         
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">

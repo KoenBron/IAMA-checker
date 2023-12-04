@@ -47,9 +47,15 @@
      {% include 'base/sidebar.html' %}
  
      <div class="main-panel">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-text" style="color: grey; opacity: 0.5;">{% block navigation %}{% endblock %}
+            </div>
+          </div>
+        </div>
+    </nav>
         
-        {% include 'base/navigation.html' %}
- 
        <!-- End Navbar -->
        <div class="content">
          <div class="container-fluid">

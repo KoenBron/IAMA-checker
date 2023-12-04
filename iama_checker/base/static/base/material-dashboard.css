@@ -9234,8 +9234,8 @@
       z-index: 1029; }
     .navbar .navbar-wrapper {
       display: inline-flex;
-      align-items: center; 
-      margin: 0 auto; }
+      align-items: center;
+      }
     .navbar .navbar-brand {
       position: relative;
       color: inherit;
@@ -12839,6 +12839,13 @@
     .iama-bottom-border
     {
     border-bottom: 1px solid purple;
+    }
+
+    .intro-text {
+      color: grey; 
+      background-color: white; 
+      padding-top: 10px; 
+      padding-bottom: 10px;
     }
   /*# sourceMappingURL=material-dashboard.css.map */
   

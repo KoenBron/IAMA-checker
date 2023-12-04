@@ -1,5 +1,49 @@
 {% extends "base/base.html" %}
 
+{% block navigation %}
+Detail Page - {{ assesment.name}}
+{% endblock %}
+
 {% block content %}
-<h1> {{ assesment.name }} </h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">{{ assesment.name }} Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-gray font-weight-bold">Laatst aangepast:</div>
+                        <p class="border-bottom" style="font-size: 15px;">{{ assesment.date_last_saved }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-gray font-weight-bold">Compleetheids status:</div>
+                        <p class="border-bottom" style="font-size: 15px;">{{ assesment.complete_status }}</p>
+                    </div>
+                </div>
+                <form action="{% url 'base:update_assesment' assesment.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Naam assesment</label>
+                                <input type="text" class="form-control" name="name" value="{{ assesment.name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
+                                <input type="text" class="form-control" name="organisation" value="{{ assesment.organisation }}">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Update</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

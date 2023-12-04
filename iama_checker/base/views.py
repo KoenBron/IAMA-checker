@@ -4,6 +4,8 @@ from .forms import AssesmentForm
 from .models import Assesment
 from django.http import HttpResponseRedirect, HttpResponse
 
+import json
+
 # Create your views here.
 @login_required
 def home(request):
@@ -25,6 +27,27 @@ def create_assesment(request):
             assesment = Assesment(name=form.cleaned_data['name'], organisation=form.cleaned_data['organisation'], user=request.user)
             assesment.save()
             return HttpResponseRedirect("/")# Reload the page to show the newly added assesment
+
+# Update the info of a single assesment
+@login_required
+def update_assesment(request, assesment_id):
+    # Make sure it's a post request
+    if request.method == "POST":
+        try:
+            assesment = Assesment.objects.filter(user__pk=request.user.pk, id=assesment_id)
+        except (KeyError, Assesment.DoesNotExist):
+            return HttpResponse("Assesment doesn't exist, 404 page comes later")
+        # Create a form to easily validate and extract the data
+        form = AssesmentForm(request.POST)
+        if form.is_valid():
+            # We don't use the update() method so the assesment.date_last_saved value is newly set
+            assesment.name = form.cleaned_data['name']
+            assesment.organisation = form.cleaned_data['organisation']
+            assesment.save()
+            # Return back to the page where it came from
+            return HttpResponseRedirect(request.path)
+        else:# Return error
+            return HttpResponse("Error updating data, 404 page comes later")
 
 @login_required
 def detail(request, assesment_id):
