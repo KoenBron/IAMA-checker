@@ -15,3 +15,13 @@ class Assesment(models.Model):
     complete_status = models.BooleanField(default=False)# Complete when all questions have been answered
     date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
+
+class Question(models.Model):
+    question_text = models.TextField()# Content to display
+    question_phase = models.IntegerField() # Phase number of the question
+    question_number = models.IntegerField() # Question number in the phase
+
+class Answer(models.Model):
+    answer_content = models.TextField() # Content of the answer
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE) # Related question
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
