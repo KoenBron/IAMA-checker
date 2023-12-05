@@ -25,3 +25,7 @@ class Answer(models.Model):
     answer_content = models.TextField() # Content of the answer
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
+
+# Simple way of storing the introduction test of a phase in the database
+class Phase(models.Model):
+    phase_text = models.TextField()

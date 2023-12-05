@@ -16,5 +16,14 @@
             "question_phase": "1",
             "question_number": "2"
         }
+    },
+    {
+        "model": "base.question",
+        "pk": 3,
+        "fields": {
+            "question_text": "Example second phase question text",
+            "question_phase": "2",
+            "question_number": "1"
+        }
     }
 ]

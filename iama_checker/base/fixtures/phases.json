@@ -1,0 +1,9 @@
+[
+    {
+        "model": "base.phase",
+        "pk": "1",
+        "fields": {
+            "phase_text": "Example phase text."
+        }
+    }
+]

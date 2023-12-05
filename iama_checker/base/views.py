@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm
-from .models import Assesment
+from .models import Assesment, Question
 from django.http import HttpResponseRedirect, HttpResponse
 
 import json
@@ -49,13 +49,39 @@ def update_assesment(request, assesment_id):
         else:# Return error
             return HttpResponse("Error updating data, 404 page comes later")
 
+# Retreives the desired assignment
 @login_required
 def detail(request, assesment_id):
     try:
         assesment = Assesment.objects.get(pk=assesment_id)
+    # Couldn't retrieve the assesment from the db
     except (KeyError, Assesment.DoesNotExist):
         return HttpResponse("Page doesn't exist, 404 page comes later")
-    return render(request, "base/detail.html", {"assesment": assesment})
+    
+    # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
+    color = [
+        "#007bc760",
+        "#42145f60",
+        "#a9006160",
+        "#ffb61260"
+    ]
+    # Create a list of dicts of with the questions seperated by phase
+    current_phase = 1# Counter
+    questions = []# List to append
+    # Go through each phase and retrieve the questions
+    while (question_list := Question.objects.filter(question_phase=current_phase).order_by("question_number")):
+        questions.append({"phase": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
+        current_phase += 1
+
+    return render(request, "base/detail.html", {"assesment": assesment, "questions": questions})
+
+@login_required
+def phase_intro(request, assesment_id, phase):
+    return render(request, "base/phase_intro.html")
+
+@login_required
+def question_detail(request, assesment_id, question_id):
+    return HttpResponse("New datai page!")
 
 def bink_test(request):
     return render(request, "base/temp_bink.html")
