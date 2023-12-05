@@ -1,10 +1,29 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm
-from .models import Assesment, Question
+from .models import Assesment, Question, Phase
 from django.http import HttpResponseRedirect, HttpResponse
 
 import json
+
+# Helper function to create question list objects
+def create_question_list():
+    # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
+    color = [
+        "#007bc760",
+        "#42145f60",
+        "#a9006160",
+        "#ffb61260"
+    ]
+    # Create a list of dicts of with the questions seperated by phase
+    current_phase = 1# Counter
+    questions = []# List to append
+    # Go through each phase and retrieve the questions
+    while (question_list := Question.objects.filter(question_phase=current_phase).order_by("question_number")):
+        questions.append({"phase": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
+        current_phase += 1
+
+    return questions
 
 # Create your views here.
 @login_required
@@ -58,26 +77,21 @@ def detail(request, assesment_id):
     except (KeyError, Assesment.DoesNotExist):
         return HttpResponse("Page doesn't exist, 404 page comes later")
     
-    # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
-    color = [
-        "#007bc760",
-        "#42145f60",
-        "#a9006160",
-        "#ffb61260"
-    ]
-    # Create a list of dicts of with the questions seperated by phase
-    current_phase = 1# Counter
-    questions = []# List to append
-    # Go through each phase and retrieve the questions
-    while (question_list := Question.objects.filter(question_phase=current_phase).order_by("question_number")):
-        questions.append({"phase": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
-        current_phase += 1
-
+    # Get the questions as object that is renderable by the template
+    questions = request.session.get("questions", create_question_list())
     return render(request, "base/detail.html", {"assesment": assesment, "questions": questions})
 
 @login_required
 def phase_intro(request, assesment_id, phase):
-    return render(request, "base/phase_intro.html")
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+    # Couldn't retrieve the assesment from the db
+    except (KeyError, Assesment.DoesNotExist):
+        return HttpResponse("Page doesn't exist, 404 page comes later")
+    # Get the questions as object that is renderable by the template
+    questions = request.session.get("questions", create_question_list())
+    phase = request.session.get("phase", Phase.objects.all().order_by("pk"))
+    return render(request, "base/phase_intro.html", {"questions": questions, "assesment": assesment, "phase": phase[0]})
 
 @login_required
 def question_detail(request, assesment_id, question_id):
