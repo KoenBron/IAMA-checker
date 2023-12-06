@@ -47,7 +47,7 @@ Assesment Overzicht - {{ assesment.name}}
         </div>
     </div>
     <div class="col-md-3">
-        {% include "base/q_index.html" with assesment=assesment questions=questions %}
+        {% include "base/q_index.html" with assesment=assesment question_list=question_list %}
     </div>
 </div>
 <div class="row d-flex align-items-center">
@@ -62,7 +62,7 @@ Assesment Overzicht - {{ assesment.name}}
         </div>
     </div>
     <div class="col-md-6">
-        <a href="{% url 'base:phase_intro' assesment.id 1 %}" class="btn btn-primary btn-round">Start Assesment!</a>
+        <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round">Start Assesment!</a>
     </div>
     
 </div>

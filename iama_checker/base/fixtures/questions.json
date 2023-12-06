@@ -1,7 +1,16 @@
 [
     {
+        "model": "base.Question",
+        "pk": "1",
+        "fields": {
+            "question_text": "Example phase text.",
+            "question_phase": "1",
+            "question_number": "0"
+        }
+    },
+    {
         "model": "base.question",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "question_text": "Example altered question text",
             "question_phase": "1",
@@ -10,7 +19,7 @@
     },
     {
         "model": "base.question",
-        "pk": 2,
+        "pk": 3,
         "fields": {
             "question_text": "Example second question text",
             "question_phase": "1",
@@ -19,7 +28,16 @@
     },
     {
         "model": "base.question",
-        "pk": 3,
+        "pk": 4,
+        "fields": {
+            "question_text": "Example second phase intro text",
+            "question_phase": "2",
+            "question_number": "0"
+        }
+    },
+    {
+        "model": "base.question",
+        "pk": 5,
         "fields": {
             "question_text": "Example second phase question text",
             "question_phase": "2",

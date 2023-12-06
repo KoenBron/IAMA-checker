@@ -15,13 +15,21 @@
         <div class="card">
             <div class="card-body">
                 <p style="color: grey">
-                    {{ phase.phase_text }} help
+                    {{ question.question_text }} help
                 </p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        {% include "base/q_index.html" with assesment=assesment questions=questions %}
+        {% include "base/q_index.html" with question_list=question_list %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9 text-center">
+        {% if question.id != 1 %}
+            <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+        {% endif %}
+        <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
     </div>
 </div>
 {% endblock %}

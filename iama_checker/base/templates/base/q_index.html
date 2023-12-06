@@ -2,13 +2,18 @@
     <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       Cras justo odio <span class="badge badge-primary badge-pill">1</span>
     </a>
-    {% for phase in questions %}
-        <a href="{% url 'base:phase_intro' assesment.id phase.phase %}" class="list-group-item list-group-item-action" style="background-color: {{ phase.list_item_color }}">Onderdeel {{ phase.phase }}: Introductie</a>
+    {% for phase in question_list %}
         {% for question in phase.question_list %}
-            <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            style="padding-left: 3em">
-                {{ question.question_phase }}.{{ question.question_number }}
+            {% if question.question_number == 0 %}
+                <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-action" style="background-color: {{ phase.list_item_color }}">
+                    Onderdeel {{ phase.phase }}: Introductie
+                </a>
+            {% else %}
+                <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                style="padding-left: 3em">
+                    {{ question.question_phase }}.{{ question.question_number }}
             </a>
+            {% endif %}
         {% endfor %}
     {% endfor %}
   </div>

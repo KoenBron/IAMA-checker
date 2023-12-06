@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm
 from .models import Assesment, Question, Phase
 from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Max
 
 import json
 
@@ -18,9 +19,9 @@ def create_question_list():
     # Create a list of dicts of with the questions seperated by phase
     current_phase = 1# Counter
     questions = []# List to append
-    # Go through each phase and retrieve the questions
+    # Fill each subdict with oredered questions
     while (question_list := Question.objects.filter(question_phase=current_phase).order_by("question_number")):
-        questions.append({"phase": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
+        questions.append({"phase_num": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
         current_phase += 1
 
     return questions
@@ -78,24 +79,42 @@ def detail(request, assesment_id):
         return HttpResponse("Page doesn't exist, 404 page comes later")
     
     # Get the questions as object that is renderable by the template
-    questions = request.session.get("questions", create_question_list())
-    return render(request, "base/detail.html", {"assesment": assesment, "questions": questions})
+    question_list = request.session.get("questions", create_question_list())
+    return render(request, "base/detail.html", {"assesment": assesment, "question_list": question_list})
 
 @login_required
-def phase_intro(request, assesment_id, phase):
+def phase_intro(request, assesment_id, phase_num):
     try:
         assesment = Assesment.objects.get(pk=assesment_id)
+        phase = Phase.objects.get(pk=phase_num)
     # Couldn't retrieve the assesment from the db
     except (KeyError, Assesment.DoesNotExist):
         return HttpResponse("Page doesn't exist, 404 page comes later")
     # Get the questions as object that is renderable by the template
     questions = request.session.get("questions", create_question_list())
-    phase = request.session.get("phase", Phase.objects.all().order_by("pk"))
-    return render(request, "base/phase_intro.html", {"questions": questions, "assesment": assesment, "phase": phase[0]})
+    
+    return render(request, "base/phase_intro.html", {"questions": questions, "assesment": assesment, "phase": phase})
 
 @login_required
 def question_detail(request, assesment_id, question_id):
-    return HttpResponse("New datai page!")
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+        question = Question.objects.get(pk=question_id)
+    # Couldn't retrieve the assesment from the db
+    except (KeyError, Assesment.DoesNotExist):
+        return HttpResponse("Page doesn't exist, 404 page comes later")
+    # Create list of dicts from questions
+    question_list = request.session.get("questions", create_question_list())
+    # Id's of next and previous questions
+    buttons = {
+        "next": question.id + 1,
+        "prev": question.id - 1
+    }
+    
+    if question.question_number == 0:
+        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons})
+    else:
+        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons})
 
 def bink_test(request):
     return render(request, "base/temp_bink.html")
