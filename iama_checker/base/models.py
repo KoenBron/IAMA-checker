@@ -17,11 +17,18 @@ class Assesment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
 
 class Question(models.Model):
+    question_title = models.CharField(max_length=140, default="Question title")
     question_text = models.TextField()# Content to display
     question_phase = models.IntegerField() # Phase number of the question
     question_number = models.IntegerField() # Question number in the phase
 
 class Answer(models.Model):
+    class Status(models.TextChoices):
+        RV = "RV", "reviewed"
+        AW = "AW", "answered"
+        UA = "UA", "unanswered"
+    
+    status = models.CharField(max_length=3, choices=Status.choices, default=Status.UA)
     answer_content = models.TextField() # Content of the answer
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers

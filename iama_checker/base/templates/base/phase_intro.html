@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <h2>Onderdeel 1: Waarom?</h2>
+        <h2>Onderdeel {{ question.question_phase }}: {{ question.question_title }} </h2>
     </div>
     <div class="col-md-4"></div>
 </div>
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="col-md-3">
-        {% include "base/q_index.html" with question_list=question_list %}
+        {% include "base/q_index.html" with assesment=assesment question_list=question_list current_question=question.id %}
     </div>
 </div>
 <div class="row">
