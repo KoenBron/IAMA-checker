@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm
-from .models import Assesment, Question, Phase
+from .models import Assesment, Question, Answer
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
@@ -26,10 +26,33 @@ def create_question_list():
         current_phase += 1 
     return questions
 
-def get_complete_status():
-    status_list = []
-    
+# Retrieves the completion status as html of every answer related to an assesment
+# and puts them in a dictionary that is returned
+def get_complete_status(request, assesment):
+    question_list = Question.objects.all()
+    status_list = {}
+    for question in question_list:
+        try:
+            # Match an answer based on question_id, user_id and assesment_id
+            answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
+            status = ""
+            match answer.status:
+                case Answer.Status.UA:
+                    status = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
+                
+                case Answer.Status.AW:
+                    status = "<span class='badge badge-warning badge-pill'>Beantwoord</span>"
 
+                case Answer.Status.RV:
+                    status = "<span class='badge badge-succes badge-pill'>Reviewed</span>"
+        # Answers are created when the related question_page is first visited so, missing object also means unanswered 
+        except (KeyError, Answer.DoesNotExist):
+            status = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
+        # Append dict
+        status_list[str(question.id)] = status
+
+    return status_list
+    
 # Create your views here.
 @login_required
 def home(request):
@@ -107,8 +130,11 @@ def question_detail(request, assesment_id, question_id):
         "prev": question.id - 1
     }
     
+    # Get the completion status of each answer as a dict
+    status_list = get_complete_status(request, assesment)
+
     # Choose whether to render the phase introduction or the detail page of the question 
     if question.question_number == 0:
-        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons})
+        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons, "status_list": status_list})
     else:
-        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons})
+        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons, "status_list": status_list})

@@ -28,9 +28,11 @@ class Answer(models.Model):
         AW = "AW", "answered"
         UA = "UA", "unanswered"
     
-    status = models.CharField(max_length=3, choices=Status.choices, default=Status.UA)
+    status = models.CharField(max_length=3, choices=Status.choices, default=Status.UA)# Whether it's correctly filled in or not
     answer_content = models.TextField() # Content of the answer
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE) # Related question
+    # Attributes to identify the corresponding answer
+    assesment_id = models.ForeignKey(Assesment, on_delete=models.CASCADE, default=0)# Related assesment
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
 
 # Simple way of storing the introduction test of a phase in the database
