@@ -1,13 +1,12 @@
 {% extends "base/base.html" %}
 
 {% block navigation %}
-Assesment Overzicht - {{ assesment.name}}
+IAMA-Assesment - {{ assesment.name}}
 {% endblock %}
 
 {% block content %}
-
-
 <div class="row">
+    <div class="col-md-1"></div>
     <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
@@ -46,11 +45,13 @@ Assesment Overzicht - {{ assesment.name}}
             </div>
         </div>
     </div>
+    <div class="col-md-2"></div>
     <div class="col-md-3">
-        {% include "base/q_index.html" with assesment=assesment question_list=question_list %}
+        {% include "base/q_index.html" with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
     </div>
 </div>
 <div class="row d-flex align-items-center">
+    <div class="col-md-1"></div>
     <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
@@ -61,9 +62,12 @@ Assesment Overzicht - {{ assesment.name}}
             </div>
         </div>
     </div>
+</div>
+<div class="row d-flex text-center">
+    <div class="col-md-1"></div>
     <div class="col-md-6">
         <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round">Start Assesment!</a>
     </div>
-    
 </div>
+
 {% endblock %}

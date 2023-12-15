@@ -1,8 +1,6 @@
 {% extends "base/base.html" %}
 
-{% block navigation %}
-Vraag details
-{% endblock %}
+{% block navigation %}<a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}</a>{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -17,12 +15,31 @@ Vraag details
                 <h4 class="card-title"> {{ question.question_title }} </h4>
             </div>
             <div class="card-body">
-                <p> {{ question.question_text }} </p>
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    <p> {{ question.question_text }} </p>
+                    <textarea class="form-control rounded" id="exampleFormControlTextarea1" rows="3" style="background-color: #E8E8E8"> {{ answer.answer_content }} </textarea>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                            <div class="form-check">
+                                <label class="form-check-label"> Reviewed en Compleet
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        {% include 'base/q_index.html' with assesment=assesment question_list=question_list current_question=question.id status_list=status_list %}
+        {% include 'base/q_index.html' with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
     </div>
 </div>
 <div class="row">

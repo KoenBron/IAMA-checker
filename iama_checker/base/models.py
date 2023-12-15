@@ -29,7 +29,8 @@ class Answer(models.Model):
         UA = "UA", "unanswered"
     
     status = models.CharField(max_length=3, choices=Status.choices, default=Status.UA)# Whether it's correctly filled in or not
-    answer_content = models.TextField() # Content of the answer
+    answer_content = models.TextField(default="") # Content of the answer
+
     # Attributes to identify the corresponding answer
     assesment_id = models.ForeignKey(Assesment, on_delete=models.CASCADE, default=0)# Related assesment
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question

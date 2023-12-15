@@ -108,7 +108,15 @@ def detail(request, assesment_id):
     
     # Get the questions as object that is renderable by the template
     question_list = request.session.get("questions", create_question_list())
-    return render(request, "base/detail.html", {"assesment": assesment, "question_list": question_list})
+    # Get the completion statusof each question as a dict
+    status_list = get_complete_status(request, assesment)
+    
+    index_context_objects = {
+        "question_list": question_list,
+        "status_list": status_list,
+    }
+
+    return render(request, "base/detail.html", {"assesment": assesment, "index_context_objects": index_context_objects})
 
 @login_required
 def question_detail(request, assesment_id, question_id):
@@ -133,8 +141,19 @@ def question_detail(request, assesment_id, question_id):
     # Get the completion status of each answer as a dict
     status_list = get_complete_status(request, assesment)
 
+    index_context_objects = {
+        "question_list": question_list,
+        "status_list": status_list,
+    }
+
     # Choose whether to render the phase introduction or the detail page of the question 
     if question.question_number == 0:
-        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons, "status_list": status_list})
+        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "index_context_objects": index_context_objects, "buttons": buttons})
     else:
-        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "question_list": question_list, "buttons": buttons, "status_list": status_list})
+        # Check if there is already an answer
+        try:
+            answer = Answer.objects.get(question_id=question.id)
+        # Create an empty answer
+        except (KeyError, Answer.DoesNotExist):
+            answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
+        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "answer": answer, "index_context_objects": index_context_objects, "buttons": buttons})
