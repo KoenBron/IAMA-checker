@@ -148,7 +148,14 @@ def question_detail(request, assesment_id, question_id):
 
     # Choose whether to render the phase introduction or the detail page of the question 
     if question.question_number == 0:
+        context = {
+            "assesment": assesment, 
+            "question": question, 
+            "index_context_objects": index_context_objects, 
+            "buttons": buttons,
+        }
         return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "index_context_objects": index_context_objects, "buttons": buttons})
+    
     else:
         # Check if there is already an answer
         try:
@@ -158,7 +165,15 @@ def question_detail(request, assesment_id, question_id):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
 
-        return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "answer": answer, "index_context_objects": index_context_objects, "buttons": buttons})
+        context = {
+            "assesment": assesment, 
+            "question": question, 
+            "answer": answer, 
+            "index_context_objects": index_context_objects, 
+            "buttons": buttons,
+        }
+
+        return render(request, "base/q_detail.html", context)
 
 # Save an answer to the database and alter it's completion status
 @login_required
@@ -191,7 +206,7 @@ def save_answer(request, assesment_id, question_id):
 
             # Save changes
             answer.save()
-
+            # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
 
         else:

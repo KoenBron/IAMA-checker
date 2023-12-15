@@ -36,6 +36,7 @@ class Answer(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
 
-# Simple way of storing the introduction test of a phase in the database
-class Phase(models.Model):
-    phase_text = models.TextField()
+class Collaborator(models.Model):
+    name = models.CharField(max_length=40)
+    organisation = models.CharField(max_length=60)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
