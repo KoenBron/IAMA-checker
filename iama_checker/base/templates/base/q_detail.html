@@ -1,5 +1,7 @@
 {% extends "base/base.html" %}
 
+{% load base_extra %}
+
 {% block navigation %}<a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}</a>{% endblock %}
 
 {% block content %}
@@ -15,16 +17,20 @@
                 <h4 class="card-title"> {{ question.question_title }} </h4>
             </div>
             <div class="card-body">
-                <form action="#" method="post">
+                <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
                     <p> {{ question.question_text }} </p>
-                    <textarea class="form-control rounded" id="exampleFormControlTextarea1" rows="3" style="background-color: #E8E8E8"> {{ answer.answer_content }} </textarea>
+                    <textarea class="form-control rounded" name="answer_content" rows="3" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-3 d-flex justify-content-center align-items-center">
                             <div class="form-check">
                                 <label class="form-check-label"> Reviewed en Compleet
-                                <input class="form-check-input" type="checkbox" value="">
+                                {% if answer.status|is_reviewed %}
+                                    <input class="form-check-input" name="reviewed" type="checkbox" value="reviewed" checked>
+                                {% else %}
+                                    <input class="form-check-input" name="reviewed" type="checkbox" value="reviewed">
+                                {% endif %}
                                 <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>

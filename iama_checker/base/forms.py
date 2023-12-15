@@ -1,5 +1,5 @@
-from django.forms import ModelForm, TextInput
-from .models import Assesment
+from django.forms import Form, ModelForm, TextInput, Textarea, BooleanField
+from .models import Assesment, Answer
 
 # The form to create or alter an assesment as a user
 class AssesmentForm(ModelForm):
@@ -14,3 +14,9 @@ class AssesmentForm(ModelForm):
                 "class": "form-control",
             })
         }
+
+# The form to handle input validation for Answer model
+class AnswerForm(Form):
+    # Review button can be submitted checked or unchecked
+    reviewed = BooleanField(required=False)
+    answer_content = Textarea()

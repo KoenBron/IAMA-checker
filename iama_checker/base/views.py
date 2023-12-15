@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import AssesmentForm
+from .forms import AssesmentForm, AnswerForm
 from .models import Assesment, Question, Answer
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -44,7 +44,7 @@ def get_complete_status(request, assesment):
                     status = "<span class='badge badge-warning badge-pill'>Beantwoord</span>"
 
                 case Answer.Status.RV:
-                    status = "<span class='badge badge-succes badge-pill'>Reviewed</span>"
+                    status = "<span class='badge badge-success badge-pill'>Reviewed</span>"
         # Answers are created when the related question_page is first visited so, missing object also means unanswered 
         except (KeyError, Answer.DoesNotExist):
             status = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
@@ -152,8 +152,48 @@ def question_detail(request, assesment_id, question_id):
     else:
         # Check if there is already an answer
         try:
-            answer = Answer.objects.get(question_id=question.id)
-        # Create an empty answer
+            answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
+        # Create an empty answer and save it
         except (KeyError, Answer.DoesNotExist):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
+            answer.save()
+
         return render(request, "base/q_detail.html", {"assesment": assesment, "question": question, "answer": answer, "index_context_objects": index_context_objects, "buttons": buttons})
+
+# Save an answer to the database and alter it's completion status
+@login_required
+def save_answer(request, assesment_id, question_id):    
+    # Only handle post requests that alter the data
+    if request.method == "POST":
+        # Retrieve answer from the database
+        try:
+            answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
+        except (KeyError, Answer.DoesNotExist):
+            return HttpResponse("Error answer object doesn't exist, something went wrong")# TODO: Get regular 404 page
+        
+        # Put the POST request data into form
+        answer_form = AnswerForm(request.POST)
+        # Make sure the data is valid
+        if answer_form.is_valid():
+            # Update answer data
+            answer.answer_content = answer_form.data["answer_content"]# is_valid drops answer content from cleaned data?????
+
+            # Check for empty string as this can reset the completion status of an answer
+            if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
+                answer.status = Answer.Status.UA
+
+            # Get the reviewed status and mark answer reviewed if checked
+            elif answer_form.cleaned_data["reviewed"]:
+                answer.status = Answer.Status.RV
+
+            else:
+                answer.status = Answer.Status.AW
+
+            # Save changes
+            answer.save()
+
+            return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
+
+        else:
+            return HttpResponse("error 404, incorrect data submitted for changing answer")
+
