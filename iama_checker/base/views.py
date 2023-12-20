@@ -171,6 +171,10 @@ def question_detail(request, assesment_id, question_id):
             "answer": answer, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
+            "collab_list": [
+                {"name": "Test User1", "organisation": "Organisatie 1"},
+                {"name": "Test User2", "organisation": "Organisatie 2"},
+            ],
         }
 
         return render(request, "base/q_detail.html", context)

@@ -39,4 +39,4 @@ class Answer(models.Model):
 class Collaborator(models.Model):
     name = models.CharField(max_length=40)
     organisation = models.CharField(max_length=60)
-    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)# TODO: maak collab en vraag een many to many relatie

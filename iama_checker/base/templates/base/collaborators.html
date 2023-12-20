@@ -1,9 +1,21 @@
-<div class="btn-group dropright">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-    <span class="caret"></span></button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-  </div>
+<ul class="list-group rounded border">
+    {% for collab in collab_list %}
+        <li class="list-group-item border d-flex justify-content-between">
+            <div class="">
+                <p style="margin-bottom: 0px"> {{collab.name}} </p>
+                <p style="margin-bottom: 0px"> {{collab.organisation}} </p>
+            </div>
+            
+            <div class="dropdown dropright d-flex align-items-center">
+                <a href="#" data-toggle="modal" data-target="#exampleModal">
+                    <i class="material-icons">delete</i>
+                </a>
+                <div class="dropdown-menu">
+                    <h6>test</h6>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+{% include 'includes/delete_modal.html' with body="Weet je zeker dat je deze medewerker wil verwijderen?" action="action='#'" %}
