@@ -225,3 +225,7 @@ def add_collab(request, assesment_id, question_id, answer_id, collab_id):
 @login_required
 def create_add_collab(request, assesment_id, question_id, answer_id):
     return HttpResponse("help")
+
+@login_required
+def delete_collab(request, collab_id):
+    return HttpResponse("Delete")
