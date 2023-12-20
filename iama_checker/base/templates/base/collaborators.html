@@ -17,5 +17,23 @@
         </li>
     {% endfor %}
 </ul>
+<div class="d-flex justify-content-center">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Maak niewe Medewerker
+        </button>
+        <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' assesment_id question_id answer_id %}">
+            <div class="form-group">
+              <label for="name">Naam</label>
+              <input type="text" class="form-control" id="name" placeholder="Voor-achternaam">
+            </div>
+            <div class="form-group">
+              <label for="organisation">Organisatie</label>
+              <input type="text" class="form-control" id="organisation" placeholder="Voorbeeld org">
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
 
 {% include 'includes/delete_modal.html' with body="Weet je zeker dat je deze medewerker wil verwijderen?" action="action='#'" %}

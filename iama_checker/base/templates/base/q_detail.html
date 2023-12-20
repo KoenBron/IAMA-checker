@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        {% include 'base/collaborators.html' with collab_list=collab_list %}
+        {% include 'base/collaborators.html' with collab_list=collab_list assesment_id=assesment.id question_id=question.id answer_id=answer.id %}
     </div>
     <div class="col-md-7">
         <div class="card">

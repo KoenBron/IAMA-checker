@@ -1,8 +1,8 @@
 {% load base_extra %}
 
 <div class="list-group rounded border" style="border-color:grey">
-    <a href="{% url 'base:detail' assesment.id %}" class="list-group-item list-group-item-action list-group-item-dark rounded">
-        Assesment Overzicht: {{ assesment.name }}
+    <a href="{% url 'base:detail' assesment.id %}" class="list-group-item list-group-item-action list-group-item-secondary rounded">
+        Overzicht: {{ assesment.name }}
     </a>
     {% for phase in question_list %}
         {% for question in phase.question_list %}

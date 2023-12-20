@@ -216,3 +216,12 @@ def save_answer(request, assesment_id, question_id):
         else:
             return HttpResponse("error 404, incorrect data submitted for changing answer")
 
+# Add an existing collaborator to a question
+@login_required
+def add_collab(request, assesment_id, question_id, answer_id, collab_id):
+    return HttpResponse("help")
+
+# Create a collaborator and add it to the current question
+@login_required
+def create_add_collab(request, assesment_id, question_id, answer_id):
+    return HttpResponse("help")
