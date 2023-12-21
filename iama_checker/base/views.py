@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import AssesmentForm, AnswerForm
-from .models import Assesment, Question, Answer
+from .forms import AssesmentForm, AnswerForm, CollaboratorForm
+from .models import Assesment, Question, Answer, Collaborator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
@@ -52,7 +52,7 @@ def get_complete_status(request, assesment):
         status_list[str(question.id)] = status
 
     return status_list
-    
+
 # Create your views here.
 @login_required
 def home(request):
@@ -129,24 +129,19 @@ def question_detail(request, assesment_id, question_id):
     except (KeyError, Assesment.DoesNotExist):
         return HttpResponse("Page doesn't exist, 404 page comes later")
     
-    # Create list of dicts from questions
-    question_list = request.session.get("questions", create_question_list())
-
     # Id's of next and previous questions
     buttons = {
         "next": question.id + 1,
         "prev": question.id - 1
     }
     
-    # Get the completion status of each answer as a dict
-    status_list = get_complete_status(request, assesment)
-
+    # Objects need te render the question index correctly
     index_context_objects = {
-        "question_list": question_list,
-        "status_list": status_list,
+        "question_list": request.session.get("questions", create_question_list()),
+        "status_list": get_complete_status(request, assesment),
     }
 
-    # Choose whether to render the phase introduction or the detail page of the question 
+    # Render phase intro page
     if question.question_number == 0:
         context = {
             "assesment": assesment, 
@@ -155,7 +150,7 @@ def question_detail(request, assesment_id, question_id):
             "buttons": buttons,
         }
         return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "index_context_objects": index_context_objects, "buttons": buttons})
-    
+    # Render question_detail page
     else:
         # Check if there is already an answer
         try:
@@ -171,10 +166,7 @@ def question_detail(request, assesment_id, question_id):
             "answer": answer, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
-            "collab_list": [
-                {"name": "Test User1", "organisation": "Organisatie 1"},
-                {"name": "Test User2", "organisation": "Organisatie 2"},
-            ],
+            "collab_list": Collaborator.objects.filter(answers=answer),
         }
 
         return render(request, "base/q_detail.html", context)
@@ -208,11 +200,10 @@ def save_answer(request, assesment_id, question_id):
             else:
                 answer.status = Answer.Status.AW
 
-            # Save changes
             answer.save()
             # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
-
+        # Error
         else:
             return HttpResponse("error 404, incorrect data submitted for changing answer")
 
@@ -224,8 +215,39 @@ def add_collab(request, assesment_id, question_id, answer_id, collab_id):
 # Create a collaborator and add it to the current question
 @login_required
 def create_add_collab(request, assesment_id, question_id, answer_id):
+    if request.method == "POST":
+        try:
+            answer = Answer.objects.get(pk=answer_id)
+        except (KeyError, Answer.DoesNotExist):
+            return HttpResponse("Error answer doesn't exist") # TODO: Get proper 404 page
+        
+        # Create a form for validation
+        form = CollaboratorForm(request.POST)
+        if form.is_valid():
+            # Create new collaborator
+            collab = Collaborator(name=form.cleaned_data["name"], organisation=form.cleaned_data["organisation"])
+            collab.save()
+            # Add it to an answer
+            collab.answers.add(answer)
+            return HttpResponseRedirect(request.POST.get("next", "/"))
+        # Error
+        else:
+            return HttpResponse("Error invalid data added")# TODO: Add the error handling and display it when going back to the question_detail page
     return HttpResponse("help")
 
 @login_required
-def delete_collab(request, collab_id):
-    return HttpResponse("Delete")
+def delete_collab(request, answer_id, collab_id):
+    try:
+        answer = Answer.objects.get(pk=answer_id)
+        collab = Collaborator.objects.get(pk=collab_id)
+    except (KeyError, Collaborator.DoesNotExist) (KeyError, Answer.DoesNotExist):
+        return HttpResponse("error collaborator/answer doesn't exist")# TODO: create 404 page
+    
+    # Check if user has authority to delete this collab
+    if request.user.pk == answer.user.pk:
+        # Delete relation and go back to previous page
+        answer.collaborator_set.remove(collab)
+        return HttpResponseRedirect(request.GET.get("next", "/"))
+    
+    else:
+        return HttpResponse("Error, not allowed to remove this collaborator")# TODO: Add error page for this

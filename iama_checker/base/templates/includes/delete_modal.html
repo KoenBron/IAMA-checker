@@ -8,11 +8,12 @@
             </button>
         </div>
         <div class="modal-body">
-            {{body}}
+            {{body|safe}}
+            {{action}}
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-            <button type="button" class="btn btn-primary" {{action|safe}}>Verwijder</button>
+            <button type="button" class="btn btn-primary" action={{action|safe}}>Verwijder</button>
         </div>
         </div>
     </div>
