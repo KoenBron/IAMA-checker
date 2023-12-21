@@ -1,0 +1,10 @@
+{% for reference in reference_list %}
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="primary">{{ reference.title }}</h6>
+            <p style="color: grey"> {{ reference.description }} </p>
+        </div>
+    </div>
+</div>
+{% endfor %}

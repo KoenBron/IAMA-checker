@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm
-from .models import Assesment, Question, Answer, Collaborator
+from .models import Assesment, Question, Answer, Collaborator, Reference
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
@@ -148,8 +148,10 @@ def question_detail(request, assesment_id, question_id):
             "question": question, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
+            "reference_list": Reference.objects.filter(questions__question_phase=question.phase),
         }
-        return render(request, "base/phase_intro.html", {"assesment": assesment, "question": question, "index_context_objects": index_context_objects, "buttons": buttons})
+        return render(request, "base/phase_intro.html", context)
+    
     # Render question_detail page
     else:
         # Check if there is already an answer
@@ -167,8 +169,8 @@ def question_detail(request, assesment_id, question_id):
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
             "collab_list": Collaborator.objects.filter(answers=answer),
+            "reference_list": Reference.objects.filter(questions=question),
         }
-
         return render(request, "base/q_detail.html", context)
 
 # Save an answer to the database and alter it's completion status
@@ -240,14 +242,18 @@ def delete_collab(request, answer_id, collab_id):
     try:
         answer = Answer.objects.get(pk=answer_id)
         collab = Collaborator.objects.get(pk=collab_id)
-    except (KeyError, Collaborator.DoesNotExist) (KeyError, Answer.DoesNotExist):
-        return HttpResponse("error collaborator/answer doesn't exist")# TODO: create 404 page
+    # No answer found
+    except (KeyError, Answer.DoesNotExist):
+        return HttpResponse("error answer doesn't exist")# TODO: create 404 page
+    # No collaborator found
+    except (KeyError, Collaborator.DoesNotExist) :
+        return HttpResponse("error collaborator doesn't exist")# TODO: create 404 page
     
     # Check if user has authority to delete this collab
     if request.user.pk == answer.user.pk:
         # Delete relation and go back to previous page
         answer.collaborator_set.remove(collab)
         return HttpResponseRedirect(request.GET.get("next", "/"))
-    
+    # User not authorised
     else:
         return HttpResponse("Error, not allowed to remove this collaborator")# TODO: Add error page for this

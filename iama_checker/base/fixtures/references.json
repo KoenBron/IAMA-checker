@@ -1,0 +1,12 @@
+[
+    {
+        "model": "base.reference",
+        "pk": "1",
+        "fields": {
+            "title": "Example reference title 1",
+            "description": "Example description 1",
+            "url": "www.exampleurl.com",
+            "questions": [2]
+        }
+    }
+]

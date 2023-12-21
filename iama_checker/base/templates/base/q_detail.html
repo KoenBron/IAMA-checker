@@ -60,4 +60,7 @@
         <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
     </div>
 </div>
+<div class="row row-cols-1 justify-content-center">
+    {% include 'includes/reference_list.html' with reference_list=reference_list %}
+</div>
 {% endblock %}

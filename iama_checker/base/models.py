@@ -8,6 +8,9 @@ def user_sentinel():
 def user_pk_sentinel():
     return user_sentinel().pk
 
+def reference_sentinel():
+    return Reference.objects.get_or_create(description="Example description of reference", url="www.example.com")
+
 # Create your models here.
 class Assesment(models.Model):
     name = models.CharField(max_length=40)# Name of the assesment
@@ -41,3 +44,9 @@ class Collaborator(models.Model):
     organisation = models.CharField(max_length=60)
     # Many to many field as answer can have multiply collaborators and vice versa
     answers = models.ManyToManyField(Answer)
+
+class Reference(models.Model):
+    title = models.CharField(max_length=64, default="Example title")
+    description = models.TextField()
+    url = models.URLField(max_length=128)
+    questions = models.ManyToManyField(Question)
