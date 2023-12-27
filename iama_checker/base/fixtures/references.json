@@ -5,7 +5,17 @@
         "fields": {
             "title": "Example reference title 1",
             "description": "Example description 1",
-            "url": "www.exampleurl.com",
+            "url": "www.google.com",
+            "questions": [2]
+        }
+    },
+    {
+        "model": "base.reference",
+        "pk": "2",
+        "fields": {
+            "title": "Example reference title 2",
+            "description": "Example description 2",
+            "url": "www.google.com",
             "questions": [2]
         }
     }

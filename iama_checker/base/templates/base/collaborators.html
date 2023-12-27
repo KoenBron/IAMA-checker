@@ -1,13 +1,13 @@
 {% load base_extra %}
 <ul class="list-group rounded">
     {% for collab in collab_list %}
-        <li class="list-group-item border d-flex justify-content-between">
+        <li class="list-group-item border rounded d-flex justify-content-between" style="background-color: white;">
             <div class="">
                 <p style="margin-bottom: 0px"> {{collab.name}} </p>
                 <p style="margin-bottom: 0px"> {{collab.organisation}} </p>
             </div>
             
-            <div class="dropdown dropright d-flex align-items-center">
+            <div class="d-flex align-items-center">
                 <a href="#" data-toggle="modal" data-target="#delete_modal{{ collab.id }}">
                     <i class="material-icons">delete</i>
                 </a>
