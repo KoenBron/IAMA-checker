@@ -248,12 +248,15 @@ def delete_collab(request, answer_id, collab_id):
     # No collaborator found
     except (KeyError, Collaborator.DoesNotExist) :
         return HttpResponse("error collaborator doesn't exist")# TODO: create 404 page
-    
+
     # Check if user has authority to delete this collab
     if request.user.pk == answer.user.pk:
         # Delete relation and go back to previous page
         answer.collaborator_set.remove(collab)
+        # Check if there is any answer associated with the collaborator
+        if collab.answers is None:
+            collab.delete()# No answers associated, delete the collaborator
         return HttpResponseRedirect(request.GET.get("next", "/"))
     # User not authorised
     else:
-        return HttpResponse("Error, not allowed to remove this collaborator")# TODO: Add error page for this
+        return HttpResponse("Error, not allowed to remove this collaborator")#swer TODO: Add error page for this
