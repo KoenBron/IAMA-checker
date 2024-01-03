@@ -1,1 +1,22 @@
-<a href = "{% url 'login' %}">Log back in</a>
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">
+            Je bent uitgelogd!
+          </h4>
+        </div>
+        <div class="card-body">
+
+          <h6 class="card-category">
+              Klik hier om terug in te loggen. <a href="url {% url 'login' %}"> Login</a>
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblcok %}
