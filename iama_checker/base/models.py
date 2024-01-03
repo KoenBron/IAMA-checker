@@ -39,6 +39,8 @@ class Answer(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
 
+# Could also have a relation to Assesment, but would be redundant info since the answer is already related
+# Don't know what is best practice here, so could be revisited later.
 class Collaborator(models.Model):
     name = models.CharField(max_length=40)
     organisation = models.CharField(max_length=60)

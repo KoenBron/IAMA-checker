@@ -179,7 +179,8 @@ def question_detail(request, assesment_id, question_id):
             "question": question, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
-            "reference_list": Reference.objects.filter(questions__question_phase=question.phase),
+            # Get the references for all of the questions associated with a the requested phase
+            "reference_list": Reference.objects.filter(questions__question_phase=question.question_phase),
         }
         return render(request, "base/phase_intro.html", context)
     
@@ -244,13 +245,26 @@ def save_answer(request, assesment_id, question_id):
 
 # Add an existing collaborator to a question
 @login_required
-def add_collab(request, assesment_id, question_id, answer_id, collab_id):
+def add_collab(request, answer_id, collab_id):
+    # Get the answer and collaborator
+    try:
+        answer = Answer.objects.get(pk=answer_id)
+        collab = Collaborator.objects.get(pk=collab_id)
+
+    except (KeyError, Answer.DoesNotExist):
+        return HttpResponse("Error, couldn't find the answer to add collaborators too.")#TODO: add error page for internal errors
     
-    return HttpResponse("help")
+    except (KeyError, Collaborator.DoesNotExist):
+        return HttpResponse("Error, couldn't find the collaborator to add too an answer.")#TODO: add error page for internal errors
+    
+    # Add it to the many-to-many relation
+    answer.collaborator_set.add(collab)
+
+    return HttpResponseRedirect(reverse("base:question_detail", args=(answer.assesment_id.id, answer.question_id.id,)))
 
 # Create a collaborator and add it to the current question
 @login_required
-def create_add_collab(request, assesment_id, question_id, answer_id):
+def create_add_collab(request, answer_id):
     if request.method == "POST":
         try:
             answer = Answer.objects.get(pk=answer_id)

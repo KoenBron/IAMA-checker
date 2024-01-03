@@ -42,7 +42,7 @@
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Nieuwe Medewerker
         </button>
-        <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' assesment_id question_id answer_id %}" method="post">
+        <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' answer_id %}" method="post">
             {% csrf_token %}
             <div class="form-group">
               <label for="name">Naam</label>
@@ -60,11 +60,8 @@
             </button>
 
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
                 {% for option in collab_options %}
-                    <a class="dropdown-item" href="#"> {{option.name}}</a>
+                    <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
                 {% endfor %} 
             </div>
         </form>
