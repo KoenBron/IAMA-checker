@@ -7,14 +7,28 @@ from django.urls import reverse
 
 import json
 
-def get_possible_collaborators(assesment):
+# Generates emtpy answers for all of questions in the assesment
+def generate_empty_answers(assesment, user):
+    # Go through all the questions
+    for question in Question.objects.all():
+        # Create an empty answer and store it in the db
+        answer = Answer(answer_id=answer, question_id=question, user=user, status=Question.Status.UA)
+        answer.save()
+
+# Retrieve a list of options to add as possible collaobrators to an answer
+def get_collab_options(assesment, curr_answer):
     return_collab = []
     # Get all the answers associated with the assesment
     answers = Answer.objects.filter(assesment_id=assesment.pk)
 
     # Get all the collaborators
     for answer in answers:
-        return_collab.append(answer.collaborator_set.all())
+        # List comprehension to add only collabs not already present in the answer
+        options = answer.collaborator_set.all()
+        exclude = curr_answer.collaborator_set.all()
+        to_append = [option for option in options if option not in exclude]
+
+        return_collab.extend(to_append)
 
     return return_collab
 
@@ -47,6 +61,8 @@ def get_complete_status(request, assesment):
             # Match an answer based on question_id, user_id and assesment_id
             answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
             status = ""
+
+            # Have the html stored in a string-variable to reduce html clutter in the question_index.html file
             match answer.status:
                 case Answer.Status.UA:
                     status = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
@@ -82,6 +98,10 @@ def create_assesment(request):
             # Create assesment object and save to database
             assesment = Assesment(name=form.cleaned_data['name'], organisation=form.cleaned_data['organisation'], user=request.user)
             assesment.save()
+            
+            # Create empty answers to ensure correct and predictable behaviour
+            generate_empty_answers(assesment, request.user)
+            
             # Go to the detail page of the new assignment
             return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
     
@@ -181,9 +201,9 @@ def question_detail(request, assesment_id, question_id):
             "buttons": buttons,
             "collab_list": Collaborator.objects.filter(answers=answer),
             "reference_list": Reference.objects.filter(questions=question),
-            "possible_collab": get_possible_collaborators(assesment)
+            "collab_options": get_collab_options(assesment, answer)
         }
-        
+
         return render(request, "base/q_detail.html", context)
 
 # Save an answer to the database and alter it's completion status
@@ -225,6 +245,7 @@ def save_answer(request, assesment_id, question_id):
 # Add an existing collaborator to a question
 @login_required
 def add_collab(request, assesment_id, question_id, answer_id, collab_id):
+    
     return HttpResponse("help")
 
 # Create a collaborator and add it to the current question

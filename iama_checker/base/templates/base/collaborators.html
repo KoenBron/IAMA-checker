@@ -53,17 +53,19 @@
               <input type="text" class="form-control" name="organisation" placeholder="Voorbeeld org">
             </div>
             <input type="hidden" name="next" value="{{request.path}}">
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                style="padding-left: 10px; padding-right:10px">
-                    +
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                style="padding-left: 10px; padding-right:10px; margin-left: 10px">
+                +
+            </button>
+
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                {% for option in collab_options %}
+                    <a class="dropdown-item" href="#"> {{option.name}}</a>
+                {% endfor %} 
             </div>
         </form>
     </div>
