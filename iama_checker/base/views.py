@@ -7,6 +7,17 @@ from django.urls import reverse
 
 import json
 
+def get_possible_collaborators(assesment):
+    return_collab = []
+    # Get all the answers associated with the assesment
+    answers = Answer.objects.filter(assesment_id=assesment.pk)
+
+    # Get all the collaborators
+    for answer in answers:
+        return_collab.append(answer.collaborator_set.all())
+
+    return return_collab
+
 # Helper function to create question list objects
 def create_question_list():
     # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
@@ -170,7 +181,9 @@ def question_detail(request, assesment_id, question_id):
             "buttons": buttons,
             "collab_list": Collaborator.objects.filter(answers=answer),
             "reference_list": Reference.objects.filter(questions=question),
+            "possible_collab": get_possible_collaborators(assesment)
         }
+        
         return render(request, "base/q_detail.html", context)
 
 # Save an answer to the database and alter it's completion status

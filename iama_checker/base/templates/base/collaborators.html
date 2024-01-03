@@ -46,14 +46,25 @@
             {% csrf_token %}
             <div class="form-group">
               <label for="name">Naam</label>
-              <input type="text" class="form-control" name="name" placeholder="Voor-achternaam">
+              <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
             </div>
             <div class="form-group">
               <label for="organisation">Organisatie</label>
               <input type="text" class="form-control" name="organisation" placeholder="Voorbeeld org">
             </div>
             <input type="hidden" name="next" value="{{request.path}}">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                style="padding-left: 10px; padding-right:10px">
+                    +
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>
