@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card">
         <div class="card-header card-header-primary">
@@ -12,11 +12,11 @@
         <div class="card-body">
 
           <h6 class="card-category">
-              Klik hier om terug in te loggen. <a href="url {% url 'login' %}"> Login</a>
+              Klik hier om terug in te loggen. <a href="{% url 'login' %}"> Login</a>
           </h6>
         </div>
       </div>
     </div>
   </div>
 
-  {% endblcok %}
+  {% endblock %}

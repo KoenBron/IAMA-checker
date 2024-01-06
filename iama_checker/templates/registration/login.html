@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div class="row">
+<div class="row align-items-center justify-content-center">
     <div class="col-md-5">
       <div class="card">
         <div class="card-header card-header-primary">
@@ -27,7 +27,7 @@
             {% csrf_token %} 
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-9">
                 <div class="form-group">
                   <label class="bmd-label-floating">Gebruikersnaam</label>
                   {{ form.username }}
@@ -38,7 +38,7 @@
             <br />
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-9">
                 <div class="form-group">
                   <label class="bmd-label-floating">Wachtwoord</label>
                   {{ form.password }}
