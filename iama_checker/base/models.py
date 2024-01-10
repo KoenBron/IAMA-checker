@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+import json
+
+from django.db.models.enums import enum
 
 # Helper functions to set be able to set User object as a foreignkey
 def user_sentinel():
@@ -15,16 +18,33 @@ def reference_sentinel():
 class Assesment(models.Model):
     name = models.CharField(max_length=40)# Name of the assesment
     organisation = models.CharField(max_length=50)# Name of the organisation performing the assesment
-    complete_status = models.BooleanField(default=False)# Complete when all questions have been answered
-    date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
+    complete_status = models.BooleanField(default=False)# Complete when all questions have been answered date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
 
 class Question(models.Model):
+    # Create subclass that acts as an enum
+    class Jobs():
+        jobs = {
+            "DA": "Data scientist",
+            "BE": "Bestuur",
+            "BG": "Belangen groep",
+        }  
+        def __init__(self, type) -> None:
+            self.type = type
+            self.description = self.jobs[type]
+            
+
     question_title = models.CharField(max_length=140, default="Question title")
     question_text = models.TextField()# Content to display
     question_phase = models.IntegerField() # Phase number of the question
     question_number = models.IntegerField() # Question number in the phase
+    job_list = models.JSONField(default=None)
 
+    # Return the json object as a list of Jobs objects for easier conversion 
+    def jobs_as_py_list(self):
+        job_list = json.load(self.job_list)
+        return [self.Jobs(job) for job in job_list]
+    
 class Answer(models.Model):
     class Status(models.TextChoices):
         RV = "RV", "reviewed"
