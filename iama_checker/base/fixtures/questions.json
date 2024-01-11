@@ -16,7 +16,29 @@
             "question_title": "Example title",
             "question_text": "Example altered question text",
             "question_phase": "1",
-            "question_number": "1"
+            "question_number": "1",
+            "job_list": [
+               {
+                "type": "OG",
+                "priority": 1
+               },
+               {
+                "type": "PL",
+                "priority": 1
+               },
+               {
+                "type": "DE",
+                "priority": 1
+               },
+               {
+                "type": "PB",
+                "priority": 2 
+               },
+               {
+                "type": "VB",
+                "priority": 2 
+               }
+            ]
         }
     },
     {

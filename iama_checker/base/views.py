@@ -18,7 +18,7 @@ def generate_empty_answers(assesment, user):
     # Go through all the questions
     for question in Question.objects.all():
         # Create an empty answer and store it in the db
-        answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Question.Status.UA)
+        answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Answer.Status.UA)
         answer.save()
 
 # Retrieve a list of options to add as possible collaobrators to an answer
@@ -111,6 +111,20 @@ def create_assesment(request):
             # Go to the detail page of the new assignment
             return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
     
+@login_required
+def delete_assesment(request, assesment_id):
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+    except (KeyError, Assesment.DoesNotExist):
+        return HttpResponse("Error assesment to delete doesn't exist")
+    
+    # Check if the user that deletes is the same user that has authority to delete this assesment
+    if request.user.pk != assesment.user.pk:
+        return HttpResponse("Error, user not authorised to delete this assesment!")
+    
+    else:
+        assesment.delete()
+        return HttpResponseRedirect(reverse("base:home"))
 
 # Update the info of a single assesment
 @login_required
@@ -187,7 +201,7 @@ def question_detail(request, assesment_id, question_id):
             "buttons": buttons,
             # Get the references for all of the questions associated with a the requested phase
             "reference_list": Reference.objects.filter(questions__question_phase=question.question_phase),
-            "jobs": jobs_per_phase(),
+            "jobs": jobs_per_phase(question.question_phase),
         }
         return render(request, "base/phase_intro.html", context)
     
@@ -210,7 +224,7 @@ def question_detail(request, assesment_id, question_id):
             "collab_list": Collaborator.objects.filter(answers=answer),
             "reference_list": Reference.objects.filter(questions=question),
             "collab_options": get_collab_options(assesment, answer),
-            "jobs": question.jobs_as_py_list()
+            "jobs": question.jobs_as_py_list(),
         }
 
         return render(request, "base/q_detail.html", context)
@@ -315,4 +329,20 @@ def delete_collab(request, answer_id, collab_id):
         return HttpResponseRedirect(request.GET.get("next", "/"))
     # User not authorised
     else:
-        return HttpResponse("Error, not allowed to remove this collaborator")#swer TODO: Add error page for this
+        return HttpResponse("Error, not allowed to remove this collaborator")#swer TODO: Add error page for thisi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
