@@ -60,9 +60,13 @@
             </button>
 
             <div class="dropdown-menu">
-                {% for option in collab_options %}
-                    <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
-                {% endfor %} 
+                {% if collab_options %}
+                    {% for option in collab_options %}
+                        <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
+                    {% endfor %} 
+                {% else %}
+                    <a class="dropdown-item disabled">Geen andere medewerkers</a>
+                {% endif %}
             </div>
         </form>
     </div>
