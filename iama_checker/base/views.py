@@ -5,6 +5,16 @@ from .models import Assesment, Question, Answer, Collaborator, Reference
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
+# Return true if all answers have the reviewed status
+def all_answers_reviewed(assesment_id):
+    # Loop through all the answers of an assesment 
+    answers = Answer.objects.filter(assesment_id=assesment_id)
+    for answer in answers:
+        # Found an answer that isn't reviewed
+        if answer.status != Answer.Status.RV:
+            print(answer.status)
+            return False
+    return True
 
 def jobs_per_phase(phase_num):
     questions = Question.objects.filter(question_phase=phase_num)
@@ -17,9 +27,11 @@ def jobs_per_phase(phase_num):
 def generate_empty_answers(assesment, user):
     # Go through all the questions
     for question in Question.objects.all():
-        # Create an empty answer and store it in the db
-        answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Answer.Status.UA)
-        answer.save()
+        # Only create answers for question and not phase introductions 
+        if question.question_number != 0:
+            # Create an empty answer and store it in the db
+            answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Answer.Status.UA)
+            answer.save()
 
 # Retrieve a list of options to add as possible collaobrators to an answer
 def get_collab_options(assesment, curr_answer):
@@ -32,9 +44,9 @@ def get_collab_options(assesment, curr_answer):
         # List comprehension to add only collabs not already present in the answer
         options = answer.collaborator_set.all()
         exclude = curr_answer.collaborator_set.all()
-        to_append = [option for option in options if option not in exclude]
+        to_extend = [option for option in options if option not in exclude]
 
-        return_collab.extend(to_append)
+        return_collab.extend(to_extend)
 
     return return_collab
 
@@ -102,7 +114,7 @@ def create_assesment(request):
         # Make sure all the typed in fields contain valid data
         if form.is_valid():
             # Create assesment object and save to database
-            assesment = Assesment(name=form.cleaned_data['name'], organisation=form.cleaned_data['organisation'], user=request.user)
+            assesment = Assesment(name=form.cleaned_data['name'].strip(), organisation=form.cleaned_data['organisation'].strip(), user=request.user)
             assesment.save()
             
             # Create empty answers to ensure correct and predictable behaviour
@@ -139,8 +151,8 @@ def update_assesment(request, assesment_id):
         form = AssesmentForm(request.POST)
         if form.is_valid():
             # We don't use the update() method so the assesment.date_last_saved value is newly set
-            assesment.name = form.cleaned_data['name']
-            assesment.organisation = form.cleaned_data['organisation']
+            assesment.name = form.cleaned_data['name'].strip()
+            assesment.organisation = form.cleaned_data['organisation'].strip()
             assesment.save()
             # Return back to the detail page
             return HttpResponseRedirect(reverse("base:detail", args=(assesment_id,)))
@@ -245,7 +257,7 @@ def save_answer(request, assesment_id, question_id):
         # Make sure the data is valid
         if answer_form.is_valid():
             # Update answer data
-            answer.answer_content = answer_form.data["answer_content"]# is_valid drops answer content from cleaned data?????
+            answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
 
             # Check for empty string as this can reset the completion status of an answer
             if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
@@ -259,6 +271,21 @@ def save_answer(request, assesment_id, question_id):
                 answer.status = Answer.Status.AW
 
             answer.save()
+
+            # Check if the completion status of the answer needs to be changed
+            if all_answers_reviewed(assesment_id):
+                try:
+                    assesment = Assesment.objects.get(pk=assesment_id)
+                except (KeyError, Assesment.DoesNotExist):
+                    return HttpResponse("Error, Assesment not found when saving answer")
+
+                # Change the completion status of the assesment to True
+                assesment.complete_status = True
+                assesment.save()
+                print("reviewed is True")
+            
+            else:
+                print("reviewed is False")
             # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
         # Error
@@ -297,7 +324,7 @@ def create_add_collab(request, answer_id):
         form = CollaboratorForm(request.POST)
         if form.is_valid():
             # Create new collaborator
-            collab = Collaborator(name=form.cleaned_data["name"], organisation=form.cleaned_data["organisation"])
+            collab = Collaborator(name=form.cleaned_data["name"].strip(), organisation=form.cleaned_data["organisation"].strip())
             collab.save()
             # Add it to an answer
             collab.answers.add(answer)

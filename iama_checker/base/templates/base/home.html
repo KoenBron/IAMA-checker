@@ -95,8 +95,12 @@ Dashboard
                             <td>
                             {{ item.date_last_saved|date:"d-m-Y" }}
                             </td>
-                            <td>
-                            {{ item.complete_status }}
+                            <td style="padding-left: 90px">
+                                {% if item.complete_status %}
+                                    <i class="material-icons" style="color: green">done</i>
+                                {% else %}
+                                    <i class="material-icons" style="color: red">close</i>
+                                {% endif %}
                             </td>
                             <td>
                               <a data-toggle="modal", data-target=#delete_modal{{ item.id }} href="#">

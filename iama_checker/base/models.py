@@ -19,6 +19,10 @@ class Assesment(models.Model):
     date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
 
+# IMPORTANT NOTE: questions in the context of this project are both phase introductions
+# and the questions themselves. They are seperated by the question_number attributes 
+# a question_number = 0 means a phase introductions and otherwise it's a question.
+# This is done for convenience in the view rendering both questions and phases.
 class Question(models.Model):
     # Create subclass that acts as an enum
     class Jobs():
