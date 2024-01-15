@@ -1,3 +1,4 @@
+from logging import warn
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm
@@ -20,7 +21,13 @@ def jobs_per_phase(phase_num):
     questions = Question.objects.filter(question_phase=phase_num)
     jobs = []
     for question in questions:
-        jobs.append(question.jobs_as_py_list())
+        if question.question_number != 0:
+            job = {
+                "q_number": question.question_number,
+                "job_list": question.jobs_as_py_list(),
+            }
+            jobs.append(job)
+    return jobs
 
 
 # Generates emtpy answers for all of questions in the assesment
