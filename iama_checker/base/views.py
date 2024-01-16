@@ -1,4 +1,3 @@
-from logging import warn
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm
@@ -16,7 +15,7 @@ def all_answers_reviewed(assesment_id):
             print(answer.status)
             return False
     return True
-
+# Generates a list of dictionaries for all jobs required in a phase
 def jobs_per_phase(phase_num):
     questions = Question.objects.filter(question_phase=phase_num)
     jobs = []
@@ -136,11 +135,11 @@ def delete_assesment(request, assesment_id):
         assesment = Assesment.objects.get(pk=assesment_id)
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment om te verwijderen bestaat niet!"})
-    
+
     # Check if the user that deletes is the same user that has authority to delete this assesment
     if request.user.pk != assesment.user.pk:
-        return HttpResponse("Error, user not authorised to delete this assesment!")
-    
+        return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assesment te verwijderen!"})    
+
     else:
         assesment.delete()
         return HttpResponseRedirect(reverse("base:home"))
@@ -154,6 +153,11 @@ def update_assesment(request, assesment_id):
             assesment = Assesment.objects.filter(user__pk=request.user.pk, id=assesment_id)[0]
         except (KeyError, Assesment.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Assesment om te updaten bestaat niet!"})
+
+        # Verify the users autority to perform this action
+        if request.user.pk == assesment.user.pk:
+            return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assesment te updaten!"})    
+
         # Create a form to easily validate and extract the data
         form = AssesmentForm(request.POST)
         if form.is_valid():
@@ -165,7 +169,7 @@ def update_assesment(request, assesment_id):
             return HttpResponseRedirect(reverse("base:detail", args=(assesment_id,)))
         # No valid data in the form so need to add error as argument to render
         else:
-            return HttpResponse("Error updating data, 404 page comes later")
+            return render(request, "errors/error.html", {"message": "Geen valide invoer om de assesment te update!"})
 
 # Retreives the desired assignment
 @login_required
@@ -176,6 +180,8 @@ def detail(request, assesment_id):
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
+    if request.user.pk == assesment.user.pk:
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
     # Get the questions as object that is renderable by the template
     question_list = request.session.get("questions", create_question_list())
     # Get the completion statusof each question as a dict
@@ -202,6 +208,10 @@ def question_detail(request, assesment_id, question_id):
     # Couldn't retrieve the question from the db
     except (KeyError, Question.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assesment bestaat niet!"})
+     
+    # Check user authority 
+    if request.user.pk == assesment.user.pk:
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
     # Id's of next and previous questions
     buttons = {
         "next": question.id + 1,
@@ -259,8 +269,16 @@ def save_answer(request, assesment_id, question_id):
         # Retrieve answer from the database
         try:
             answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
+            assesment = Assesment.objects.get(pk=assesment_id)
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen vraag is niet gevonden in de db!"})
+        
+        except (KeyError, Assesment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
+        # Check if user is autorised
+        if request.user.pk == assesment.user.pk:
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Put the POST request data into form
         answer_form = AnswerForm(request.POST)
@@ -282,12 +300,6 @@ def save_answer(request, assesment_id, question_id):
 
             answer.save()
 
-            # Check if the completion status of the answer needs to be changed
-            try:
-                assesment = Assesment.objects.get(pk=assesment_id)
-            except (KeyError, Assesment.DoesNotExist):
-                return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
-            
             # Only reverse the stored completion status when the return value indicates a change in completion
             if all_answers_reviewed(assesment_id) != assesment.complete_status:
                 assesment.complete_status = not assesment.complete_status
@@ -313,6 +325,10 @@ def add_collab(request, answer_id, collab_id):
     except (KeyError, Collaborator.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
+    # Check if user is autorised
+    if request.user.pk == answer.user.pk:
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+
     # Add it to the many-to-many relation
     answer.collaborator_set.add(collab)
 
@@ -326,6 +342,10 @@ def create_add_collab(request, answer_id):
             answer = Answer.objects.get(pk=answer_id)
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})
+
+        # Check if user is autorised
+        if request.user.pk == answer.user.pk:
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Create a form for validation
         form = CollaboratorForm(request.POST)
@@ -351,6 +371,10 @@ def delete_collab(request, answer_id, collab_id):
     # No collaborator found
     except (KeyError, Collaborator.DoesNotExist) :
         return render(request, "errors/error.html", {"message": "Medewerker om van de vraag te verwijderen bestaat niet in de database!"})
+
+    # Check if user is autorised
+    if request.user.pk == answer.user.pk:
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
     # Check if user has authority to delete this collab
     if request.user.pk == answer.user.pk:
