@@ -1,6 +1,70 @@
-<h2>Register</h2>
-<form method="post" action="{% url 'accounts:register' %}">
-	{% csrf_token %}
-	{{ form }}
-	<button type="submit">Register</button>
-</form>
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">
+            Registreer
+          </h4>
+        </div>
+        <div class="card-body">
+        <form role="form" method="post" action="{% url 'accounts:register' %}">
+              
+            {% csrf_token %} 
+
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Gebruikersnaam</label>
+                  {{ form.username }}
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <h6 class="card-category">
+                {% if from.error %}
+                  <span class="text-danger">Er is iets mis met uw gebruikersnaam of wachtwoord!</span>
+                {% endif %}  
+                {% if error %}
+                <span class="text-danger">{{ error }}</span>
+                {% endif %}
+            </h6>
+
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Wachtwoord</label>
+                  {{ form.password1 }}
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Herhaal wachtwoord</label>
+                  {{ form.password2 }}
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <button type="submit" class="btn btn-primary pull-left">Registreer</button>
+
+            &nbsp; &nbsp; 
+
+            <div class="clearfix"></div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
