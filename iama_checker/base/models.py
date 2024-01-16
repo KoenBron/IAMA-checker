@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 
 # Helper functions to set be able to set User object as a foreignkey
 def user_sentinel():
-    return User.objects.get_or_create(username="Default_user", password="Default_password")[0]
+    return User.objects.get_or_create(username="Default user", password="Default_password")[0]
 
 def user_pk_sentinel():
     return user_sentinel().pk
 
 def reference_sentinel():
-    return Reference.objects.get_or_create(description="Example description of reference", url="www.example.com")
+    return Reference.objects.get_or_create(description="Example description of reference", url="www.example.com")[0]
 
 # Create your models here.
 class Assesment(models.Model):

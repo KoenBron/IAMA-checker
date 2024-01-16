@@ -9,9 +9,12 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            # Check if user entered password is spelled correctly
-            if form.cleaned_data["password"] == form.cleaned_data["password_confirm"]:
-                user = User.objects.create_user(username=form.cleaned_data["username"], password=form.cleaned_data["password"])
+            user = User.objects.create_user(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
+            # Invalid input so jump back to register page 
+            if user is None:
+                error = "Invoer is incorrect!"
+
+            else:
                 user.save()
                 # Log the user in and send him to his home screen
                 login(request, user)
