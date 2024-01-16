@@ -19,50 +19,46 @@
                 </p>
             </div>
         </div>
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Disciplines betrokken bij vragen</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <th class="text-center">Vragen</th>
+                <th>Baanbeschrijving</th>
+              </thead> 
+              <tbody>
+                {% for job in jobs %}
+                  <tr>
+                    <td class="text-center">
+                      {{ job.q_number }}
+                    </td>
+                    <td>
+                      {% for dicipline in job.job_list %}
+                        <span class="badge badge-primary" style="font-size: 15px; background-color: #9c27b0">{{ dicipline.description }}</span>
+                      {% endfor %} 
+                    </td>
+                  </tr>  
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col text-center">
+          {% if question.id != 1 %}
+              <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+          {% endif %}
+          <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
+        </div>
+      </div>
     </div>
     <div class="col-md-3" style="padding-top: 30px">
         {% include "base/q_index.html" with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
-    </div>
-</div>
-<div class="row">
-  <div class="col-md-9">
-    <div class="card">
-      <div class="card-header card-header-primary">
-        <h4 class="card-title">Disciplines betrokken bij vragen</h4>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="text-primary">
-              <th class="text-center">Vragen</th>
-              <th>Baanbeschrijving</th>
-            </thead> 
-            <tbody>
-              {% for job in jobs %}
-                <tr>
-                  <td class="text-center">
-                    {{ job.q_number }}
-                  </td>
-                  <td>
-                    {% for dicipline in job.job_list %}
-                      <span class="badge badge-primary">{{ dicipline.description }}</span>
-                    {% endfor %} 
-                  </td>
-                </tr>  
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> 
-  </div>  
-</div>
-<div class="row">
-    <div class="col-md-9 text-center">
-        {% if question.id != 1 %}
-            <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
-        {% endif %}
-        <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
     </div>
 </div>
 {% endblock %}

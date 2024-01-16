@@ -280,19 +280,16 @@ def save_answer(request, assesment_id, question_id):
             answer.save()
 
             # Check if the completion status of the answer needs to be changed
-            if all_answers_reviewed(assesment_id):
-                try:
-                    assesment = Assesment.objects.get(pk=assesment_id)
-                except (KeyError, Assesment.DoesNotExist):
-                    return HttpResponse("Error, Assesment not found when saving answer")
-
-                # Change the completion status of the assesment to True
-                assesment.complete_status = True
-                assesment.save()
-                print("reviewed is True")
+            try:
+                assesment = Assesment.objects.get(pk=assesment_id)
+            except (KeyError, Assesment.DoesNotExist):
+                return HttpResponse("Error, Assesment not found when saving answer")
             
-            else:
-                print("reviewed is False")
+            # Only reverse the stored completion status when the return value indicates a change in completion
+            if all_answers_reviewed(assesment_id) != assesment.complete_status:
+                assesment.complete_status = not assesment.complete_status
+                assesment.save()
+                 
             # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
         # Error
