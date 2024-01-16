@@ -135,7 +135,7 @@ def delete_assesment(request, assesment_id):
     try:
         assesment = Assesment.objects.get(pk=assesment_id)
     except (KeyError, Assesment.DoesNotExist):
-        return HttpResponse("Error assesment to delete doesn't exist")
+        return render(request, "errors/error.html", {"message": "Assesment om te verwijderen bestaat niet!"})
     
     # Check if the user that deletes is the same user that has authority to delete this assesment
     if request.user.pk != assesment.user.pk:
@@ -153,7 +153,7 @@ def update_assesment(request, assesment_id):
         try:
             assesment = Assesment.objects.filter(user__pk=request.user.pk, id=assesment_id)[0]
         except (KeyError, Assesment.DoesNotExist):
-            return HttpResponse("Assesment doesn't exist, 404 page comes later")
+            return render(request, "errors/error.html", {"message": "Assesment om te updaten bestaat niet!"})
         # Create a form to easily validate and extract the data
         form = AssesmentForm(request.POST)
         if form.is_valid():
@@ -174,7 +174,7 @@ def detail(request, assesment_id):
         assesment = Assesment.objects.get(pk=assesment_id)
     # Couldn't retrieve the assesment from the db
     except (KeyError, Assesment.DoesNotExist):
-        return HttpResponse("Page doesn't exist, 404 page comes later")
+        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
     # Get the questions as object that is renderable by the template
     question_list = request.session.get("questions", create_question_list())
@@ -197,8 +197,11 @@ def question_detail(request, assesment_id, question_id):
 
     # Couldn't retrieve the assesment from the db
     except (KeyError, Assesment.DoesNotExist):
-        return HttpResponse("Page doesn't exist, 404 page comes later")
+        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
+    # Couldn't retrieve the question from the db
+    except (KeyError, Question.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assesment bestaat niet!"})
     # Id's of next and previous questions
     buttons = {
         "next": question.id + 1,
@@ -229,7 +232,7 @@ def question_detail(request, assesment_id, question_id):
         # Check if there is already an answer
         try:
             answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
-        # Create an empty answer and save it
+            # Create an empty answer and save it, NOTE: not really necessary, but afraid of possible unexpected behaviour if removed
         except (KeyError, Answer.DoesNotExist):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
@@ -257,7 +260,7 @@ def save_answer(request, assesment_id, question_id):
         try:
             answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
         except (KeyError, Answer.DoesNotExist):
-            return HttpResponse("Error answer object doesn't exist, something went wrong")# TODO: Get regular 404 page
+            return render(request, "errors/error.html", {"message": "Opgeslagen vraag is niet gevonden in de db!"})
         
         # Put the POST request data into form
         answer_form = AnswerForm(request.POST)
@@ -283,7 +286,7 @@ def save_answer(request, assesment_id, question_id):
             try:
                 assesment = Assesment.objects.get(pk=assesment_id)
             except (KeyError, Assesment.DoesNotExist):
-                return HttpResponse("Error, Assesment not found when saving answer")
+                return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
             
             # Only reverse the stored completion status when the return value indicates a change in completion
             if all_answers_reviewed(assesment_id) != assesment.complete_status:
@@ -294,7 +297,7 @@ def save_answer(request, assesment_id, question_id):
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
         # Error
         else:
-            return HttpResponse("error 404, incorrect data submitted for changing answer")
+            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
 
 # Add an existing collaborator to a question
 @login_required
@@ -305,10 +308,10 @@ def add_collab(request, answer_id, collab_id):
         collab = Collaborator.objects.get(pk=collab_id)
 
     except (KeyError, Answer.DoesNotExist):
-        return HttpResponse("Error, couldn't find the answer to add collaborators too.")#TODO: add error page for internal errors
+        return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
     except (KeyError, Collaborator.DoesNotExist):
-        return HttpResponse("Error, couldn't find the collaborator to add too an answer.")#TODO: add error page for internal errors
+        return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
     # Add it to the many-to-many relation
     answer.collaborator_set.add(collab)
@@ -322,7 +325,7 @@ def create_add_collab(request, answer_id):
         try:
             answer = Answer.objects.get(pk=answer_id)
         except (KeyError, Answer.DoesNotExist):
-            return HttpResponse("Error answer doesn't exist") # TODO: Get proper 404 page
+            return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})
         
         # Create a form for validation
         form = CollaboratorForm(request.POST)
@@ -335,8 +338,7 @@ def create_add_collab(request, answer_id):
             return HttpResponseRedirect(request.POST.get("next", "/"))
         # Error
         else:
-            return HttpResponse("Error invalid data added")# TODO: Add the error handling and display it when going back to the question_detail page
-    return HttpResponse("help")
+            return render(request, "errors/error.html", {"message": "Invalide data opgegeven door gebruiker!"})
 
 @login_required
 def delete_collab(request, answer_id, collab_id):
@@ -345,10 +347,10 @@ def delete_collab(request, answer_id, collab_id):
         collab = Collaborator.objects.get(pk=collab_id)
     # No answer found
     except (KeyError, Answer.DoesNotExist):
-        return HttpResponse("error answer doesn't exist")# TODO: create 404 page
+        return render(request, "errors/error.html", {"message": "Vraag om medewerker van te verwijderen bestaat niet in de database!"})
     # No collaborator found
     except (KeyError, Collaborator.DoesNotExist) :
-        return HttpResponse("error collaborator doesn't exist")# TODO: create 404 page
+        return render(request, "errors/error.html", {"message": "Medewerker om van de vraag te verwijderen bestaat niet in de database!"})
 
     # Check if user has authority to delete this collab
     if request.user.pk == answer.user.pk:
@@ -360,8 +362,7 @@ def delete_collab(request, answer_id, collab_id):
         return HttpResponseRedirect(request.GET.get("next", "/"))
     # User not authorised
     else:
-        return HttpResponse("Error, not allowed to remove this collaborator")#swer TODO: Add error page for thisi
-
+        return render(request, "errors/error.html", {"message": "Gebruiker is niet geauthoriseerd om deze bewerking te doen!"})
 
 
 
