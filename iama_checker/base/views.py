@@ -15,6 +15,7 @@ def all_answers_reviewed(assesment_id):
             print(answer.status)
             return False
     return True
+
 # Generates a list of dictionaries for all jobs required in a phase
 def jobs_per_phase(phase_num):
     questions = Question.objects.filter(question_phase=phase_num)
@@ -58,6 +59,7 @@ def get_collab_options(assesment, curr_answer):
 
 # Helper function to create question list objects
 def create_question_list():
+    # NOTE: color can be removed
     # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
     color = [
         "#007bc760",
