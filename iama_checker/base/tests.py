@@ -12,6 +12,11 @@ class BaseViewsTestCase(TestCase):
         user = User.objects.create_user(username="Bob", password="password")
         self.client.login(username="Bob", password="password")
         return user
+
+    def create_other_authorised_user(self):
+        user = User.objects.create_user(username="Alice", password="password")
+        self.client.login(username="Alice", password="password")
+        return user
     
     def create_authorised_user_assesment(self):
         user = self.create_authorised_user()
@@ -108,7 +113,29 @@ class DeleteAssesmentTestCase(BaseViewsTestCase):
             raise AssertionError("Assesment wasn't deleteted from the db.")
 
 
+class UpdateAssesmentTestCase(BaseViewsTestCase):
 
+    def test_update_assesment(self):
+        '''
+        Test wether an update of an assesment is executed correctly when used with expected behaviour
+        '''
+        assesment = self.create_authorised_user_assesment()
+        response = self.client.post(reverse("base:update_assesment", args=(assesment.id,)), data={"name": "other_name", "organisation": "other_org"})
+        self.assertEqual(response.status_code, 302)
+        self.assertTemplateUsed("base/detail.html")
+        self.assertTrue(Assesment.objects.filter(name="other_name", organisation="other_org").exists())
+        
+    def test_update_assesment_unauthorised(self):
+        '''
+        Test wheter a user can update another users assesment
+        '''
+        assesment = self.create_authorised_user_assesment()
+        self.create_other_authorised_user()
+        response = self.client.post(reverse("base:update_assesment", args=(assesment.id,)), data={"name": "other_name", "organisation": "other_org"})
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed("errors/error.html")
+        self.assertEqual(response.context["message"], "Assesment om te updaten bestaat niet!")
+        self.assertFalse(Assesment.objects.filter(name="other_name", organisation="other_org").exists())
 
 
 

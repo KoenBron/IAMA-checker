@@ -152,13 +152,9 @@ def update_assesment(request, assesment_id):
     # Make sure it's a post request
     if request.method == "POST":
         try:
-            assesment = Assesment.objects.filter(user__pk=request.user.pk, id=assesment_id)[0]
+            assesment = Assesment.objects.get(user__pk=request.user.pk, id=assesment_id)
         except (KeyError, Assesment.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Assesment om te updaten bestaat niet!"})
-
-        # Verify the users autority to perform this action
-        if request.user.pk == assesment.user.pk:
-            return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assesment te updaten!"})    
 
         # Create a form to easily validate and extract the data
         form = AssesmentForm(request.POST)
