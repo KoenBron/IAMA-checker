@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm
 from .models import Assesment, Question, Answer, Collaborator, Reference
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect 
 from django.urls import reverse
 
 # Return true if all answers have the reviewed status
@@ -180,7 +180,7 @@ def detail(request, assesment_id):
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
-    if request.user.pk == assesment.user.pk:
+    if request.user.pk != assesment.user.pk:
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
     # Get the questions as object that is renderable by the template
     question_list = request.session.get("questions", create_question_list())
@@ -210,7 +210,7 @@ def question_detail(request, assesment_id, question_id):
         return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assesment bestaat niet!"})
      
     # Check user authority 
-    if request.user.pk == assesment.user.pk:
+    if request.user.pk != assesment.user.pk:
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
     # Id's of next and previous questions
     buttons = {
@@ -277,7 +277,7 @@ def save_answer(request, assesment_id, question_id):
             return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
 
         # Check if user is autorised
-        if request.user.pk == assesment.user.pk:
+        if request.user.pk != assesment.user.pk:
             return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Put the POST request data into form
@@ -326,7 +326,7 @@ def add_collab(request, answer_id, collab_id):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
     # Check if user is autorised
-    if request.user.pk == answer.user.pk:
+    if request.user.pk != answer.user.pk:
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
     # Add it to the many-to-many relation
@@ -344,7 +344,7 @@ def create_add_collab(request, answer_id):
             return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})
 
         # Check if user is autorised
-        if request.user.pk == answer.user.pk:
+        if request.user.pk != answer.user.pk:
             return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Create a form for validation
@@ -373,7 +373,7 @@ def delete_collab(request, answer_id, collab_id):
         return render(request, "errors/error.html", {"message": "Medewerker om van de vraag te verwijderen bestaat niet in de database!"})
 
     # Check if user is autorised
-    if request.user.pk == answer.user.pk:
+    if request.user.pk != answer.user.pk:
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
     # Check if user has authority to delete this collab
