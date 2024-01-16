@@ -1,0 +1,18 @@
+{% extend "base/base.html" %}
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-profile">
+            <div class="card-body">
+                <h6 class="card-category text-gray">Er is iets fout gegaan!</h6>
+                <h4 class="card-title">
+                  {{ message }}
+                </h4>
+                <a href="{% url 'base:home' %}" class="btn btn-primary btn-round">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
