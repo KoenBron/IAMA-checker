@@ -16,6 +16,7 @@ def register(request):
                 # Log the user in and send him to his home screen
                 login(request, user)
                 return HttpResponseRedirect(reverse("base:home"))
+        # The is_valid() returns false if password1 and password2 don't match, src=https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
         else:
             error = "De ingevoerde wachtwoorden komen niet overeen!"
     
