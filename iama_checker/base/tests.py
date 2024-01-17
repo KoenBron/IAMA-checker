@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from .models import Assesment
+from .models import Assesment, Question, Answer
 
 # Create your tests here.
 class BaseViewsTestCase(TestCase):
@@ -138,6 +138,49 @@ class UpdateAssesmentTestCase(BaseViewsTestCase):
         self.assertFalse(Assesment.objects.filter(name="other_name", organisation="other_org").exists())
 
 
+class QuestionDetailTestCase(BaseViewsTestCase):
+
+    def test_question_detail(self):
+        '''
+        Test wether question_detail shows itself properly with expected behaviour.
+        For both a phase and questin page.
+        '''
+        assesment = self.create_authorised_user_assesment()
+        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 1)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed("base/phase_intro.html")
+        question = Question.objects.get(id=1)
+        self.assertEqual(response.context["question"], question)
+        self.assertIsNotNone(response.context["reference_list"])
+        self.assertIsNotNone(response.context["index_context_objects"]["status_list"])
+        self.assertIsNotNone(response.context["index_context_objects"]["question_list"])
+        self.assertIsNotNone(response.context["jobs"])
+
+        # The same but for question instead of phase_intro  
+        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 2)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed("base/q_detail.html")
+        question = Question.objects.get(id=2)
+        answer = Answer.objects.get(user=response.wsgi_request.user, question_id=question.id, assesment_id=assesment.id)
+        self.assertEqual(response.context["question"], question)
+        self.assertEqual(response.context["answer"], answer)
+        self.assertIsNotNone(response.context["reference_list"])
+        self.assertIsNotNone(response.context["index_context_objects"]["status_list"])
+        self.assertIsNotNone(response.context["index_context_objects"]["question_list"])
+        self.assertIsNotNone(response.context["collab_list"])
+        self.assertIsNotNone(response.context["jobs"])
+
+    def test_question_detail_unauthorised(self):
+        '''
+        Test wether an unauthorised user is blocked from accessing
+        this page
+        '''
+        assesment = self.create_authorised_user_assesment()
+        self.create_other_authorised_user()
+        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 1)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed("errors/error.html")
+        self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assesment!")
 
 
 
