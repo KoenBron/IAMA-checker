@@ -386,17 +386,6 @@ def delete_collab(request, answer_id, collab_id):
     else:
         return render(request, "errors/error.html", {"message": "Gebruiker is niet geauthoriseerd om deze bewerking te doen!"})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@login_required
+def info(request):
+    return render(request, "base/info.html")
