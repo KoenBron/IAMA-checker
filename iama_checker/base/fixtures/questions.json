@@ -4,7 +4,7 @@
         "pk": "1",
         "fields": {
             "question_title": "Waarom?",
-            "question_text": "Example phase text.",
+            "question_text": "<center><h5><b>'Waarom wordt dit algoritme gemaakt, aangepast of ingezet?'</b></h5></center><p style='color:grey'>In dit onderdeel is de hoofdvraag die beantwoord moet worden. Het is de bedoeling om in dit onderdeel de discussie aan te gaan over de grote vragen die als eerste gesteld moeten worden wanneer wordt overwogen om een nog niet geteste versie van een algoritme in te zetten, aan te passen of te maken. Met deze vragen kunnen we vroegtijdig vaststellen of het een goed idee is om dit nieuwe algoritme verder te onderzoeken en wellicht te ontwikkelen, zodat er later pas nagedacht hoeft te worden over specifiekere gevallen of randvoorwaarden.</p>",
             "question_phase": "1",
             "question_number": "0"
         }
@@ -13,8 +13,8 @@
         "model": "base.question",
         "pk": 2,
         "fields": {
-            "question_title": "Example title",
-            "question_text": "Example altered question text",
+            "question_title": "Aanleiding en probleem definitie",
+            "question_text": "<b>Licht uw voorstel voor het gebruik/de inzet van een algoritme toe. Wat is de aanleiding hiervoor geweest? Voor welk probleem moet het algoritme een oplossing bieden?</b><br><br>",
             "question_phase": "1",
             "question_number": "1",
             "job_list": [

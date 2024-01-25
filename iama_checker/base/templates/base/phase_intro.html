@@ -6,21 +6,25 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-7 text-center">
-        <h2>Onderdeel {{ question.question_phase }}: {{ question.question_title }} </h2>
+        <h2>Introductie Onderdeel {{ question.question_phase }}</h2>
     </div>
     <div class="col"></div>
 </div>
 <div class="row">
-    <div class="col-md-9">
-        <div class="card">
-            <div class="card-body">
-                <p style="color: grey">
-                    {{ question.question_text }} help
-                </p>
+    <div class="col-md-8 offset-md-1">
+        <div class="card" style="margin-bottom: 4em">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">
+                    {{ question.question_title }}
+                </h4>
+            </div>
+            <div class="card-body text-center">
+                <br>
+                {{ question.question_text|safe }} 
             </div>
         </div>
-      <div class="card">
-        <div class="card-header card-header-primary">
+      <div class="card" style="margin-top: 30px">
+        <div class="card-header card-header-rose">
           <h4 class="card-title">Disciplines betrokken bij vragen</h4>
         </div>
         <div class="card-body">

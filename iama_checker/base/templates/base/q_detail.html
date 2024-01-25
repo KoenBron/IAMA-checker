@@ -13,18 +13,22 @@
     <div class="col"></div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-7">
-      <h6 class="primary">Betrokken beroepen:</h6>
+  <div class="col-md-7 offset-md-2">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="text-primary"><b>Betrokken beroepen:</b></h6>
         {% for job in jobs %}
             {% if job.priority == 1 %}
-                <span class="badge badge-danger">{{ job.description }}</span>
+                <span class="badge badge-danger" style="font-size: 13px">{{ job.description }}</span>
             {% else %}
-                <span class="badge badge-warning">{{ job.description }}</span>
+                <span class="badge badge-warning" style="font-size: 13px">{{ job.description }}</span>
             {% endif %}
         {% endfor %}
+      </div>
     </div>
-    <div class="col"></div>
+  </div>
+  <div class="col">
+  </div>
 </div>
 <div class="row">
     <div class="col-md-2" style="padding: 0; margin-top: 30px">
@@ -38,7 +42,7 @@
             <div class="card-body">
                 <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
-                    <p> {{ question.question_text }} </p>
+                    <p style="color:grey"> {{ question.question_text|safe }} </p>
                     <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
                     <div class="row">
                         <div class="col-md-3"></div>
