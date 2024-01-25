@@ -38,7 +38,11 @@
                     </td>
                     <td>
                       {% for dicipline in job.job_list %}
-                        <span class="badge badge-primary" style="font-size: 15px; background-color: #9c27b0">{{ dicipline.description }}</span>
+                        {% if dicipline.priority == 1 %}
+                          <span class="badge badge-danger" style="font-size: 15px;">{{ dicipline.description }}</span>
+                        {% else %}
+                          <span class="badge badge-warning" style="font-size: 15px;">{{ dicipline.description }}</span>
+                        {% endif %}
                       {% endfor %} 
                     </td>
                   </tr>  

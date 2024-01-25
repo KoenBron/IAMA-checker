@@ -29,12 +29,20 @@ class Question(models.Model):
         _jobs = {
             "DA": "Data scientist",
             "BE": "Bestuur",
-            "BG": "Belangen groep",
             "OG": "Opdracht gever",
             "PL": "Project leider",
             "DE": "Domein expert",
             "PB": "Panel van burgers",
             "VB": "Vertegenwoordiger belangengroep",
+            "CISO": "CISO of CIO",
+            "CA": "Communicatie adviseur",
+            "DB": "Databeheerder of bronhouder",
+            "FG": "Functionaris Gegevensbescherming",
+            "HR": "HR-Medewerker",
+            "JR": "Jurist",
+            "OA": "Ontwikkelaar algoritme",
+            "OP": "Overige leden projectteam",
+            "SE": "Strategisch adviseur ethiek",
         }  
 
         def __init__(self, job_type, priority) -> None:

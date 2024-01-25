@@ -3,7 +3,7 @@
         "model": "base.Question",
         "pk": "1",
         "fields": {
-            "question_title": "Example title",
+            "question_title": "Waarom?",
             "question_text": "Example phase text.",
             "question_phase": "1",
             "question_number": "0"
