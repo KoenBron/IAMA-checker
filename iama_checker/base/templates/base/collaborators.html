@@ -1,0 +1,74 @@
+{% load base_extra %}
+<ul class="list-group rounded">
+    {% for collab in collab_list %}
+        <li class="list-group-item border rounded d-flex justify-content-between" style="background-color: white;">
+            <div class="">
+                <p style="margin-bottom: 0px"> {{collab.name}} </p>
+                <p style="margin-bottom: 0px"> {{collab.organisation}} </p>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <a href="#" data-toggle="modal" data-target="#delete_modal{{ collab.id }}">
+                    <i class="material-icons">delete</i>
+                </a>
+                <div class="dropdown-menu">
+                    <h6>test</h6>
+                </div>
+            </div>
+        </li>
+        <div class="modal fade" id="delete_modal{{ collab.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - permanent verwijderen?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Weet je zeker dat je {{ collab.name }} van de medewerkers lijst wil verwijderen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                    <a href="{% url 'base:delete_collab' answer_id collab.id %}?next={{request.path}}"><button type="button" class="btn btn-primary">Verwijder</button></a>
+                </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</ul>
+<div class="d-flex justify-content-center">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Nieuwe Medewerker
+        </button>
+        <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' answer_id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="name">Naam</label>
+              <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
+            </div>
+            <div class="form-group">
+              <label for="organisation">Organisatie</label>
+              <input type="text" class="form-control" name="organisation" placeholder="Voorbeeld org">
+            </div>
+            <input type="hidden" name="next" value="{{request.path}}">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                style="padding-left: 10px; padding-right:10px; margin-left: 10px">
+                +
+            </button>
+
+            <div class="dropdown-menu">
+                {% if collab_options %}
+                    {% for option in collab_options %}
+                        <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
+                    {% endfor %} 
+                {% else %}
+                    <a class="dropdown-item disabled">Geen andere medewerkers</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+

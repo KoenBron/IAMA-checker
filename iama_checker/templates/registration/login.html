@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">
+            Login
+          </h4>
+        </div>
+        <div class="card-body">
+
+          <h6 class="card-category">
+              {% if form.errors %}
+                <span class="text-danger">Er is iets mis met uw gebruikersnaam of wachtwoord!</span>
+              {% endif %}  
+              {% if next %}
+                <span class="text-danger">U moet ingelogd zijn om deze pagina te bezoeken!</span>
+              {% endif %}
+          </h6>
+          
+          <br />
+
+          <form role="form" method="post" action="">
+              
+            {% csrf_token %} 
+
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Gebruikersnaam</label>
+                  {{ form.username }}
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Wachtwoord</label>
+                  {{ form.password }}
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+
+            &nbsp; &nbsp; 
+            <span class="pull-right">
+              Heb je nog geen account? <a href="{% url 'accounts:register' %}" class="text-primary">Registreer</a>
+            </span>
+
+            <div class="clearfix"></div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

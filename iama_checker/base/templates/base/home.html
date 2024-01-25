@@ -1,0 +1,108 @@
+{% extends "base/base.html" %}
+
+{% block navigation %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Jouw Assesements</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table iama-bottom-border">
+                        <thead class=" text-primary">
+                        <th>
+                            Naam
+                        </th>
+                        <th>
+                            Uitgevoerd Door
+                        </th>
+                        <th>
+                            Laatst Bewerkt
+                        </th>
+                        <th>
+                            Compleetheids Status
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for item in assesments_list %}
+                        <tr>
+                            <td>
+                            <a href="{% url 'base:detail' item.id %}">{{ item.name }}</a> 
+                            </td>
+                            <td>
+                            {{ item.organisation }}
+                            </td>
+                            <td>
+                            {{ item.date_last_saved|date:"d-m-Y" }}
+                            </td>
+                            <td style="padding-left: 90px">
+                                {% if item.complete_status %}
+                                    <i class="material-icons" style="color: green">done</i>
+                                {% else %}
+                                    <i class="material-icons" style="color: red">close</i>
+                                {% endif %}
+                            </td>
+                            <td>
+                              <a data-toggle="modal", data-target=#delete_modal{{ item.id }} href="#">
+                                  <i class="material-icons">delete</i>
+                              </a>
+                            </td>
+                        </tr>
+                        
+                        <div class="modal fade" id="delete_modal{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Assesment permanent verwijderen?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Weet je zeker dat je {{ item.name }} wil verwijderen? 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                    <a href="{% url 'base:delete_assesment' item.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    <form action="{% url 'base:create_assesment' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Naam assesment</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
+                                    <input type="text" class="form-control" name="organisation">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">Maak nieuwe assesment</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
