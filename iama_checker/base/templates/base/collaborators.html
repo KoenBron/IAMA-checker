@@ -36,6 +36,11 @@
             </div>
         </div>
     {% endfor %}
+    {% if not collab %}
+        <li class="list-group-item border rounded d-flex justify-content-between" style="background-color: white;">
+          <div>Geen Medewerkers</div>
+        </li>
+    {% endif %}
 </ul>
 <div class="d-flex justify-content-center">
     <div class="dropdown">

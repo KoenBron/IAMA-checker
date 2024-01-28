@@ -14,7 +14,7 @@
         "pk": 2,
         "fields": {
             "question_title": "Aanleiding en probleem definitie",
-            "question_text": "<b>Licht uw voorstel voor het gebruik/de inzet van een algoritme toe. Wat is de aanleiding hiervoor geweest? Voor welk probleem moet het algoritme een oplossing bieden?</b><br><br>",
+            "question_text": "<h5><i>Licht uw voorstel voor het gebruik/de inzet van een algoritme toe. Wat is de aanleiding hiervoor geweest? Voor welk probleem moet het algoritme een oplossing bieden?</i></h5><br>Het gaat hier om het duidelijk maken wat de directe aanleiding was voor het overwegen van de inzet van een algoritme. Om deze vraag te beantwoorden moeten er 2 verschillende sub-vragen beantwoord woorden.<br><br>Voor de eerste sub-vraag: Waar begint het probleem en waar eindigt het probleem dat we willen oplossen? Door deze vraag <b>zo gedataileerd mogelijk</b> te beantwoorden stellen we het probleemkader vast, ofwel we kunnen bepalen wat het algoritme wel moet kunnen doen en wat het algoritme niet hoeft te doen om het probleem op te lossen. Voorbeelden zijn bijvoorbeeld dat een intern proces niet efficiënt (genoeg) verloopt of dat er een maatschappelijk probleem is vastgesteld dat (deels) verholpen kan worden met een algoritme.<br><br> Voor de tweede sub-vraag: Waarom levert het inzetten van een algoritme de beste oplossing voor dit probleem? Het is goed om stil te staan bij de reden waarom een algoritme de voorkeur heeft over niet-digitale en/of niet-geautomatiseerde oplossing en of de keuze hiervoor heroverwogen moet worden.<br><br>Voor informatie over waarom het belangrijk is om een goed probleemkader op te stellen, zie de link onder de vraag naar:'Non-discriminatie by desing' pagina's 20-27.<br><br>Voor meer informatie over het goed en specifiek definiëren, zie de reference naar de rekenkamer hieronder. Kijk onder het kopje 'Sturing en Verantwoording' en dan het subkopje 'Eenduidigheid doel'.",
             "question_phase": "1",
             "question_number": "1",
             "job_list": [
@@ -45,10 +45,29 @@
         "model": "base.question",
         "pk": 3,
         "fields": {
-            "question_title": "Example title",
-            "question_text": "Example second question text",
+            "question_title": "Doelstelling",
+            "question_text": "<h5><i>Wat is het doel dat bereikt dient te worden met de inzet van het algoritme? Wat is hierbij het hoofddoel en wat zijn subdoelen?</i><h5><br><br>Het goed definiëren van de doelstelling is cruciaal om later te kunnen toetsen of het geproduceerde algoritme voldoet aan alle functionele eisen <b>en</b> te kunnen vastellen of het algoritme te veel doet en dus teruggeschaald moet worden in invloed. Een gedetailleerde en legitieme doelstelling kan tijdens het ontwikkelen van het algoritme vroegtijdig voorkomen dat er ongewenste bijeffecten ontwikkeld worden. Deze bijeffecten gaan namelijk al snel gepaard met het ontwikkelen van een algoritme vanuit goede bedoelingen en een te globaal idee van de oplossing die het algoritme moet bieden.<br><br>",
             "question_phase": "1",
-            "question_number": "2"
+            "question_number": "2",
+            "job_list": [
+              {
+                "type": "OG",
+                "priority": 1
+              },
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "PB",
+                "priority": 2 
+              },
+              {
+                "type": "VB",
+                "priority": 2
+              }
+            ]
+            
         }
     },
     {
