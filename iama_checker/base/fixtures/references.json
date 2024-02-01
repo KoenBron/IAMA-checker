@@ -6,7 +6,7 @@
             "title": "Non-discriminatie by design",
             "description": "Dit document laat zien welke juridische, technische en organisatorische vragen er aan bod moeten komen wanneer men een AI-systeem wilt ontwikkelen of implementeren. De link verwijst naar een kamerbrief waar het document als bijlage te downloaden is.",
             "url": "https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2021Z10411&did=2021D22770",
-            "questions": [2,3]
+            "questions": [2,3,4,5]
         }
     },
     {
@@ -16,7 +16,7 @@
             "title": "Toetsingskader Algemen Rekenkamer",
             "description": "Een excel sheet met bijbehorend begeleidend document dat als praktisch instrument dient zodat een organisatie kan toetsen of een algoritme aan bepaalde ethische en kwalitatiefe criteria voldoen. Het instrument bestaat uit 5 verschillende perspectieven die bekeken moeten worden en is te downloaden met deze link.",
             "url": "https://www.rekenkamer.nl/onderwerpen/algoritmes-digitaal-toetsingskader",
-            "questions": [2,3]
+            "questions": [2,3,4,5,6]
         }
     },
     {
@@ -26,7 +26,7 @@
             "title": "Code goed openbaar bestuur",
             "description": "De code waar de overheid te allen tijde zijn bestuur op moet baseren en aan kunnen verantwoorden, dit geld ook voor algoritmes. Het is bij iedere vraag van de IAMA van belang dat de antwoorden in overeenstemming met deze code gegeven worden!",
             "url": "https://www.rijksoverheid.nl/onderwerpen/kwaliteit-en-integriteit-overheidsinstanties/gedragscode-openbaar-bestuur",
-            "questions": [2,3]
+            "questions": [2,3,4,5,6]
         }
     },
     {
@@ -37,6 +37,26 @@
             "description": "Het instrument om privacy-risico's te identificeren bij de inzet van algoritmes die omgaan met persoongegevens. De DPIA is een smallere en op persoonsgevens gerichte impact assesment, die is gebruikt voor het ontwikkelen van IAMA. Dit betekent dat vragen overeenkomen tussen de twee en dat sommige antwoorden uitgewisseld kunnen worden.",
             "url": "https://autoriteitpersoonsgegevens.nl/themas/basis-avg/praktisch-avg/data-protection-impact-assessment-dpia",
             "questions": [3]
+        }
+    },
+    {
+        "model": "base.reference",
+        "pk": "5",
+        "fields": {
+            "title": "Beleidskompas",
+            "description": "Het Beleidskompas is het instrument dat de overheid gebruikt om goed en verantwoordelijk beleid te maken.",
+            "url": "https://www.kcbr.nl/beleid-en-regelgeving-ontwikkelen/beleidskompas",
+            "questions": [1,6]
+        }
+    },
+    {
+        "model": "base.reference",
+        "pk": "6",
+        "fields": {
+            "title": "Ethische richtsnoeren voor betrouwbare Kunstmatige Intelligentie",
+            "description": "Bestaande uit 3 componenten die de hele levenscyclus van een algoritme beslaan dient dit verslag om meer betrouwbare KI te bevorderen. Zo hoopt de EU wettelijk rechtmatige, ethische en robuuste KI te promoten.",
+            "url": "https://op.europa.eu/nl/publication-detail/-/publication/d3988569-0434-11ea-8c1f-01aa75ed71a1",
+            "questions": [6]
         }
     }
 ]

@@ -43,6 +43,12 @@
                 <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
                     <p style="color:grey"> {{ question.question_text|safe }} </p>
+                    {% if question.question_warning %}
+                      <div class="jumbotron">
+                        <h3 class="display-4">Belangrijk!</h3>
+                        <p class="lead">{{ question.question_warning }}</p>
+                      </div>
+                    {% endif %}
                     <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
                     <div class="row">
                         <div class="col-md-3"></div>
