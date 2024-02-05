@@ -188,6 +188,66 @@
           }
         ]
       }
+    },
+    {
+      "model": "base.question",
+      "pk": "8",
+      "fields": {
+        "question_title": "Aansprakelijkheid en verantwoordelijkheden 2",
+        "question_text": "<h4><i>Hoe zijn de verantwoordelijkheden belegd ten aanzien van de ontwikkeling en de inzet van het algoritme, ook nadat het algoritme eenmaal is afgerond?</i></h4><br>Het kunnen noteren en daarmee waarborgen van de verdeling van verantwoordelijkheden rondom de ontwikkeling/inzet/gebruik van een algoritme is één van de belangrijkste stappen in het garanderen dat algoritme voldoet aan ethische, kwalitatieve en functionele eisen. Deze verantwoordelijkheden vroegtijdig verdelen is enorm behulpzaam in het efficiënt en verantwoordelijk laten verlopen van de inzet van het algoritme. Zo geeft het duidelijk wie er verantwoordelijk is voor het maken van aanpassingen of mitigerende maatregelen aan het algoritme wanneer er ongewenst gedrag wordt vastgesteld. Het is ook goed om te kijken naar eventuele valkuilen rondom het gebruiken van een algoritme bij het maken van besluiten. Valkuilen, zoals bijvoorbeeld automation bias, moet over nagedacht worden tijdens het verdelen van verantwoordelijkheden om aan te wijzen wie er rekening mee moet gaan houden. Verder laat het bij een mogelijke verandering in personeel zien welke verantwoordelijkheden door wie worden achtergelaten en dus door iemand anders opgepakt moeten worden.<br><br>Deze verdeling, hoewel hij later in het proces aangepast kan worden, moet ook in ieder geval gewaarborgd worden in de toekomst, zodat er te alle tijden aan deze verdeling gedacht wordt tijdens het vormen van besluiten. Vanzelfsprekend zorgt dit alles tot meer transparantie rondom de besluitvorming van het algoritme en laat daarmee de burgers beter de discussie aangaan over de aansprakelijkheid en verantwoordelijkheden omtrent het algoritme.<br><br>Om deze vraag goed te beantwoorden moet er een uitgebreide lijst met de verdeling van verantwoordelijkheden gemaakt worden die dubbel dient als een taakverdeling. Schrijf de content van de verantwoordelijkheden uit en wees hier wederom zo concreet, duidelijk en uitgebreid over als mogelijk is. Schrijf liever te veel dan te weinig en mocht ergens twijfel zijn of de verantwoordelijheid gewaarborgd kan worden, kijk dan naar mitigerende maatregelen en schrijf deze op. Het helpt om een structuur op te stellen zodat het antwoord niet één grote brei aan tekst is. Kijk bij verantwoordelijkheden ook naar valkuilen omtrent besluitvorming met een algoritme als dat van toepassing is op het algoritme en neem het handelen met deze valkuilen op in de taakomschrijving van de persoon die er verantwoordelijk voor is.",
+        "question_phase": 1,
+        "question_number": 7,
+        "question_warning": "Als het niet mogelijk is om de verdeling van verantwoordelijkheden voldoende te waarborgen, mag het algoritme niet worden ingezet.",
+        "question_reference_text": "Voor meer informatie over het belang van vroegtijdig identificeren van betrokkenen en belanghebbende, zie de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).<br><br>In <b>Code Goed Openbaar Digitaal Bestuur</b> (Deel 1.1 en 1.2) wordt meer uitgelegd over verhoudingen tussen burgers, politieke verantwoording en bestuursbeleid betreffende een algoritme.<br><br>Voor meer specificatie over het goed en concreet vastleggen van de rollen en taken van betrokkenenen en bijbehorende verantwoordelijkheden rondom een algoritme zie <b>Toetsingskader Algemene Rekenkamer</b> (<b>Sturing en verantwoording/Rollen, taken, verantwoordelijkheden en bevoegdheden</b>).",
+        "job_list": [
+          {
+            "type": "OG",
+            "priority": 1
+          },
+          {
+            "type": "PL",
+            "priority": 1
+          },
+          {
+            "type": "OP",
+            "priority": 1
+          },
+          {
+            "type": "CISO",
+            "priority": 1
+          }
+        ]
+      }
+    },
+    {
+      "model": "base.question",
+      "pk": "9",
+      "fields": {
+        "question_title": "Aansprakelijkheid en verantwoordelijkheden 3",
+        "question_text": "<h4><i>Wie is eindverantwoordelijk voor het algoritme?</i></h4><br>Deze vraag bouwt voort op de motivaties genoemd bij de uitleg van de vorige vraag. Het is voor de verdeling van verantwoordelijkheden altijd handig om te weten wie er eindverantwoordelijk is voor het algoritme dat wordt ingezet.<br><br>Ondanks dat het niet direct gevraagd word is het goed om te proberen een exit-strategie vast te leggen voor het geval dat de ontwikkeling van het algoritme om wat voor reden niet meer gewenst is. Dit is om te voorkomen dat er geen publieke middelen en tijd verspilt worden aan de ontwikkeling van het algoritme, omdat er bijvoorbeeld al zoveel tijd en verzonken kosten inzit. Zo komt er geen ineffectief, overbodig of inaccuraat algoritme de op markt.<br><br>Om een goed antwoord te geven moet de naam en functie van de eindverantwoordelijke partij genoteerd worden in concreet detail. Daarnaast moet in grote lijnen een exit-strategie beschreven worden, dit hoeft niet in detail en is meer bedoeld om vroegtijdig al nagedacht en gediscussieerd te hebben over wat te doen als het project faalt. Maak hiervan, zover dat gaat, een stappenplan.",
+        "question_phase": 1,
+        "question_number": 8,
+        "question_warning": "Als het niet mogelijk is om een eindverantwoordelijke te noemen, mag het algoritme niet worden ingezet.",
+        "question_reference_text": "Voor meer informatie over het belang van vroegtijdig identificeren van betrokkenen en belanghebbende, zie de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).<br><br>In <b>Code Goed Openbaar Digitaal Bestuur</b> (Deel 1.1 en 1.2) wordt meer uitgelegd over verhoudingen tussen burgers, politieke verantwoording en bestuursbeleid betreffende een algoritme.<br><br>Voor meer specificatie over het goed en concreet vastleggen van de rollen en taken van betrokkenenen en bijbehorende verantwoordelijkheden rondom een algoritme zie <b>Toetsingskader Algemene Rekenkamer</b> (<b>Sturing en verantwoording/Rollen, taken, verantwoordelijkheden en bevoegdheden</b>).",
+        "job_list": [
+          {
+            "type": "OG",
+            "priority": 1
+          },
+          {
+            "type": "PL",
+            "priority": 1
+          },
+          {
+            "type": "OP",
+            "priority": 1
+          },
+          {
+            "type": "CISO",
+            "priority": 1
+          }
+        ]
+      }
     }
 
 ]
