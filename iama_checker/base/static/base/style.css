@@ -1,10 +1,14 @@
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-  }
-body {
-    background: white url("images/casemier.jpg") no-repeat;
-    background-size: cover;
-    background-position: center;
+div.text-highlight-blue {
+  background-color:rgba(108, 180, 238, 0.1);
+  border: 1px solid rgba(0, 48, 143, 0.1);
+  margin-bottom: 2.5em;
+}
+
+div.text-highlight-blue p {
+  margin: 15px 15px;
+}
+
+div.text-highlight-blue h6 {
+  margin-left: 15px;
+  margin-top: 15px;
 }

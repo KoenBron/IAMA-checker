@@ -57,7 +57,8 @@ class Question(models.Model):
     question_text = models.TextField()# Content to display
     question_phase = models.IntegerField() # Phase number of the question
     question_number = models.IntegerField() # Question number in the phase
-    question_warning = models.CharField(max_length=140, default=None, null=True)
+    question_warning = models.CharField(max_length=140, default=None, null=True)# Warning that tells when an answer results in question
+    question_reference_text = models.CharField(max_length=400, default=None, null=True)# Text that indicates how to utulize the refernces
     job_list = models.JSONField(default=list)
 
     # Return the json object as a list of Jobs objects for easier conversion 

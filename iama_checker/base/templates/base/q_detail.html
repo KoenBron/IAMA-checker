@@ -42,7 +42,14 @@
             <div class="card-body">
                 <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
-                    <p style="color:grey"> {{ question.question_text|safe }} </p>
+                    <p> {{ question.question_text|safe }} </p>
+                    <br>
+                    {% if question.question_reference_text %}
+                      <div class="rounded text-highlight-blue">
+                        <h6 class="text-primary">Externe literatuur</h6>
+                        <p> {{ question.question_reference_text|safe }} </p>
+                      </div>
+                    {% endif %}
                     {% if question.question_warning %}
                       <div class="jumbotron">
                         <h3 class="display-4">Belangrijk!</h3>

@@ -6,7 +6,7 @@
             "title": "Non-discriminatie by design",
             "description": "Dit document laat zien welke juridische, technische en organisatorische vragen er aan bod moeten komen wanneer men een AI-systeem wilt ontwikkelen of implementeren. De link verwijst naar een kamerbrief waar het document als bijlage te downloaden is.",
             "url": "https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2021Z10411&did=2021D22770",
-            "questions": [2,3,4,5]
+            "questions": [2,3,4,5,6,7]
         }
     },
     {
@@ -16,17 +16,17 @@
             "title": "Toetsingskader Algemen Rekenkamer",
             "description": "Een excel sheet met bijbehorend begeleidend document dat als praktisch instrument dient zodat een organisatie kan toetsen of een algoritme aan bepaalde ethische en kwalitatiefe criteria voldoen. Het instrument bestaat uit 5 verschillende perspectieven die bekeken moeten worden en is te downloaden met deze link.",
             "url": "https://www.rekenkamer.nl/onderwerpen/algoritmes-digitaal-toetsingskader",
-            "questions": [2,3,4,5,6]
+            "questions": [2,3,4,5,6,7]
         }
     },
     {
         "model": "base.reference",
         "pk": "3",
         "fields": {
-            "title": "Code goed openbaar bestuur",
+            "title": "Code Goed Openbaar Bestuur",
             "description": "De code waar de overheid te allen tijde zijn bestuur op moet baseren en aan kunnen verantwoorden, dit geld ook voor algoritmes. Het is bij iedere vraag van de IAMA van belang dat de antwoorden in overeenstemming met deze code gegeven worden!",
             "url": "https://www.rijksoverheid.nl/onderwerpen/kwaliteit-en-integriteit-overheidsinstanties/gedragscode-openbaar-bestuur",
-            "questions": [2,3,4,5,6]
+            "questions": [2,3,4,5,6,7]
         }
     },
     {
@@ -46,7 +46,7 @@
             "title": "Beleidskompas",
             "description": "Het Beleidskompas is het instrument dat de overheid gebruikt om goed en verantwoordelijk beleid te maken.",
             "url": "https://www.kcbr.nl/beleid-en-regelgeving-ontwikkelen/beleidskompas",
-            "questions": [1,6]
+            "questions": [2,6]
         }
     },
     {
