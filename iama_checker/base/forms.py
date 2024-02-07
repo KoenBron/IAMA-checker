@@ -25,4 +25,4 @@ class AnswerForm(Form):
 class CollaboratorForm(ModelForm):
     class Meta:
         model = Collaborator
-        fields = ["name", "organisation"]
+        fields = ["name", "discipline", "organisation"]

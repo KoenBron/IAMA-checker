@@ -350,7 +350,7 @@ def create_add_collab(request, answer_id):
         form = CollaboratorForm(request.POST)
         if form.is_valid():
             # Create new collaborator
-            collab = Collaborator(name=form.cleaned_data["name"].strip(), organisation=form.cleaned_data["organisation"].strip())
+            collab = Collaborator(name=form.cleaned_data["name"].strip(), discipline=form.cleaned_data["discipline"].strip(), organisation=form.cleaned_data["organisation"].strip())
             collab.save()
             # Add it to an answer
             collab.answers.add(answer)

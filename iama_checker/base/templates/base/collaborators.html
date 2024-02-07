@@ -1,9 +1,13 @@
 {% load base_extra %}
-<ul class="list-group rounded">
+<ul class="list-group rounded border">
+    <li class="list-group-item border-bottom rounded-top d-flex justify-content-center" style="background-color:#9c27b0">
+      <h4 style="color:white; margin-bottom: 0">Medewerkers</h4>
+    </li>
     {% for collab in collab_list %}
-        <li class="list-group-item border rounded d-flex justify-content-between" style="background-color: white;">
+        <li class="list-group-item list-group-item-light border-top d-flex justify-content-between">
             <div class="">
-                <p style="margin-bottom: 0px"> {{collab.name}} </p>
+                <p style="margin-bottom: 0px; font-size: 20px"> <b>{{collab.name}}</b></p>
+                <p style="margin-bottom: 0px"> {{collab.discipline}} </p>
                 <p style="margin-bottom: 0px"> {{collab.organisation}} </p>
             </div>
             
@@ -37,43 +41,50 @@
         </div>
     {% endfor %}
     {% if not collab_list %}
-        <li class="list-group-item border rounded d-flex justify-content-between" style="background-color: white;">
+        <li class="list-group-item list-group-item-light border d-flex justify-content-between">
           <div>Geen Medewerkers</div>
         </li>
     {% endif %}
-</ul>
-<div class="d-flex justify-content-center">
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Nieuwe Medewerker
-        </button>
-        <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' answer_id %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="name">Naam</label>
-              <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
-            </div>
-            <div class="form-group">
-              <label for="organisation">Organisatie</label>
-              <input type="text" class="form-control" name="organisation" placeholder="Voorbeeld org">
-            </div>
-            <input type="hidden" name="next" value="{{request.path}}">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                style="padding-left: 10px; padding-right:10px; margin-left: 10px">
-                +
-            </button>
+    <li class="list-group-item list-group-item-light border-top d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Nieuwe Medewerker
+                </button>
+                <form class="dropdown-menu p-4" action="{% url 'base:create_add_collab' answer_id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="name">Naam</label>
+                      <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
+                    </div>
+                    <div class="form-group">
+                      <label for="discipline">Omschrijving beroep</label>
+                      <input type="text" class="form-control" name="discipline" placeholder="Voorbeeld discipline">
+                    </div>
+                    <div class="form-group">
+                      <label for="organisation">Organisatie</label>
+                      <input type="text" class="form-control" name="organisation" placeholder="Voorbeeld org">
+                    </div>
+                    <input type="hidden" name="next" value="{{request.path}}">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        style="padding-left: 10px; padding-right:10px; margin-left: 10px">
+                        +
+                    </button>
 
-            <div class="dropdown-menu">
-                {% if collab_options %}
-                    {% for option in collab_options %}
-                        <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
-                    {% endfor %} 
-                {% else %}
-                    <a class="dropdown-item disabled">Geen andere medewerkers</a>
-                {% endif %}
+                    <div class="dropdown-menu">
+                        {% if collab_options %}
+                            {% for option in collab_options %}
+                                <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
+                            {% endfor %} 
+                        {% else %}
+                            <a class="dropdown-item disabled">Geen andere medewerkers</a>
+                        {% endif %}
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+
+    </li>
+</ul>
 

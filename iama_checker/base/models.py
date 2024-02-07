@@ -82,8 +82,10 @@ class Answer(models.Model):
 # Could also have a relation to Assesment, but would be redundant info since the answer is already related
 # Don't know what is best practice here, so could be revisited later.
 class Collaborator(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=60)
+    discipline = models.CharField(max_length=40, default="Geen baanbeschrijving")
     organisation = models.CharField(max_length=60)
+
     # Many to many field as answer can have multiply collaborators and vice versa
     answers = models.ManyToManyField(Answer)
 
