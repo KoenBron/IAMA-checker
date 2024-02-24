@@ -130,6 +130,11 @@ def create_assesment(request):
             
             # Go to the detail page of the new assignment
             return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+
+        else:
+            # Get all the assesments associated to the logged in user en present them descendingly
+            assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
+            return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide dat in!"})
     
 @login_required
 def delete_assesment(request, assesment_id):

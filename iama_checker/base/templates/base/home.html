@@ -83,17 +83,20 @@ Dashboard
                     </div>
                     <form action="{% url 'base:create_assesment' %}" method="post">
                         {% csrf_token %}
+                        {% if error %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endif %}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Naam assesment</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control" name="name" placeholder="Vul hier de naam van de assesment in">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
-                                    <input type="text" class="form-control" name="organisation">
+                                    <input type="text" class="form-control" name="organisation" placeholder="Vul hier de naam van de organisatie in">
                                 </div>
                             </div>
                         </div>
