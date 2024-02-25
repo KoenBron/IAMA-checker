@@ -5,6 +5,20 @@ from .models import Assesment, Question, Answer, Collaborator, Reference
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
 
+# Check if the logged in user is the authorised to edit and view the assesment_is 
+# Return True if authorised, else False
+def user_has_edit_privilige(user_id, assesment_id):
+    try:
+        assesment = Assesment.objects.get(id=assesment_id)
+    except (KeyError, Assesment.DoesNotExist):
+        return False
+    
+    # Check if authorised
+    if (assesment.user.id == user_id) or (assesment.user_group.filter(id = user_id).exists()):
+        return True
+    else:
+        return False
+
 # Return true if all answers have the reviewed status
 def all_answers_reviewed(assesment_id):
     # Loop through all the answers of an assesment 

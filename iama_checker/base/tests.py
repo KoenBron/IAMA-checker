@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from .models import Assesment, Question, Answer
+from .views import create_assesment, user_has_edit_privilige
 
 # Create your tests here.
 class BaseViewsTestCase(TestCase):
@@ -18,10 +19,14 @@ class BaseViewsTestCase(TestCase):
         self.client.login(username="Alice", password="password")
         return user
     
-    def create_authorised_user_assesment(self):
-        user = self.create_authorised_user()
+    def create_assesment(self, user):
         assesment = Assesment(name="testassesment", organisation="testorg", user=user)
         assesment.save()
+        return assesment
+
+    def create_authorised_user_assesment(self):
+        user = self.create_authorised_user()
+        assesment = create_assesment(user)
         return assesment
             
 
@@ -181,6 +186,37 @@ class QuestionDetailTestCase(BaseViewsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("errors/error.html")
         self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assesment!")
+
+
+class EditPrivilidgeTestCase(BaseViewsTestCase):
+    
+    def test_with_author(self):
+        '''
+        Test wether function user_has_edit_priviliged() works as intended
+        By testing if the user that created the assesment gets edit privilidges
+        '''
+        user = self.create_authorised_user()
+        assesment = self.create_assesment(user)
+        self.assertTrue(user_has_edit_privilige(user.id, assesment.id))
+        
+    def test_with_user_in_user_group(self):
+        '''
+        Test wether the function works as excpected with a user that is in the user group of the asssesment 
+        '''
+        user = self.create_authorised_user()
+        assesment = self.create_assesment(user)
+        user2 = self.create_other_authorised_user()
+        assesment.user_group.add(user2)
+        self.assertTrue(user_has_edit_privilige(user2.id, assesment.id))
+
+    def test_with_unauthorised_user(self):
+        '''
+        Test wether the function works as excpected when the user isn't the author or part of the assesments user_group
+        '''
+        user = self.create_authorised_user()
+        assesment = self.create_assesment(user)
+        user2 = self.create_other_authorised_user()
+        self.assertFalse(user_has_edit_privilige(user2.id, assesment.id))
 
 
 

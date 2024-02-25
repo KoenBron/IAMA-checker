@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Helper functions to set be able to set User object as a foreignkey
+# Helper functions to set be able to set User object as a foreignkey, could be removed when exiting debug state
 def user_sentinel():
     return User.objects.get_or_create(username="Default user", password="Default_password")[0]
 
