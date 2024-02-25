@@ -17,7 +17,13 @@ class Assesment(models.Model):
     organisation = models.CharField(max_length=50)# Name of the organisation performing the assesment
     complete_status = models.BooleanField(default=False)# Complete when all questions have been answered 
     date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
+    ultimately_responsble = models.CharField(max_length=50, default="")# The person who is responsible in the end for the assesment
+    # User that created the assesment, TODO: rename field to author
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
+    # Many-to-many field to create user groups
+    # With this fiel we make each assesment a sort of groupchat that multiple people can work on!
+    user_group = models.ManyToManyField(User, related_name="related_assesment")
+
 
 # IMPORTANT NOTE: questions in the context of this project are both phase introductions
 # and the questions themselves. They are seperated by the question_number attributes 
