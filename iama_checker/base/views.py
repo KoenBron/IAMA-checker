@@ -22,7 +22,7 @@ def create_assesment(request):
         # Make sure all the typed in fields contain valid data
         if form.is_valid():
             # Create assesment object and save to database
-            assesment = Assesment(name=form.cleaned_data['name'].strip(), organisation=form.cleaned_data['organisation'].strip(), user=request.user)
+            assesment = Assesment(name=form.cleaned_data['name'].strip(), organisation=form.cleaned_data['organisation'].strip(), ultimately_responsible=form.cleaned_data['ultimately_responsible'].strip(), user=request.user)
             assesment.save()
             
             # Create empty answers to ensure correct and predictable behaviour
@@ -32,6 +32,7 @@ def create_assesment(request):
             return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
 
         else:
+            print(form.errors)
             # Get all the assesments associated to the logged in user en present them descendingly
             assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
             return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide dat in!"})
@@ -67,6 +68,7 @@ def update_assesment(request, assesment_id):
             # We don't use the update() method so the assesment.date_last_saved value is newly set
             assesment.name = form.cleaned_data['name'].strip()
             assesment.organisation = form.cleaned_data['organisation'].strip()
+            assesment.ultimately_responsible = form.cleaned_data['ultimately_responsible'].strip()
             assesment.save()
             # Return back to the detail page
             return HttpResponseRedirect(reverse("base:detail", args=(assesment_id,)))

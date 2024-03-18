@@ -26,6 +26,9 @@ Dashboard
                             Laatst Bewerkt
                         </th>
                         <th>
+                            Eindverantwoordelijke
+                        </th>
+                        <th>
                             Compleetheids Status
                         </th>
                         <th>
@@ -43,6 +46,9 @@ Dashboard
                             </td>
                             <td>
                             {{ item.date_last_saved|date:"d-m-Y" }}
+                            </td>
+                            <td>
+                            {{ item.ultimately_responsible }}
                             </td>
                             <td style="padding-left: 90px">
                                 {% if item.complete_status %}
@@ -97,6 +103,14 @@ Dashboard
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
                                     <input type="text" class="form-control" name="organisation" placeholder="Vul hier de naam van de organisatie in">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Naam eindverantwoordelijke van de IAMA</label>
+                                    <input type="text" class="form-control" name="ultimately_responsible" placeholder="Vul hier de naam voor de eindverantwoordelijke voor de IAMA in">
                                 </div>
                             </div>
                         </div>
