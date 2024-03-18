@@ -5,12 +5,15 @@ from .models import Assesment, Collaborator
 class AssesmentForm(ModelForm):
     class Meta:
         model = Assesment
-        fields = ["name", "organisation"]
+        fields = ["name", "organisation", "ultimately_responsible"]
         widgets = {
             "name": TextInput(attrs={
                 "class": "form-control",
             }),
             "organisation": TextInput(attrs={
+                "class": "form-control",
+            }),
+            "ultimately_responsible": TextInput(attrs={
                 "class": "form-control",
             })
         }
