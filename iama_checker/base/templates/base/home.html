@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block navigation %}
-Dashboard
+Overzicht assesments
 {% endblock %}
 
 {% block content %}
@@ -87,6 +87,7 @@ Dashboard
                         </tbody>
                     </table>
                     </div>
+                    <h4 class="text-primary">Maak hier een nieuw assesment!</h4>
                     <form action="{% url 'base:create_assesment' %}" method="post">
                         {% csrf_token %}
                         {% if error %}

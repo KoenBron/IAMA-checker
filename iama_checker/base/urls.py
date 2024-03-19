@@ -14,6 +14,7 @@ urlpatterns = [
     path("create_add_collab/<int:answer_id>/", views.create_add_collab, name="create_add_collab"),
     path("add_collab/<int:answer_id>/<int:collab_id>/", views.add_collab, name="add_collab"),
     path("delete_collab/<int:answer_id>/<int:collab_id>/", views.delete_collab, name="delete_collab"),
-    path("", views.home, name="home"),
+    path("home", views.home, name="home"),
+    path("", views.landing_page, name="landing_page"),
     path("info", views.info, name="info"),
 ]

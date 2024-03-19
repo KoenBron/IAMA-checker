@@ -301,3 +301,7 @@ def info(request):
 @login_required 
 def add_participant(request, assesment_id, participant_id):
     pass
+
+@login_required
+def landing_page(request):
+    return render(request, "base/landing_page.html")

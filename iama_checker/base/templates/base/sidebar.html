@@ -1,15 +1,15 @@
 <div class="sidebar" data-color="purple" data-background-color="white">
     <div class="logo">
-      <div class="simple-text logo-normal">IAMA Checker</div>
+    <div class="simple-text logo-normal"><a href="{% url 'base:landing_page' %}">IAMA Checker</a></div>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
       {% if request.user.is_authenticated %}
 
         <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-          <a class="nav-link" href="/">
+        <a class="nav-link" href="{% url 'base:home' %}">
             <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
+            <p>Assesments</p>
           </a>
         </li>
 

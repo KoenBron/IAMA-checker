@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block stylesheets %}
+<style>
+body {
+    background: rgb(156,39,176);
+    background: linear-gradient(180deg, rgba(156,39,176,1) 0%, rgba(225,106,245,1) 40%, rgba(245,245,245,1) 40%);
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+<center><h1 style="color:white"><b>Welkom bij de IAMA Checker!</b></h1></center>
+<div class="row" style="margin-top: 150px">
+  <div class="col">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Belangrijk om te beginnen!</h4>
+                <p class="card-category">Check eerst nog even de informatie over IAMA & IAMA Checker!</p>
+            </div>
+            <div class="card-body">
+                <p style="color: grey">
+                    Ben je nog niet goed bekend met IAMA of IAMA Checker? Check dan eerst nog even de informatie pagina! Hier kan je je goed inlezen over wat IAMA is en welke problemen IAMA Checker probeert op te lossen. Zo ga kun je goed voorbereid te werk gaan met IAMA Checker!
+                </p>
+                <a href="{% url 'base:info' %}"><button class="btn btn-primary pull-right">Ga naar informatie &#8594;</button></a>
+            </div>
+        </div>
+  </div> 
+  <div class="col">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Gelijk door naar je assesments!</h4>
+                <p class="card-category">Bekijk alle features van de IAMA Checker!</p>
+            </div>
+            <div class="card-body">
+                <p style="color: grey">
+                    Ben je klaar om aan de slag te gaan met IAMA Checker? Vergeet niet om de tutorial goed te lezen op de detail pagina van individuele assesments! Hier wordt uitgelegd hoe je de unieke features van IAMA Checker hoort te gebruiken en wat er allemaal van je verwacht wordt om een goede zelf assesment te doen!
+                </p>
+                <a href="{% url 'base:home' %}"><button class="btn btn-primary pull-right">Ga naar assesments &#8594;</button></a>
+            </div>
+        </div>
+  </div> 
+</div>
+
+{% endblock %}

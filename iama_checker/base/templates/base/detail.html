@@ -19,7 +19,11 @@ IAMA-Assesment - {{ assesment.name}}
                     </div>
                     <div class="col-md-6">
                         <div class="text-gray font-weight-bold">Compleetheids status:</div>
-                        <p class="border-bottom" style="font-size: 15px;">{{ assesment.complete_status }}</p>
+                        {% if assesment.complete_status %}
+                            <p class="border-bottom" style="font-size: 15px;">Compleet</p>
+                        {% else %}
+                            <p class="border-bottom" style="font-size: 15px;">Incompleet</p>
+                        {% endif %}
                     </div>
                 </div>
                 <form action="{% url 'base:update_assesment' assesment.id %}" method="post">
