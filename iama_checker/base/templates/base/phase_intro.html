@@ -1,6 +1,12 @@
 {% extends 'base/base.html' %}
 
-{% block navigation %}<a href="{% url 'base:detail' assesment.id %}" style="color: grey">IAMA-Assesment - {{ assesment.name }}</a>{% endblock %}
+{% block navigation %}
+<a href="{% url 'base:detail' assesment.id %}" style="color: grey">IAMA-Assesment - {{ assesment.name }}</a>
+{% endblock %}
+
+{% block add_editor %}
+    <a href="#" style="justify-content-end" class="btn btn-primary btn-round">Voeg editor toe aan assesment +</a>
+{% endblock %}
 
 {% block content %}
 <div class="row">
