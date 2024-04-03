@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import AssesmentForm, AnswerForm, CollaboratorForm
+from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm
 from .models import Assesment, Question, Answer, Collaborator, Reference
+from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
 from .base_view_helper import * 
@@ -295,12 +296,66 @@ def delete_collab(request, answer_id, collab_id):
 
 @login_required
 def info(request):
-    return render(request, "base/info.html")
+    return render(request, "base/info.html") 
 
-# Add a participant with editing priviledges to an assesment
+@login_required
+def add_editor(request, assesment_id, editor_id):
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+    except (KeyError, Assesment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+    
+    if user_has_edit_privilidge(request.user.id, assesment):
+        editor = User.objects.get(pk=editor_id)
+        assesment.user_group.add(editor)
+        # TODO make it so that the page where the user came from is remembered and that the user returns to it
+        return render(request, "base:detail", {"assesment": assesment})
+
+# Add an editor with editing priviledges to an assesment
 @login_required 
-def add_participant(request, assesment_id, participant_id):
-    pass
+def search_editor(request, assesment_id):
+    # Find the assesment
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+    except (KeyError, Assesment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+
+    if user_has_edit_privilidge(request.user.id, assesment):
+        # Get request shows only the search_page with an form to search for users by id
+        if request.method == "GET":
+            return render(request, "base/search_editor.html", {"assesment": assesment})
+
+        """
+        This version of adding editors to an assesment is for prototyping only in a controlled environment.
+        When creating a more complete software solution, an inbox system should be put into place as to
+        prevent people from spam adding them to projects.
+        Also the adding of editors now goes by id, which may be subject to change but it will do for the purposes of this prototype.
+        """
+
+        # Post request contains the user id and reverts the user to a confirmation screen on wether they really want to add that user
+        if request.method == "POST":
+            form = SearchEditorForm(request.POST) 
+            # First check wether the given value is an integer            form = SearchEditorForm(request.POST)
+            if form.is_valid():
+                # Find an editor
+                try:
+                    editor = User.objects.get(pk=form.cleaned_data["editor_id"]) 
+
+                # No user found with entered id
+                except (KeyError, User.DoesNotExist):
+                    return render(request, "base/search_editor.html", {"assesment": assesment, "error": "Kan geen editor vinden met dit id!"})
+
+                # User found
+                return render(request, "base/confirm_editor.html", {"assesment": assesment, "editor": editor})
+            
+            # No integer entered
+            else:
+                return render(request, "base/search_editor.html", {"assesment": assesment, "error": "Ingevoerde waarde moet een heel nummer zijn!"})
+                
+
+
+
+
 
 @login_required
 def landing_page(request):

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block add_editor %}
-    <a href="#" style="justify-content-end" class="btn btn-primary btn-round">Voeg editor toe aan assesment +</a>
+    <a href="{% url 'base:search_editor' assesment.id %}" style="justify-content-end" class="btn btn-primary btn-round">Voeg editor toe aan assesment +</a>
 {% endblock %}
 
 {% block content %}

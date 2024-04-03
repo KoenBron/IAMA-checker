@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm, TextInput, Textarea, BooleanField
+from django.forms import Form, IntegerField, ModelForm, TextInput, Textarea, BooleanField
 from .models import Assesment, Collaborator
 
 # The form to create or alter an assesment as a user
@@ -29,3 +29,8 @@ class CollaboratorForm(ModelForm):
     class Meta:
         model = Collaborator
         fields = ["name", "discipline", "organisation"]
+
+# For recieving the user id of a potential editor
+class SearchEditorForm(Form):
+    editor_id = IntegerField(required=True)
+

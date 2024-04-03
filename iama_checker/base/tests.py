@@ -3,7 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from .models import Assesment, Question, Answer
-from .views import create_assesment, user_has_edit_privilige
+from .base_view_helper import user_has_edit_privilidge
+from .views import create_assesment
 
 # Create your tests here.
 class BaseViewsTestCase(TestCase):
@@ -197,7 +198,7 @@ class EditPrivilidgeTestCase(BaseViewsTestCase):
         '''
         user = self.create_authorised_user()
         assesment = self.create_assesment(user)
-        self.assertTrue(user_has_edit_privilige(user.id, assesment.id))
+        self.assertTrue(user_has_edit_privilidge(user.id, assesment))
         
     def test_with_user_in_user_group(self):
         '''
@@ -207,7 +208,7 @@ class EditPrivilidgeTestCase(BaseViewsTestCase):
         assesment = self.create_assesment(user)
         user2 = self.create_other_authorised_user()
         assesment.user_group.add(user2)
-        self.assertTrue(user_has_edit_privilige(user2.id, assesment.id))
+        self.assertTrue(user_has_edit_privilidge(user2.id, assesment))
 
     def test_with_unauthorised_user(self):
         '''
@@ -216,7 +217,7 @@ class EditPrivilidgeTestCase(BaseViewsTestCase):
         user = self.create_authorised_user()
         assesment = self.create_assesment(user)
         user2 = self.create_other_authorised_user()
-        self.assertFalse(user_has_edit_privilige(user2.id, assesment.id))
+        self.assertFalse(user_has_edit_privilidge(user2.id, assesment))
 
 
 
