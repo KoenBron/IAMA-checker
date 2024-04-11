@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">
+                  Zoek editor bij gebruikers id!
+                </h4>
+            </div>
+            <div class="card-body">
+                <h6 class="card-category">
+                    {% if error %} 
+                    <span class="text-danger">{{ error }}</span>
+                    {% endif %}
+                </h6>
+                <form action="{% url 'base:search_editor' assesment.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Gebruikers id van de editor om toe te voegen</label>
+                                <input type="text" class="form-control" name="editor_id" placeholder="Vul hier in!">
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'base:detail' assesment.id %}" class="btn btn-primary">Terug</a>
+                    <button type="submit" class="btn btn-primary pull-right">Zoek</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>  
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -21,7 +21,7 @@ class Assesment(models.Model):
     # User that created the assesment, TODO: rename field to author
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
     # Many-to-many field to create user groups
-    # With this fiel we make each assesment a sort of groupchat that multiple people can work on!
+    # With this field we track each user that can edit the assesment
     user_group = models.ManyToManyField(User, related_name="related_assesment")
 
 

@@ -3,17 +3,9 @@ from .models import Assesment, Question, Answer
 
 # Check if the logged in user is the authorised to edit and view the assesment_is 
 # Return True if authorised, else False
-def user_has_edit_privilige(user_id, assesment_id):
-    try:
-        assesment = Assesment.objects.get(id=assesment_id)
-    except (KeyError, Assesment.DoesNotExist):
-        return False
-    
+def user_has_edit_privilidge(user_id, assesment):
     # Check if authorised
-    if (assesment.user.id == user_id) or (assesment.user_group.filter(id = user_id).exists()):
-        return True
-    else:
-        return False
+    return (assesment.user.id == user_id) or (assesment.user_group.filter(id = user_id).exists())
 
 # Return true if all answers have the reviewed status
 def all_answers_reviewed(assesment_id):
