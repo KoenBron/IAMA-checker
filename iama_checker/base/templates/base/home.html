@@ -122,5 +122,95 @@ Overzicht assesments
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">Assesments waar jij editor bent</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table iama-bottom-border">
+                        <thead class=" text-primary">
+                        <th>
+                            Naam
+                        </th>
+                        <th>
+                            Uitgevoerd Door
+                        </th>
+                        <th>
+                            Laatst Bewerkt
+                        </th>
+                        <th>
+                            Eindverantwoordelijke
+                        </th>
+                        <th>
+                            Compleetheids Status
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                        </thead>
+                        <tbody>
+                        {% for editor_item in assesments_editor_list %}
+                        <tr>
+                            <td>
+                            <a href="{% url 'base:detail' editor_item.id %}">{{ editor_item.name }}</a> 
+                            </td>
+                            <td>
+                            {{ editor_item.organisation }}
+                            </td>
+                            <td>
+                            {{ editor_item.date_last_saved|date:"d-m-Y" }}
+                            </td>
+                            <td>
+                            {{ editor_item.ultimately_responsible }}
+                            </td>
+                            <td style="padding-left: 90px">
+                                {% if editor_item.complete_status %}
+                                    <i class="material-icons" style="color: green">done</i>
+                                {% else %}
+                                    <i class="material-icons" style="color: red">close</i>
+                                {% endif %}
+                            </td>
+                            <td>
+                              <a data-toggle="modal", data-target=#delete_editor_modal{{ editor_item.id }} href="#">
+                                  <i class="material-icons">delete</i>
+                              </a>
+                            </td>
+                        </tr>
+                        
+                        <div class="modal fade" id="delete_editor_modal{{ editor_item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Jezelf als editor verwijderen?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Weet je zeker dat je jezelf als editor van {{ editor_item.name }} wil verwijderen? 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                    <a href="{% url 'base:delete_editor' editor_item.id request.user.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if not assesments_editor_list %}
+                    <tr>
+                <td>Geen assesments</td>
+                    </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}

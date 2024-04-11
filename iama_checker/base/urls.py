@@ -19,4 +19,5 @@ urlpatterns = [
     path("info", views.info, name="info"),
     path("add_editor/<int:assesment_id>/<int:editor_id>", views.add_editor, name="add_editor"),
     path("search_editor/<int:assesment_id>", views.search_editor, name="search_editor"),
+    path("delete_editor/<int:assesment_id>/<int:editor_id>", views.delete_editor, name="delete_editor"),
 ]

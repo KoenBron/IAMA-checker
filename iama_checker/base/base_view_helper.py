@@ -41,7 +41,7 @@ def generate_empty_answers(assesment, user):
             answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Answer.Status.UA)
             answer.save()
 
-# Retrieve a list of options to add as possible collaobrators to an answer
+# Retrieve a list of options to add as possible collaborators to an answer
 def get_collab_options(assesment, curr_answer):
     return_collab = []
     # Get all the answers associated with the assesment

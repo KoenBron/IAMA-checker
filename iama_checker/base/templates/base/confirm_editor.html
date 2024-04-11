@@ -6,11 +6,11 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">
-                    Weet je zeker dat je {{ editor.name }} wil toevoegen?
+                    Weet je zeker dat je {{ editor.username }} wil toevoegen?
                 </h4>
             </div>
-            <div class="card-body">
-                <a href="{% url 'base:detail' assesment.id %}" class="btn btn-primary pull-left">Annuleer</a>
+            <div class="card-body" style="padding-top:80px">
+                <a href="{% url 'base:search_editor' assesment.id %}?next={{ next }}" class="btn btn-primary pull-left">Terug</a>
                 <a href="{% url 'base:add_editor' assesment.id editor.id %}" class="btn btn-primary pull-right">Bevestig</a>
             </div>  
         </div>

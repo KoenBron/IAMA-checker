@@ -5,7 +5,7 @@ IAMA-Assesment - {{ assesment.name}}
 {% endblock %}
 
 {% block add_editor %}
-<a href="{% url 'base:search_editor' assesment.id %}" style="justify-content-end" class="btn btn-primary btn-round foat-right">Voeg editor toe aan assemsent +</a>
+<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round foat-right">Voeg editor toe aan assemsent +</a>
 {% endblock %}
 
 {% block content %}
@@ -65,6 +65,11 @@ IAMA-Assesment - {{ assesment.name}}
       <div class="row justify-content-center">
           <div class="col d-flex justify-content-center">
               <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round">Start Assesment!</a>
+          </div>
+      </div>
+      <div class="row justify-content-center" style="margin-top: 25px">
+      <div class="col-3">
+              {% include "includes/editor_list.html" with editor_list=index_context_objects.editor_list %}
           </div>
       </div>
     </div>

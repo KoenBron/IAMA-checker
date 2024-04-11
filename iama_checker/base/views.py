@@ -12,7 +12,9 @@ from .base_view_helper import *
 def home(request):
     # Get all the assesments associated to the logged in user en present them descendingly
     assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
-    return render(request, "base/home.html", {"assesments_list": assesments_list})
+    assesments_editor_list = request.user.related_assesment.all()
+    print(assesments_editor_list)
+    return render(request, "base/home.html", {"assesments_list": assesments_list, "assesments_editor_list": assesments_editor_list})
 
 # Create a new assesment
 @login_required
@@ -45,8 +47,8 @@ def delete_assesment(request, assesment_id):
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment om te verwijderen bestaat niet!"})
 
-    # Check if the user that deletes is the same user that has authority to delete this assesment
-    if request.user.pk != assesment.user.pk:
+    # Check if the user is autorised to delete the assesment
+    if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assesment te verwijderen!"})    
 
     else:
@@ -58,10 +60,14 @@ def delete_assesment(request, assesment_id):
 def update_assesment(request, assesment_id):
     # Make sure it's a post request
     if request.method == "POST":
+        # Check whether the assesment exists and if so make sure the user has edit privilidges
         try:
-            assesment = Assesment.objects.get(user__pk=request.user.pk, id=assesment_id)
+            assesment = Assesment.objects.get(pk=assesment_id)
         except (KeyError, Assesment.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Assesment om te updaten bestaat niet!"})
+
+        if not user_has_edit_privilidge(request.user.pk, assesment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om deze assesment te updaten!"})
 
         # Create a form to easily validate and extract the data
         form = AssesmentForm(request.POST)
@@ -77,7 +83,7 @@ def update_assesment(request, assesment_id):
         else:
             return render(request, "errors/error.html", {"message": "Geen valide invoer om de assesment te update!"})
 
-# Retreives the desired assignment
+# Retreives the desired assignment and global assesment info
 @login_required
 def detail(request, assesment_id):
     try:
@@ -86,20 +92,21 @@ def detail(request, assesment_id):
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
-    if request.user.pk != assesment.user.pk:
+    if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
-    # Get the questions as object that is renderable by the template
-    question_list = request.session.get("questions", create_question_list())
-    # Get the completion statusof each question as a dict
-    status_list = get_complete_status(request, assesment)
-    
+
+    # Get the lists with the context for the pages
     index_context_objects = {
-        "question_list": question_list,
-        "status_list": status_list,
+        "question_list": request.session.get("questions", create_question_list()),
+        "status_list": get_complete_status(request, assesment),
+        "editor_list": assesment.user_group.all(),
     }
+    print(index_context_objects["editor_list"])
 
     return render(request, "base/detail.html", {"assesment": assesment, "index_context_objects": index_context_objects})
 
+# Retrieves the details of a question or phase introduction
+# TODO: At some point fix this clusterfuck of a function
 @login_required
 def question_detail(request, assesment_id, question_id):
     # Get the desired question and assesment
@@ -116,8 +123,9 @@ def question_detail(request, assesment_id, question_id):
         return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assesment bestaat niet!"})
      
     # Check user authority 
-    if request.user.pk != assesment.user.pk:
+    if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+
     # Id's of next and previous questions
     buttons = {
         "next": question.id + 1,
@@ -170,12 +178,13 @@ def question_detail(request, assesment_id, question_id):
 # Save an answer to the database and alter it's completion status
 @login_required
 def save_answer(request, assesment_id, question_id):    
-    # Only handle post requests that alter the data
+
     if request.method == "POST":
-        # Retrieve answer from the database
+        # Retrieve answer and assesment from the database
         try:
             answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
             assesment = Assesment.objects.get(pk=assesment_id)
+
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen vraag is niet gevonden in de db!"})
         
@@ -183,36 +192,40 @@ def save_answer(request, assesment_id, question_id):
             return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
 
         # Check if user is autorised
-        if request.user.pk != assesment.user.pk:
+        if not user_has_edit_privilidge(request.user.pk, assesment):
             return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Put the POST request data into form
         answer_form = AnswerForm(request.POST)
+
         # Make sure the data is valid
         if answer_form.is_valid():
             # Update answer data
             answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
 
-            # Check for empty string as this can reset the completion status of an answer
+            # Check if the answer state has been altered
+
+            # Unanswered
             if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
                 answer.status = Answer.Status.UA
 
-            # Get the reviewed status and mark answer reviewed if checked
+            # Reviewed
             elif answer_form.cleaned_data["reviewed"]:
                 answer.status = Answer.Status.RV
 
+            # Answered
             else:
                 answer.status = Answer.Status.AW
 
             answer.save()
 
             # Only reverse the stored completion status when the return value indicates a change in completion
-            if all_answers_reviewed(assesment_id) != assesment.complete_status:
-                assesment.complete_status = not assesment.complete_status
-                assesment.save()
+            assesment.complete_status = all_answers_reviewed(assesment_id)
+            assesment.save()
                  
             # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
+
         # Error
         else:
             return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
@@ -220,10 +233,11 @@ def save_answer(request, assesment_id, question_id):
 # Add an existing collaborator to a question
 @login_required
 def add_collab(request, answer_id, collab_id):
-    # Get the answer and collaborator
+    # Get the answer, assesment and collaborator
     try:
         answer = Answer.objects.get(pk=answer_id)
         collab = Collaborator.objects.get(pk=collab_id)
+        assesment = Assesment.objects.get(pk=answer.assesment_id.id)
 
     except (KeyError, Answer.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
@@ -231,8 +245,11 @@ def add_collab(request, answer_id, collab_id):
     except (KeyError, Collaborator.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
+    except (KeyError, Assesment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
     # Check if user is autorised
-    if request.user.pk != answer.user.pk:
+    if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
     # Add it to the many-to-many relation
@@ -244,21 +261,29 @@ def add_collab(request, answer_id, collab_id):
 @login_required
 def create_add_collab(request, answer_id):
     if request.method == "POST":
+        # Get the answer and assesment
         try:
             answer = Answer.objects.get(pk=answer_id)
+            assesment = Answer.objects.get(pk=answer.assesment_id.id)
+
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})
 
+        except (KeyError, Assesment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
         # Check if user is autorised
-        if request.user.pk != answer.user.pk:
+        if not user_has_edit_privilidge(request.user.pk, assesment):
             return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
         
         # Create a form for validation
         form = CollaboratorForm(request.POST)
         if form.is_valid():
+
             # Create new collaborator
             collab = Collaborator(name=form.cleaned_data["name"].strip(), discipline=form.cleaned_data["discipline"].strip(), organisation=form.cleaned_data["organisation"].strip())
             collab.save()
+
             # Add it to an answer
             collab.answers.add(answer)
             return HttpResponseRedirect(request.POST.get("next", "/"))
@@ -268,31 +293,34 @@ def create_add_collab(request, answer_id):
 
 @login_required
 def delete_collab(request, answer_id, collab_id):
+    # Get the answer, assesemnt and collab
     try:
         answer = Answer.objects.get(pk=answer_id)
         collab = Collaborator.objects.get(pk=collab_id)
-    # No answer found
+        assesment = Assesment.objects.get(pk=answer.assesment_id.id)
+
     except (KeyError, Answer.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker van te verwijderen bestaat niet in de database!"})
-    # No collaborator found
+
     except (KeyError, Collaborator.DoesNotExist) :
         return render(request, "errors/error.html", {"message": "Medewerker om van de vraag te verwijderen bestaat niet in de database!"})
 
+    except (KeyError, Assesment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
     # Check if user is autorised
-    if request.user.pk != answer.user.pk:
+    if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
-    # Check if user has authority to delete this collab
-    if request.user.pk == answer.user.pk:
+    else:
         # Delete relation and go back to previous page
         answer.collaborator_set.remove(collab)
+
         # Check if there is any answer associated with the collaborator
         if collab.answers is None:
             collab.delete()# No answers associated, delete the collaborator
+
         return HttpResponseRedirect(request.GET.get("next", "/"))
-    # User not authorised
-    else:
-        return render(request, "errors/error.html", {"message": "Gebruiker is niet geauthoriseerd om deze bewerking te doen!"})
 
 @login_required
 def info(request):
@@ -305,11 +333,15 @@ def add_editor(request, assesment_id, editor_id):
     except (KeyError, Assesment.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
     
-    if user_has_edit_privilidge(request.user.id, assesment):
+    if user_has_edit_privilidge(request.user.pk, assesment):
         editor = User.objects.get(pk=editor_id)
         assesment.user_group.add(editor)
+
         # TODO make it so that the page where the user came from is remembered and that the user returns to it
-        return render(request, "base:detail", {"assesment": assesment})
+        return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+    
+    else:
+        return render(request, "errors/error.html", {"message": "Alleen de maker van een assesment kan editors toevoegen!"})
 
 # Add an editor with editing priviledges to an assesment
 @login_required 
@@ -321,9 +353,12 @@ def search_editor(request, assesment_id):
         return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
 
     if user_has_edit_privilidge(request.user.id, assesment):
+
         # Get request shows only the search_page with an form to search for users by id
         if request.method == "GET":
-            return render(request, "base/search_editor.html", {"assesment": assesment})
+            next = request.GET.get("next", reverse("base:detail", args=(assesment.id,)))
+            print(request.GET)
+            return render(request, "base/search_editor.html", {"assesment": assesment, "next": next})
 
         """
         This version of adding editors to an assesment is for prototyping only in a controlled environment.
@@ -335,27 +370,52 @@ def search_editor(request, assesment_id):
         # Post request contains the user id and reverts the user to a confirmation screen on wether they really want to add that user
         if request.method == "POST":
             form = SearchEditorForm(request.POST) 
-            # First check wether the given value is an integer            form = SearchEditorForm(request.POST)
+            next = request.POST.get("next", reverse("base:detail", args=(assesment.id,)))
+
+            # First check wether the given value is an integer
             if form.is_valid():
+
+                # Make sure the editor added isn't the same user as the user sending the request
+                if request.user.pk == form.cleaned_data["editor_id"]:
+                    return render(request, "base/search_editor.html", {"assesment": assesment, "next": next, "error": "Kan jezelf niet als editor toevoegen!"})
+
                 # Find an editor
                 try:
                     editor = User.objects.get(pk=form.cleaned_data["editor_id"]) 
 
                 # No user found with entered id
                 except (KeyError, User.DoesNotExist):
-                    return render(request, "base/search_editor.html", {"assesment": assesment, "error": "Kan geen editor vinden met dit id!"})
+                    return render(request, "base/search_editor.html", {"assesment": assesment, "next": next ,"error": "Kan geen editor vinden met dit id!"})
 
                 # User found
-                return render(request, "base/confirm_editor.html", {"assesment": assesment, "editor": editor})
+                return render(request, "base/confirm_editor.html", {"assesment": assesment, "next": next, "editor": editor})
             
             # No integer entered
             else:
-                return render(request, "base/search_editor.html", {"assesment": assesment, "error": "Ingevoerde waarde moet een heel nummer zijn!"})
+                return render(request, "base/search_editor.html", {"assesment": assesment, "next": next, "error": "Ingevoerde waarde moet een heel nummer zijn!"})
                 
+@login_required
+def delete_editor(request, assesment_id, editor_id):
+    # Find the assesment
+    try:
+        assesment = Assesment.objects.get(pk=assesment_id)
+        editor = User.objects.get(pk=editor_id)
 
+    except (KeyError, Assesment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+    
+    except (KeyError, User.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Editor bestaat niet!"})
 
-
-
+    # Check user privilidges
+    if user_has_edit_privilidge(request.user.pk, assesment):
+        
+        # Delete the editor from the assesment en return to detail page
+        assesment.user_group.remove(editor)
+        return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+    
+    else:
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om editors te verwijderen!"})
 
 @login_required
 def landing_page(request):

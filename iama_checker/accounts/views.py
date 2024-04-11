@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import RegisterForm
@@ -33,3 +34,7 @@ def register(request):
     context["form"] = form 
     return render(request, "accounts/register.html", context)
     
+@login_required
+def info(request):
+    user = User.objects.get(pk=request.user.pk)
+    return render(request, "accounts/info.html", {"user": user})

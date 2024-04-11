@@ -25,7 +25,8 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{% url 'base:detail' assesment.id %}" class="btn btn-primary">Terug</a>
+                    <input type="hidden" name="next" value={{ next }}>
+                    <a href="{{ next }}" class="btn btn-primary">Terug</a>
                     <button type="submit" class="btn btn-primary pull-right">Zoek</button>
                     <div class="clearfix"></div>
                 </form>
