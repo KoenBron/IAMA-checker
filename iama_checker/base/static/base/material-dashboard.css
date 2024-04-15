@@ -12848,3 +12848,13 @@
       padding-bottom: 10px;
     }
   /*# sourceMappingURL=material-dashboard.css.map */
+#logout-form {
+  display: inline;
+}
+#logout-form button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}

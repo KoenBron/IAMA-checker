@@ -13,7 +13,6 @@ def home(request):
     # Get all the assesments associated to the logged in user en present them descendingly
     assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
     assesments_editor_list = request.user.related_assesment.all()
-    print(assesments_editor_list)
     return render(request, "base/home.html", {"assesments_list": assesments_list, "assesments_editor_list": assesments_editor_list})
 
 # Create a new assesment
@@ -184,6 +183,7 @@ def save_answer(request, assesment_id, question_id):
         try:
             answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
             assesment = Assesment.objects.get(pk=assesment_id)
+            print("______________________")
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen vraag is niet gevonden in de db!"})
@@ -264,7 +264,7 @@ def create_add_collab(request, answer_id):
         # Get the answer and assesment
         try:
             answer = Answer.objects.get(pk=answer_id)
-            assesment = Answer.objects.get(pk=answer.assesment_id.id)
+            assesment = Assesment.objects.get(pk=answer.assesment_id.id)
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})

@@ -28,7 +28,7 @@
         </li>      
 
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}" >
+          <a class="nav-link" href="#" onclick="myFunction()" >
             <i class="material-icons">directions_run</i>
             <p>Logout</p>
           </a>
@@ -37,5 +37,14 @@
       {% endif %}
       </ul>
     </div>
+    <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+<script> 
+    function myFunction() { 
+        document.getElementById("logout-form").submit(); 
+    } 
+</script>
 
   </div>

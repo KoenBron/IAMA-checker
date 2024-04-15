@@ -19,6 +19,11 @@ class BaseViewsTestCase(TestCase):
         user = User.objects.create_user(username="Alice", password="password")
         self.client.login(username="Alice", password="password")
         return user
+
+    def create_custom_authorised_user(self, name="Defaul_user"):
+        user = User.objects.create_user(username=name, password="password")
+        self.client.login(username="Alice", password="password")
+        return user
     
     def create_assesment(self, user):
         assesment = Assesment(name="testassesment", organisation="testorg", user=user)
@@ -218,6 +223,35 @@ class EditPrivilidgeTestCase(BaseViewsTestCase):
         assesment = self.create_assesment(user)
         user2 = self.create_other_authorised_user()
         self.assertFalse(user_has_edit_privilidge(user2.id, assesment))
+
+
+class EditorAPITestCase(BaseViewsTestCase):
+
+    def test_adding_editor(self):
+        '''
+        Test wether the api succesfully adds an editor to an assesments usergroup when added by authorised user
+        '''
+        editor = self.create_other_authorised_user()
+        user = self.create_authorised_user()
+        assesment = self.create_assesment(user)
+        response = self.client.get(reverse("base:add_editor", args=(assesment.id, editor.id,)))
+        self.assertTemplateUsed("base/detail.html")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(editor, assesment.user_group.all())
+
+    def test_adding_editor_with_unauthorised_user(self):
+        '''
+        Test whether the api denies adding an editor when it's done by an unauthorised user
+        '''
+        user = self.create_authorised_user()
+        assesment = self.create_assesment(user)
+        unauthorised_user = self.create_other_authorised_user() # Login as another user that has no editing privilidges
+        response = self.client.get(reverse("base:add_editor", args=(assesment.id, unauthorised_user.id,)))
+        self.assertTemplateUsed("errors/error.html")
+        self.assertEqual(response.context["message"], "Alleen de maker van een assesment kan editors toevoegen!")
+
+
+
 
 
 
