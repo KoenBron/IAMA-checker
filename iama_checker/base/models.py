@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Helper functions to set be able to set User object as a foreignkey, could be removed when exiting debug state
 def user_sentinel():
@@ -84,6 +85,9 @@ class Answer(models.Model):
     assesment_id = models.ForeignKey(Assesment, on_delete=models.CASCADE, default=0)# Related assesment
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
+
+    # For tracking answer history
+    created = models.DateTimeField(auto_now_add=True, blank=True)
 
 # Could also have a relation to Assesment, but would be redundant info since the answer is already related
 # Don't know what is best practice here, so could be revisited later.

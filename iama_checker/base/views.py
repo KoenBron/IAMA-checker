@@ -154,7 +154,7 @@ def question_detail(request, assesment_id, question_id):
     else:
         # Check if there is already an answer
         try:
-            answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
+            answer = Answer.objects.filter(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id).latest("created")
             # Create an empty answer and save it, NOTE: not really necessary, but afraid of possible unexpected behaviour if removed
         except (KeyError, Answer.DoesNotExist):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
@@ -170,6 +170,7 @@ def question_detail(request, assesment_id, question_id):
             "reference_list": Reference.objects.filter(questions=question),
             "collab_options": get_collab_options(assesment, answer),
             "jobs": question.jobs_as_py_list(),
+            "question_history": get_answers_sorted(assesment, question),
         }
 
         return render(request, "base/q_detail.html", context)
@@ -181,15 +182,18 @@ def save_answer(request, assesment_id, question_id):
     if request.method == "POST":
         # Retrieve answer and assesment from the database
         try:
-            answer = Answer.objects.get(question_id=question_id, user__pk=request.user.pk, assesment_id=assesment_id)
             assesment = Assesment.objects.get(pk=assesment_id)
-            print("______________________")
+            question = Question.objects.get(pk=question_id)
+            answer = Answer.objects.filter(assesment_id=assesment, user=request.user, question_id=question).latest("created")
 
         except (KeyError, Answer.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Opgeslagen vraag is niet gevonden in de db!"})
+            return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})
         
         except (KeyError, Assesment.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
+        except (KeyError, Question.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Vraag kan niet gevond worden!"})
 
         # Check if user is autorised
         if not user_has_edit_privilidge(request.user.pk, assesment):
@@ -200,10 +204,15 @@ def save_answer(request, assesment_id, question_id):
 
         # Make sure the data is valid
         if answer_form.is_valid():
-            # Update answer data
-            answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
 
-            # Check if the answer state has been altered
+            # Only create a new answer if the answers content has been updated
+            if answer_form.data["answer_content"].strip() != answer.answer_content:
+                answer = Answer(assesment_id=assesment, user=request.user, question_id=question)
+
+                # Update answer data
+                answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
+
+            # Check the state of the question
 
             # Unanswered
             if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
@@ -228,7 +237,7 @@ def save_answer(request, assesment_id, question_id):
 
         # Error
         else:
-            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+            return render(request, "errors/error.html", {"message": "Voer valide data in!"})
 
 # Add an existing collaborator to a question
 @login_required

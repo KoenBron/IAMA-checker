@@ -1,6 +1,9 @@
 # File with the helpler functions for the base views
 from .models import Assesment, Question, Answer
 
+def get_answers_sorted(assesment, question):
+    return Answer.objects.filter(assesment_id=assesment, question_id=question).order_by("-created")
+
 # Check if the logged in user is the authorised to edit and view the assesment_is 
 # Return True if authorised, else False
 def user_has_edit_privilidge(user_id, assesment):
@@ -86,7 +89,7 @@ def get_complete_status(request, assesment):
     for question in question_list:
         try:
             # Match an answer based on question_id, user_id and assesment_id
-            answer = Answer.objects.get(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id)
+            answer = Answer.objects.filter(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id).latest("created")
             status = ""
 
             # Have the html stored in a string-variable to reduce html clutter in the question_index.html file
