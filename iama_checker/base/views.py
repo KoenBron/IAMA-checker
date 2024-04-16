@@ -184,7 +184,7 @@ def save_answer(request, assesment_id, question_id):
         try:
             assesment = Assesment.objects.get(pk=assesment_id)
             question = Question.objects.get(pk=question_id)
-            answer = Answer.objects.filter(assesment_id=assesment, user=request.user, question_id=question).latest("created")
+            answer = Answer.objects.filter(assesment_id=assesment, question_id=question).latest("created")
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})

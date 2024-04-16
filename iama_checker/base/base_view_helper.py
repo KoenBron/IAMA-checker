@@ -2,7 +2,10 @@
 from .models import Assesment, Question, Answer
 
 def get_answers_sorted(assesment, question):
-    return Answer.objects.filter(assesment_id=assesment, question_id=question).order_by("-created")
+    return_list = Answer.objects.filter(assesment_id=assesment, question_id=question).order_by("-created")
+    
+    # Eliminate the answers with empty answer bodies
+    return [answer for answer in return_list if answer.answer_content != ""]
 
 # Check if the logged in user is the authorised to edit and view the assesment_is 
 # Return True if authorised, else False
