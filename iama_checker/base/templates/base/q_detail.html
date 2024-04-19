@@ -49,7 +49,9 @@
             <div class="card-body">
                 <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
-                    <p> {{ question.question_text|safe }} </p>
+                    <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
+                    <p> {{ question.question_context|safe }} </p>
+                    <p> {{ question.question_instruction|safe }} </p>
                     <br>
                     {% if question.question_reference_text %}
                       <div class="rounded text-highlight-blue">

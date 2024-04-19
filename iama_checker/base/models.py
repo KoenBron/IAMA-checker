@@ -61,12 +61,14 @@ class Question(models.Model):
                 raise KeyError("Job type: " + job_type + ", loaded from fixture not recognized!")
 
     question_title = models.CharField(max_length=140, default="Question title")
-    question_text = models.TextField()# Content to display
+    question_text = models.TextField()# Actual question as found in IAMA
+    question_context = models.TextField(default="")# Context to question_text
+    question_instruction = models.TextField(default="")# Instructions on how to answer the question
     question_phase = models.IntegerField() # Phase number of the question
     question_number = models.IntegerField() # Question number in the phase
     question_warning = models.CharField(max_length=140, default=None, null=True)# Warning that tells when an answer results in question
     question_reference_text = models.CharField(max_length=400, default=None, null=True)# Text that indicates how to utulize the refernces
-    job_list = models.JSONField(default=list)
+    job_list = models.JSONField(default=list)# All jobs associated with the question
 
     # Return the json object as a list of Jobs objects for easier conversion 
     def jobs_as_py_list(self):
