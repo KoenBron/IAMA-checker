@@ -34,7 +34,6 @@ def create_assesment(request):
             return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
 
         else:
-            print(form.errors)
             # Get all the assesments associated to the logged in user en present them descendingly
             assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
             return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide dat in!"})
@@ -100,7 +99,6 @@ def detail(request, assesment_id):
         "status_list": get_complete_status(request, assesment),
         "editor_list": assesment.user_group.all(),
     }
-    print(index_context_objects["editor_list"])
 
     return render(request, "base/detail.html", {"assesment": assesment, "index_context_objects": index_context_objects})
 
