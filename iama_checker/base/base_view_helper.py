@@ -25,6 +25,9 @@ def all_answers_reviewed(assesment_id):
 
 # Generates a list of dictionaries for all jobs required in a phase
 def jobs_per_phase(phase_num):
+    if phase_num == 4:
+        # TODO: Need to gather the jobs per phase of the new phase 4 type questions
+        pass
     questions = Question.objects.filter(question_phase=phase_num)
     jobs = []
     for question in questions:
@@ -66,7 +69,7 @@ def get_collab_options(assesment, curr_answer):
 
 # Helper function to create question list objects
 def create_question_list():
-    # NOTE: color can be removed
+    # NOTE: color can be removed and most of this function is unnecessarily complecated. But I won't change it since it works, though in production this could be a lot cleaner if the corresponding template is also cleaned up
     # Background colors for phase intro list items, in case of more phases also set new colors or the code breaks!
     color = [
         "#007bc760",
@@ -77,11 +80,12 @@ def create_question_list():
     # Create a list of dicts of with the questions seperated by phase
     current_phase = 1# Counter
     questions = []# List to append
+
     # Fill each subdict with oredered questions
     while (question_list := Question.objects.filter(question_phase=current_phase).order_by("question_number")):
         questions.append({"phase_num": current_phase, "question_list": question_list, "list_item_color": color[current_phase - 1]})
-        # Go to the next phase
-        current_phase += 1 
+        current_phase += 1# Go to the next phase
+
     return questions
 
 # Retrieves the completion status as html of every answer related to an assesment

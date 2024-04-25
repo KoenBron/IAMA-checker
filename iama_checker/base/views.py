@@ -146,7 +146,12 @@ def question_detail(request, assesment_id, question_id):
             "reference_list": Reference.objects.filter(questions__question_phase=question.question_phase),
             "jobs": jobs_per_phase(question.question_phase),
         }
-        return render(request, "base/phase_intro.html", context)
+
+        if question.question_phase == 4:
+            return render(request, "base/phase_intro_4.html", context)
+
+        else:
+            return render(request, "base/phase_intro.html", context)
     
     # Render question_detail page
     else:
