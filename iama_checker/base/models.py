@@ -91,6 +91,25 @@ class Answer(models.Model):
     # For tracking answer history
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
+# The phase 4 of each assesment is structered so that all the answers and questions are assigned per
+# law. Aside form that the answer and question model remains the same
+class Law(models.Model):
+    assesment = models.ForeignKey(Assesment, on_delete=models.CASCADE)
+
+    # Law content
+    class Status(models.TextChoices):
+        CP = "CP", "complete"
+        ICP = "ICP", "incomplete"
+        CO = "CO", "cut-off"# Answering the questions for a law can be cutoff due to the content of the law
+
+    name = models.CharField(max_length=100)
+    status = models.CharField(max_length=4, choices=Status.choices, default=Status.CO)
+ 
+
+# Special model for the answers of phase 4 as they have to be referenced by the law they are linked to
+class Phas4Answer(Answer):
+    law = models.ForeignKey(Law, on_delete=models.CASCADE)
+
 # Could also have a relation to Assesment, but would be redundant info since the answer is already related
 # Don't know what is best practice here, so could be revisited later.
 class Collaborator(models.Model):

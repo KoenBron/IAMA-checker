@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm
-from .models import Assesment, Question, Answer, Collaborator, Reference
+from .models import Assesment, Question, Answer, Collaborator, Reference, Law
 from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
@@ -131,7 +131,7 @@ def question_detail(request, assesment_id, question_id):
     
     # Objects need te render the question index correctly
     index_context_objects = {
-        "question_list": request.session.get("questions", create_question_list()),
+        "question_list": Question.objects.all().order_by("pk"),
         "status_list": get_complete_status(request, assesment),
     }
 
@@ -148,10 +148,9 @@ def question_detail(request, assesment_id, question_id):
         }
 
         if question.question_phase == 4:
-            return render(request, "base/phase_intro_4.html", context)
+            context["rights_listing"] = Law.objects.filter(assesment=assesment)
 
-        else:
-            return render(request, "base/phase_intro.html", context)
+        return render(request, "base/phase_intro.html", context)
     
     # Render question_detail page
     else:

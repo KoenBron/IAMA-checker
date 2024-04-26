@@ -266,6 +266,17 @@
           }
         ]
       }
+    },
+    {
+        "model": "base.Question",
+        "pk": 10,
+        "fields": {
+            "question_title": "Mensenrechten",
+            "question_text": "<center><h4><i>Waarborgin van mensenrechten.</i></h4></center>",
+            "question_context": "",
+            "question_instruction": "",
+            "question_phase": 4,
+            "question_number": 0
+        }
     }
-
 ]
