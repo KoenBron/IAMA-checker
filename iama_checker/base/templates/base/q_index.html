@@ -2,17 +2,17 @@
 
 <div class="list-group rounded border" style="border-width:3px !important">
     <a href="{% url 'base:detail' assesment.id %}" class="list-group-item list-group-item-action list-group-item-dark">
-        Overzicht - {{ assesment.name }}
+        Overzicht assesment 
     </a>
     {% for question in question_list %}
         {% if question.question_number == 0 %}
             {% if current_question == question.id %}
                 <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-light list-group-item-action active border-bottom border-top">
-                    Intro Onderdeel {{ question.question_phase }}
+                    Onderdeel {{ question.question_phase }}: {{ question.question_title }}
                 </a>
             {% else %}
                 <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-light list-group-item-action border-bottom border-top">
-                    Intro Onderdeel {{ question.question_phase }}
+                    Onderdeel {{ question.question_phase }}: {{ question.question_title }}
                 </a>
             {% endif %}
         {% else %}

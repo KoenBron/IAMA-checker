@@ -4,8 +4,8 @@
         "pk": 1,
         "fields": {
             "question_title": "Waarom?",
-            "question_text": "<center><h4><i>Waarom wordt dit algoritme gemaakt, aangepast of ingezet?</i></h4></center>In dit onderdeel is dit de hoofdvraag die beantwoord moet worden. Het is de bedoeling om hier de discussie aan te gaan over de vragen die als eerste gesteld moeten worden wanneer er wordt overwogen om een algoritme in te zetten, aan te passen of te maken. Met deze vragen kunnen we vroegtijdig vaststellen of het een goed idee is om dit nieuwe algoritme verder te onderzoeken of te ontwikkelen en hoeft er later pas nagedacht te worden over specifiekere gevallen en randvoorwaarden.",
-            "question_context": "",
+            "question_text": "Waarom wordt dit algoritme gemaakt, aangepast of ingezet?",
+            "question_context": "In dit onderdeel is dit de hoofdvraag die beantwoord moet worden. Het is de bedoeling om hier de discussie aan te gaan over de vragen die als eerste gesteld moeten worden wanneer er wordt overwogen om een algoritme in te zetten, aan te passen of te maken. Met deze vragen kunnen we vroegtijdig vaststellen of het een goed idee is om dit nieuwe algoritme verder te onderzoeken of te ontwikkelen en hoeft er later pas nagedacht te worden over specifiekere gevallen en randvoorwaarden.",
             "question_instruction": "",
             "question_phase": 1,
             "question_number": 0
@@ -272,8 +272,8 @@
         "pk": 10,
         "fields": {
             "question_title": "Mensenrechten",
-            "question_text": "<center><h4><i>Waarborgin van mensenrechten.</i></h4></center>",
-            "question_context": "",
+            "question_text": "Het stappenplan om mensenrechten te waarborgen",
+            "question_context": "Text gaat hier om 4.1 van het stappenplan uit te leggen",
             "question_instruction": "",
             "question_phase": 4,
             "question_number": 0
