@@ -271,12 +271,24 @@
         "model": "base.Question",
         "pk": 10,
         "fields": {
-            "question_title": "Mensenrechten",
+            "question_title": "Stappenplan grondrechten",
             "question_text": "Het stappenplan om mensenrechten te waarborgen",
             "question_context": "Text gaat hier om 4.1 van het stappenplan uit te leggen",
             "question_instruction": "",
             "question_phase": 4,
             "question_number": 0
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 11,
+        "fields": {
+            "question_title": "Grondrechten",
+            "question_text": "Het stappenplan om mensenrechten te waarborgen",
+            "question_context": "Text gaat hier om 4.1 van het stappenplan uit te leggen",
+            "question_instruction": "",
+            "question_phase": 4,
+            "question_number": 1
         }
     }
 ]

@@ -103,7 +103,7 @@ class Law(models.Model):
         CO = "CO", "cut-off"# Answering the questions for a law can be cutoff due to the content of the law
 
     name = models.CharField(max_length=100)
-    status = models.CharField(max_length=4, choices=Status.choices, default=Status.CO)
+    status = models.CharField(max_length=4, choices=Status.choices, default=Status.ICP)
  
 
 # Special model for the answers of phase 4 as they have to be referenced by the law they are linked to

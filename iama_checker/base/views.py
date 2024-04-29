@@ -95,7 +95,7 @@ def detail(request, assesment_id):
 
     # Get the lists with the context for the pages
     index_context_objects = {
-        "question_list": request.session.get("questions", create_question_list()),
+        "question_list": Question.objects.all().order_by("pk"),
         "status_list": get_complete_status(request, assesment),
         "editor_list": assesment.user_group.all(),
     }
@@ -147,13 +147,25 @@ def question_detail(request, assesment_id, question_id):
             "jobs": jobs_per_phase(question.question_phase),
         }
 
-        if question.question_phase == 4:
-            context["rights_listing"] = Law.objects.filter(assesment=assesment)
 
         return render(request, "base/phase_intro.html", context)
     
     # Render question_detail page
     else:
+        context = {
+            "assesment": assesment, 
+            "question": question, 
+            "index_context_objects": index_context_objects, 
+            "buttons": buttons,
+            "reference_list": Reference.objects.filter(questions=question),
+            "jobs": question.jobs_as_py_list(),
+        }
+
+        # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
+        if question.question_phase == 4:
+            context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
+            return render(request, "base/q_detail_phase4.html", context)
+
         # Check if there is already an answer
         try:
             answer = Answer.objects.filter(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id).latest("created")
@@ -162,18 +174,11 @@ def question_detail(request, assesment_id, question_id):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
 
-        context = {
-            "assesment": assesment, 
-            "question": question, 
-            "answer": answer, 
-            "index_context_objects": index_context_objects, 
-            "buttons": buttons,
-            "collab_list": Collaborator.objects.filter(answers=answer),
-            "reference_list": Reference.objects.filter(questions=question),
-            "collab_options": get_collab_options(assesment, answer),
-            "jobs": question.jobs_as_py_list(),
-            "question_history": get_answers_sorted(assesment, question),
-        }
+        # Add necessary context for questions that are not in phase 4
+        context["answer"] = answer
+        context["collab_list"] = Collaborator.objects.filter(answers=answer)
+        context["collab_options"] = get_collab_options(assesment, answer)
+        context["questions_history"] = get_answers_sorted(assesment, question)
 
         return render(request, "base/q_detail.html", context)
 
