@@ -1,5 +1,5 @@
 from django.forms import Form, IntegerField, ModelForm, TextInput, Textarea, BooleanField
-from .models import Assesment, Collaborator
+from .models import Assesment, Collaborator, Law
 
 # The form to create or alter an assesment as a user
 class AssesmentForm(ModelForm):
@@ -34,3 +34,8 @@ class CollaboratorForm(ModelForm):
 class SearchEditorForm(Form):
     editor_id = IntegerField(required=True)
 
+# For recieving law data
+class LawForm(ModelForm):
+    class Meta:
+        model = Law
+        fields = ["name"]

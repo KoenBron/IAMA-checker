@@ -54,9 +54,7 @@
                 <br>
             </div>
         </div>
-        <div class="col">
-            {% include "includes/rights_listing.html" with law_list=law_list %}
-        </div>
+            {% include "includes/rights_listing.html" with law_list=law_list assesment=assesment %}
         <div class="row mb-4">
           <div class="col text-center">
             {% if question.id != 1 %}

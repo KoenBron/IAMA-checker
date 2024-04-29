@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm
+from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm, LawForm
 from .models import Assesment, Question, Answer, Collaborator, Reference, Law
 from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
@@ -123,7 +123,7 @@ def question_detail(request, assesment_id, question_id):
     if not user_has_edit_privilidge(request.user.pk, assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
-    # Id's of next and previous questions
+    # Id's of next and next questions
     buttons = {
         "next": question.id + 1,
         "prev": question.id - 1
@@ -164,6 +164,8 @@ def question_detail(request, assesment_id, question_id):
         # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
         if question.question_phase == 4:
             context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
+            if "error" in request.session:
+                context["error"] = request.session["error"]
             return render(request, "base/q_detail_phase4.html", context)
 
         # Check if there is already an answer
@@ -329,7 +331,7 @@ def delete_collab(request, answer_id, collab_id):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
     else:
-        # Delete relation and go back to previous page
+        # Delete relation and go back to next page
         answer.collaborator_set.remove(collab)
 
         # Check if there is any answer associated with the collaborator
@@ -436,3 +438,64 @@ def delete_editor(request, assesment_id, editor_id):
 @login_required
 def landing_page(request):
     return render(request, "base/landing_page.html")
+
+@login_required
+def create_law(request, assesment_id):
+    if request.method == "POST":
+        # Find the assesment
+        try:
+            assesment = Assesment.objects.get(pk=assesment_id)
+
+        except (KeyError, Assesment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+        
+        if not user_has_edit_privilidge(request.user.pk, assesment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om grondrechten toe te voegen!"})
+        
+        # Retrieve the post data and make it usable 
+        form = LawForm(request.POST)
+        next = request.POST.get("next", reverse("base:question_detail", args=(assesment.id, 11,)))
+
+        # Validate form data
+        if form.is_valid():
+            # Create the Law object
+            law = Law(name=form.cleaned_data["name"])
+            law.user = request.user
+            law.save()
+            return HttpResponseRedirect(next)
+
+        # Form error
+        else:
+            request.session["error"] = "Gebruiker heeft geen valide data ingevoerd!"
+            return HttpResponseRedirect(next)
+
+    else:
+        render(request, "errrors/error.html", {"message": "Alleen POST requests zijn toegestaan voor de actie!"})
+
+@login_required
+def delete_law(request, law_id):
+    if request.method == "GET":
+        # Get the law object
+        try:
+            law = Law.objects.get(pk=law_id)
+
+        except (KeyError, Law.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
+
+        # Check user privilidges
+        if not user_has_edit_privilidge(request.user.pk, law.assesment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om grondrechten te verwijderen!"})
+        
+        # Get the next address to go to after deletion
+        next = request.GET.get("next", reverse("base:question_detail", args=(law.assesment.id, 11,)))
+
+        # Delete law object
+        law.delete()
+        return HttpResponseRedirect(next)
+
+    else:
+        render(request, "errrors/error.html", {"message": "Alleen GET requests zijn toegestaan voor de actie!"})
+
+            
+    
+    

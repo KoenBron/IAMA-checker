@@ -47,7 +47,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
-                        <a href="#"><button type="button" class="btn btn-primary">Verwijder</button></a>
+                  <a href="{% url 'base:delete_law' law.id %}?next={{ request.path }}"><button type="button" class="btn btn-primary">Verwijder</button></a>
                     </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
         </table>
         </div>
         <h4 style="border-top:1px solid purple; padding-top:1em" class="text-primary">Voeg hier grondrechten toe!</h4>
-        <form action="{% url 'base:create_assesment' %}" method="post">
+        <form action="{% url 'base:create_law' assesment.id %}" method="post">
             {% csrf_token %}
             {% if error %}
             <span class="text-danger">{{ error }}</span>
@@ -70,6 +70,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" value="{{ request.path }}" name="next">
             <button type="submit" class="btn btn-primary pull-right">Voeg nieuw grondrecht toe</button>
             <div class="clearfix"></div>
         </form>
