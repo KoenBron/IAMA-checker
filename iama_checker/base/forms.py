@@ -36,6 +36,7 @@ class SearchEditorForm(Form):
 
 # For recieving law data
 class LawForm(ModelForm):
+
     class Meta:
         model = Law
         fields = ["name"]

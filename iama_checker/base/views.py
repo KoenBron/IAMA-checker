@@ -460,7 +460,7 @@ def create_law(request, assesment_id):
         if form.is_valid():
             # Create the Law object
             law = Law(name=form.cleaned_data["name"])
-            law.user = request.user
+            law.assesment = assesment
             law.save()
             return HttpResponseRedirect(next)
 
