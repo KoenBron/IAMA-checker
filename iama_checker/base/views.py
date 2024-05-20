@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm, LawForm
-from .models import Assesment, Question, Answer, Collaborator, Reference, Law
+from .models import Assesment, Phase4Answer, Question, Answer, Collaborator, Reference, Law
 from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
@@ -142,8 +142,6 @@ def question_detail(request, assesment_id, question_id):
             "question": question, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
-            # Get the references for all of the questions associated with a the requested phase
-            "reference_list": Reference.objects.filter(questions__question_phase=question.question_phase),
             "jobs": jobs_per_phase(question.question_phase),
         }
 
@@ -171,7 +169,7 @@ def question_detail(request, assesment_id, question_id):
 
         # Check if there is already an answer
         try:
-            answer = Answer.objects.filter(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id).latest("created")
+            answer = Answer.objects.filter(question_id=question.pk, assesment_id=assesment.pk).latest("created")
             # Create an empty answer and save it, NOTE: not really necessary, but afraid of possible unexpected behaviour if removed
         except (KeyError, Answer.DoesNotExist):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
@@ -181,7 +179,7 @@ def question_detail(request, assesment_id, question_id):
         context["answer"] = answer
         context["collab_list"] = Collaborator.objects.filter(answers=answer)
         context["collab_options"] = get_collab_options(assesment, answer)
-        context["questions_history"] = get_answers_sorted(assesment, question)
+        context["question_history"] = get_answers_sorted(assesment, question)
 
         return render(request, "base/q_detail.html", context)
 
@@ -516,18 +514,44 @@ def law_detail(request, law_id, law_question_id):
     if not user_has_edit_privilidge(request.user.pk, law.assesment):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
 
+    # All the context send to the template goes in this dict
+    context = {}
+
     # Id's of next and next questions
-    buttons = {
+    context["buttons"]= {
         "next": question.id + 1,
         "prev": question.id - 1
     }
 
     # Objects need te render the question index correctly
-    index_context_objects = {
-        "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
-        "status_list": get_complete_status(request, law.assesment),# TODO: Change this to only get the complete status of the answers for the law questions
+    context["index_context_objects"] = {
+        "question_list": Question.objects.filter(question_phase=5).order_by("pk"),
+        "status_list": get_law_complet_status(request, law.assesment)
     }
 
-    return render(request, "base/q_detail.html")
+    # Get context that helps display question information
+    context["assesment"] = law.assesment
+    context["question"] = question
+    context["reference_list"] = Reference.objects.filter(questions=question)
+    context["jobs"] = question.jobs_as_py_list()
+
+    # Get the newest answer
+    try:
+        print(law.assesment)
+        answer = Phase4Answer.objects.filter(question_id=question, assesment_id=law.assesment, law=law).latest("created")
+    # Maybe remove this, don't know could break but there is definitely a better way to do this
+    except (KeyError, Phase4Answer.DoesNotExist):
+        answer = Phase4Answer(assesment_id=law.assesment, law=law, question_id=question, user=request.user, status=Answer.Status.UA)
+        answer.save()
+    context["answer"] = answer
+
+    # Context for the collaborators function
+    context["collab_list"] = Collaborator.objects.filter(answers=answer)
+    context["collab_options"] = get_collab_options(law.assesment, answer)
+
+    # Context for the question history
+    context["question_history"] = get_answers_sorted(law.assesment, question)
+
+    return render(request, "base/law_detail.html", context)
     
     

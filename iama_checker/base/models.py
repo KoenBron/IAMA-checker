@@ -107,7 +107,7 @@ class Law(models.Model):
  
 
 # Special model for the answers of phase 4 as they have to be referenced by the law they are linked to
-class Phas4Answer(Answer):
+class Phase4Answer(Answer):
     law = models.ForeignKey(Law, on_delete=models.CASCADE)
 
 # Could also have a relation to Assesment, but would be redundant info since the answer is already related

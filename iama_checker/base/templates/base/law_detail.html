@@ -106,7 +106,7 @@
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
     </div>
     <div class="col-md-3">
-        {% include 'base/q_index.html' with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
+      {% include 'includes/law_index.html' with assesment=assesment current_question=question.id question_list=index_context_objects.question_list status_list=index_context_objects.status_list %}
     </div>
 </div>
 {% endblock %}

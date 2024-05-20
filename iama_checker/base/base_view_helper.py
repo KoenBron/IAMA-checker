@@ -1,5 +1,5 @@
 # File with the helpler functions for the base views
-from .models import Assesment, Question, Answer
+from .models import Assesment, Phase4Answer, Question, Answer
 
 def get_answers_sorted(assesment, question):
     return_list = Answer.objects.filter(assesment_id=assesment, question_id=question).order_by("-created")
@@ -72,7 +72,7 @@ def get_complete_status(request, assesment):
     for question in question_list:
         try:
             # Match an answer based on question_id, user_id and assesment_id
-            answer = Answer.objects.filter(question_id=question.pk, user__pk=request.user.pk, assesment_id=assesment.id).latest("created")
+            answer = Answer.objects.filter(question_id=question.pk, assesment_id=assesment.id).latest("created")
             status = ""
 
             # Have the html stored in a string-variable to reduce html clutter in the question_index.html file
@@ -90,5 +90,30 @@ def get_complete_status(request, assesment):
             status = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
         # Append dict
         status_list[str(question.id)] = status
+
+    return status_list
+
+def get_law_complet_status(request, assesment):
+    questions = Question.objects.filter(question_phase=5)
+    status_list = {}
+    for question in questions:
+        try:
+            # Match an answer based on question_id, user_id and assesment_id
+            answer = Phase4Answer.objects.filter(question_id=question, assesment_id=assesment).latest("created")
+
+            # Have the html stored in a string-variable to reduce html clutter in the question_index.html file
+            match answer.status:
+                case Answer.Status.UA:
+                    status_list[str(question.id)] = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
+                
+                case Answer.Status.AW:
+                    status_list[str(question.id)] = "<span class='badge badge-warning badge-pill'>Beantwoord</span>"
+
+                case Answer.Status.RV:
+                    status_list[str(question.id)] = "<span class='badge badge-success badge-pill'>Reviewed</span>"
+
+        # Answers are created when the related question_page is first visited so, missing object also means unanswered 
+        except (KeyError, Answer.DoesNotExist):
+            status_list[str(question.id)] = "<span class='badge badge-danger badge-pill'>Onbeantwoord</span>"
 
     return status_list

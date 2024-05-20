@@ -2,7 +2,7 @@
 
 <div class="list-group rounded border" style="border-width:3px !important">
     <a href="{% url 'base:detail' assesment.id %}" class="list-group-item list-group-item-action list-group-item-dark">
-        Overzicht assesment 
+        Terug naar assesment overzicht
     </a>
     {% for question in question_list %}
         {% if question.question_number == 0 %}
