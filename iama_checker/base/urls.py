@@ -22,5 +22,6 @@ urlpatterns = [
     path("delete_editor/<int:assesment_id>/<int:editor_id>", views.delete_editor, name="delete_editor"),
     path("create_law/<int:assesment_id>", views.create_law, name="create_law"),
     path("delete_law/<int:law_id>", views.delete_law, name="delete_law"),
-    path("law/<int:law_id>/<int:law_question_id>", views.law_detail, name="law_detail")
+    path("law/<int:law_id>/<int:law_question_id>", views.law_detail, name="law_detail"),
+    path("law/<int:law_id>/<int:law_question_id>", views.save_law_answer, name="save_law_answer"),
 ]

@@ -246,6 +246,8 @@ def save_answer(request, assesment_id, question_id):
         # Error
         else:
             return render(request, "errors/error.html", {"message": "Voer valide data in!"})
+    else:
+        return render(request, "errors/error.html", {"message": "Alleen POST request toegestaan!"})
 
 # Add an existing collaborator to a question
 @login_required
@@ -554,4 +556,58 @@ def law_detail(request, law_id, law_question_id):
 
     return render(request, "base/law_detail.html", context)
     
-    
+@login_required
+def save_law_answer(request, law_id, law_question_id):
+    if request.method == "POST":
+        try:
+            law = Law.objects.get(pk=law_id)
+            answer = Phase4Answer.objects.filter(law=law, question_id=law_question_id).latest("created")
+
+        except (KeyError, Answer.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})
+        
+        except (KeyError, Law.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+
+
+        # Check if user is autorised
+        if not user_has_edit_privilidge(request.user.pk, law.assesment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+        
+        # Put the POST request data into form
+        answer_form = AnswerForm(request.POST)
+
+        # Make sure the data is valid
+        if answer_form.is_valid():
+
+            # Only create a new answer if the answers content has been updated
+            if answer_form.data["answer_content"].strip() != answer.answer_content:
+                answer = Phase4Answer(assesment_id=assesment, user=request.user, question_id=question)
+                answer.law = law
+
+                # Update answer data
+                answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
+
+            # Check the state of the question
+
+            # Unanswered
+            if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
+                answer.status = Answer.Status.UA
+
+            # Reviewed
+            elif answer_form.cleaned_data["reviewed"]:
+                answer.status = Answer.Status.RV
+
+            # Answered
+            else:
+                answer.status = Answer.Status.AW
+
+            answer.save()
+
+            # TODO: Check the completion status of the law answering   
+            # Return to question detail page with updated answer
+            return HttpResponseRedirect(reverse("base:law_detail", args=(law_id, law_question_id,)))
+
+        # Error
+        else:
+            return render(request, "errors/error.html", {"message": "Voer valide data in!"})
