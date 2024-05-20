@@ -1,0 +1,112 @@
+{% extends "base/base.html" %}
+
+{% load base_extra %}
+
+{% block navigation %}
+  <a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}</a>
+{% endblock %}
+
+{% block add_editor %}
+{% include "includes/question_history.html" with question=question question_history=question_history %}
+<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" class="btn btn-primary btn-round">Voeg editor toe aan assemsent +</a>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7 text-center">
+        <h2 class="text-primary">Vraag {{ question.question_phase }}.{{ question.question_number }} </h2>
+    </div>
+    <div class="col"></div>
+</div>
+<div class="row">
+  <div class="col-md-7 offset-md-2">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="text-primary"><b>Betrokken beroepen:</b></h6>
+        {% for job in jobs %}
+            {% if job.priority == 1 %}
+                <span class="badge badge-danger" style="font-size: 13px">{{ job.description }}</span>
+            {% else %}
+                <span class="badge badge-warning" style="font-size: 13px">{{ job.description }}</span>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col">
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-2" style="padding: 0;">
+        {% include 'base/collaborators.html' with collab_list=collab_list assesment_id=assesment.id question_id=question.id answer_id=answer.id collab_options=collab_options %}
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title"> {{ question.question_title }} </h4>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
+                    {% csrf_token %}
+                    <center>
+                        <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
+                    </center>
+                    <div class="text-center">
+                        <button class="btn btn-info" style="padding-left:5em;padding-right:5em;" type="button" data-toggle="collapse" data-target="#question_context">Vraag context en uitleg</button>
+                    </div>
+                    <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
+                        <p style="margin: 1em"> {{ question.question_context|safe }} </p>
+                    </div>
+                    <p style="margin-top:1em"> {{ question.question_instruction|safe }} </p>
+                    <br>
+                    {% if question.question_reference_text %}
+                      <div class="rounded text-highlight-blue">
+                        <h6 class="text-primary">Externe literatuur</h6>
+                        <p> {{ question.question_reference_text|safe }} </p>
+                      </div>
+                    {% endif %}
+                    {% if question.question_warning %}
+                      <div class="jumbotron">
+                        <h3 class="display-4">Belangrijk!</h3>
+                        <p class="lead">{{ question.question_warning }}</p>
+                      </div>
+                    {% endif %}
+                    <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                            <div class="form-check">
+                                <label class="form-check-label" for="reviewed"> Reviewed en Compleet
+                                {% if answer.status|is_reviewed %}
+                                    <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed" checked>
+                                {% else %}
+                                    <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed">
+                                {% endif %}
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col text-center">
+            {% if question.id != 1 %}
+                <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+            {% endif %}
+            <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
+          </div>
+        </div>
+        {% include 'includes/reference_list.html' with reference_list=reference_list %}
+    </div>
+    <div class="col-md-3">
+        {% include 'base/q_index.html' with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
+    </div>
+</div>
+{% endblock %}

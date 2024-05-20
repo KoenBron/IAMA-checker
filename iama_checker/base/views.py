@@ -95,7 +95,7 @@ def detail(request, assesment_id):
 
     # Get the lists with the context for the pages
     index_context_objects = {
-        "question_list": Question.objects.all().order_by("pk"),
+        "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
         "status_list": get_complete_status(request, assesment),
         "editor_list": assesment.user_group.all(),
     }
@@ -131,7 +131,7 @@ def question_detail(request, assesment_id, question_id):
     
     # Objects need te render the question index correctly
     index_context_objects = {
-        "question_list": Question.objects.all().order_by("pk"),
+        "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
         "status_list": get_complete_status(request, assesment),
     }
 
@@ -166,6 +166,7 @@ def question_detail(request, assesment_id, question_id):
             context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
             if "error" in request.session:
                 context["error"] = request.session["error"]
+                del request.session["error"]
             return render(request, "base/q_detail_phase4.html", context)
 
         # Check if there is already an answer
@@ -497,5 +498,36 @@ def delete_law(request, law_id):
         render(request, "errrors/error.html", {"message": "Alleen GET requests zijn toegestaan voor de actie!"})
 
             
+@login_required
+def law_detail(request, law_id, law_question_id):
+    try:
+        law = Law.objects.get(pk=law_id)
+        question = Question.objects.get(pk=law_question_id) 
+
+    # No law object found in db
+    except (KeyError, Law.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
+
+    # No question object found in db
+    except (KeyError, Question.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
+
+    # Check user authority 
+    if not user_has_edit_privilidge(request.user.pk, law.assesment):
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+
+    # Id's of next and next questions
+    buttons = {
+        "next": question.id + 1,
+        "prev": question.id - 1
+    }
+
+    # Objects need te render the question index correctly
+    index_context_objects = {
+        "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
+        "status_list": get_complete_status(request, law.assesment),# TODO: Change this to only get the complete status of the answers for the law questions
+    }
+
+    return render(request, "base/q_detail.html")
     
     

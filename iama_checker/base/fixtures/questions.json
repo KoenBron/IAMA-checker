@@ -290,5 +290,29 @@
             "question_phase": 4,
             "question_number": 1
         }
+    },
+    {
+        "model": "base.Question",
+        "pk": 12,
+        "fields": {
+            "question_title": "Vraag 1",
+            "question_text": "Hier komt de eerste vraag van al deze zooi",
+            "question_context": "Context voor de eerste vraag",
+            "question_instruction": "Dit moet het antwoord bevatten",
+            "question_phase": 5,
+            "question_number": 1
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 13,
+        "fields": {
+            "question_title": "Vraag 2",
+            "question_text": "Hier komt de 2e Vraag",
+            "question_context": "Context voor de tweede vraag",
+            "question_instruction": "Dit zijn de instructies voor de derde vraag",
+            "question_phase": 5,
+            "question_number": 2
+        }
     }
 ]

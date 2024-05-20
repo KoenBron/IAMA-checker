@@ -67,7 +67,7 @@ def get_collab_options(assesment, curr_answer):
 # Retrieves the completion status as html of every answer related to an assesment
 # and puts them in a dictionary that is returned
 def get_complete_status(request, assesment):
-    question_list = Question.objects.all()
+    question_list = Question.objects.exclude(question_phase=5)
     status_list = {}
     for question in question_list:
         try:
