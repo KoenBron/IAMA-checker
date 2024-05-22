@@ -75,7 +75,7 @@
                     <div class="dropdown-menu">
                         {% if collab_options %}
                             {% for option in collab_options %}
-                                <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}"> {{option.name}}</a>
+                            <a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}?next={{ request.path }}"> {{option.name}}</a>
                             {% endfor %} 
                         {% else %}
                             <a class="dropdown-item disabled">Geen andere medewerkers</a>

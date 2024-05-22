@@ -272,8 +272,9 @@ def add_collab(request, answer_id, collab_id):
 
     # Add it to the many-to-many relation
     answer.collaborator_set.add(collab)
+    next = request.GET.get("next", reverse('base:question_detail', args=(answer.assesment_id.id, answer.question_id.id,)))
 
-    return HttpResponseRedirect(reverse("base:question_detail", args=(answer.assesment_id.id, answer.question_id.id,)))
+    return HttpResponseRedirect(next)
 
 # Create a collaborator and add it to the current question
 @login_required
@@ -335,7 +336,7 @@ def delete_collab(request, answer_id, collab_id):
         answer.collaborator_set.remove(collab)
 
         # Check if there is any answer associated with the collaborator
-        if collab.answers is None:
+        if not collab.answers.exists():
             collab.delete()# No answers associated, delete the collaborator
 
         return HttpResponseRedirect(request.GET.get("next", "/"))
