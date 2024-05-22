@@ -47,7 +47,7 @@
                 <h4 class="card-title"> {{ question.question_title }} </h4>
             </div>
             <div class="card-body">
-                <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
+                <form action="{% url 'base:save_law_answer' law.id question.id %}" method="post">
                     {% csrf_token %}
                     <center>
                         <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
@@ -98,15 +98,15 @@
         <div class="row mb-4">
           <div class="col text-center">
             {% if question.id != 1 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+                <a href="{% url 'base:law_detail' law.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
             {% endif %}
-            <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
+            <a href="{% url 'base:law_detail' law.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
           </div>
         </div>
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
     </div>
     <div class="col-md-3">
-      {% include 'includes/law_index.html' with assesment=assesment current_question=question.id question_list=index_context_objects.question_list status_list=index_context_objects.status_list %}
+      {% include 'includes/law_index.html' with assesment=assesment current_question=question.id question_list=index_context_objects.question_list status_list=index_context_objects.status_list law=law %}
     </div>
 </div>
 {% endblock %}

@@ -22,7 +22,7 @@
             {% for law in law_list %}
             <tr>
                 <td>
-                    <a class="btn btn-primary" href="{% url 'base:law_detail' law.id 12 %}">{{ law.name }}</a> 
+                    <a class="btn btn-primary" href="{% url 'base:law_detail' law.id 11 %}">{{ law.name }}</a> 
                 </td>
                 <td>
                     {{ law.status|get_law_status|safe }}

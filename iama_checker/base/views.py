@@ -145,6 +145,13 @@ def question_detail(request, assesment_id, question_id):
             "jobs": jobs_per_phase(question.question_phase),
         }
 
+        # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
+        if question.question_phase == 4:
+            context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
+            if "error" in request.session:
+                context["error"] = request.session["error"]
+                del request.session["error"]
+            return render(request, "base/q_detail_phase4.html", context)
 
         return render(request, "base/phase_intro.html", context)
     
@@ -158,14 +165,6 @@ def question_detail(request, assesment_id, question_id):
             "reference_list": Reference.objects.filter(questions=question),
             "jobs": question.jobs_as_py_list(),
         }
-
-        # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
-        if question.question_phase == 4:
-            context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
-            if "error" in request.session:
-                context["error"] = request.session["error"]
-                del request.session["error"]
-            return render(request, "base/q_detail_phase4.html", context)
 
         # Check if there is already an answer
         try:
@@ -376,7 +375,6 @@ def search_editor(request, assesment_id):
         # Get request shows only the search_page with an form to search for users by id
         if request.method == "GET":
             next = request.GET.get("next", reverse("base:detail", args=(assesment.id,)))
-            print(request.GET)
             return render(request, "base/search_editor.html", {"assesment": assesment, "next": next})
 
         """
@@ -455,7 +453,7 @@ def create_law(request, assesment_id):
         
         # Retrieve the post data and make it usable 
         form = LawForm(request.POST)
-        next = request.POST.get("next", reverse("base:question_detail", args=(assesment.id, 11,)))
+        next = request.POST.get("next", reverse("base:question_detail", args=(assesment.id, 10,)))
 
         # Validate form data
         if form.is_valid():
@@ -533,13 +531,13 @@ def law_detail(request, law_id, law_question_id):
 
     # Get context that helps display question information
     context["assesment"] = law.assesment
+    context["law"] = law
     context["question"] = question
     context["reference_list"] = Reference.objects.filter(questions=question)
     context["jobs"] = question.jobs_as_py_list()
 
     # Get the newest answer
     try:
-        print(law.assesment)
         answer = Phase4Answer.objects.filter(question_id=question, assesment_id=law.assesment, law=law).latest("created")
     # Maybe remove this, don't know could break but there is definitely a better way to do this
     except (KeyError, Phase4Answer.DoesNotExist):
@@ -562,6 +560,7 @@ def save_law_answer(request, law_id, law_question_id):
         try:
             law = Law.objects.get(pk=law_id)
             answer = Phase4Answer.objects.filter(law=law, question_id=law_question_id).latest("created")
+            question = Question.objects.get(pk=law_question_id)
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})
@@ -582,8 +581,7 @@ def save_law_answer(request, law_id, law_question_id):
 
             # Only create a new answer if the answers content has been updated
             if answer_form.data["answer_content"].strip() != answer.answer_content:
-                answer = Phase4Answer(assesment_id=assesment, user=request.user, question_id=question)
-                answer.law = law
+                answer = Phase4Answer(assesment_id=law.assesment, user=request.user, question_id=question, law=law)
 
                 # Update answer data
                 answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
@@ -591,7 +589,7 @@ def save_law_answer(request, law_id, law_question_id):
             # Check the state of the question
 
             # Unanswered
-            if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
+            if answer.answer_content == "":# is_valid drops answer content from cleaned data?????
                 answer.status = Answer.Status.UA
 
             # Reviewed

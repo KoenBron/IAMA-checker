@@ -283,18 +283,6 @@
         "model": "base.Question",
         "pk": 11,
         "fields": {
-            "question_title": "Grondrechten",
-            "question_text": "Het stappenplan om mensenrechten te waarborgen",
-            "question_context": "Text gaat hier om 4.1 van het stappenplan uit te leggen",
-            "question_instruction": "",
-            "question_phase": 4,
-            "question_number": 1
-        }
-    },
-    {
-        "model": "base.Question",
-        "pk": 12,
-        "fields": {
             "question_title": "Vraag 1",
             "question_text": "Hier komt de eerste vraag van al deze zooi",
             "question_context": "Context voor de eerste vraag",
@@ -305,7 +293,7 @@
     },
     {
         "model": "base.Question",
-        "pk": 13,
+        "pk": 12,
         "fields": {
             "question_title": "Vraag 2",
             "question_text": "Hier komt de 2e Vraag",

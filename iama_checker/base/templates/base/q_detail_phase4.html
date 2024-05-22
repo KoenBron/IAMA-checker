@@ -54,15 +54,7 @@
                 <br>
             </div>
         </div>
-            {% include "includes/rights_listing.html" with law_list=law_list assesment=assesment %}
-        <div class="row mb-4">
-          <div class="col text-center">
-            {% if question.id != 1 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
-            {% endif %}
-            <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
-          </div>
-        </div>
+        {% include 'includes/rights_listing.html' with law_list=law_list assesment=assesment %}
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
     </div>
     <div class="col-md-3">
