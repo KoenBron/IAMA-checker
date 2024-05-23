@@ -52,13 +52,13 @@ def get_collab_options(assesment, curr_answer):
     return_collab = []
     # Get all the answers associated with the assesment
     answers = Answer.objects.filter(assesment_id=assesment.pk)
+    exclude = curr_answer.collaborator_set.all()
 
     # Get all the collaborators
     for answer in answers:
-        # List comprehension to add only collabs not already present in the answer
+        # List comprehension to add only collabs not already present in the answer and not already added to the list of potential collabs
         options = answer.collaborator_set.all()
-        exclude = curr_answer.collaborator_set.all()
-        to_extend = [option for option in options if option not in exclude]
+        to_extend = [option for option in options if option not in exclude and option not in return_collab]
 
         return_collab.extend(to_extend)
 

@@ -178,6 +178,7 @@ def question_detail(request, assesment_id, question_id):
         context["answer"] = answer
         context["collab_list"] = Collaborator.objects.filter(answers=answer)
         context["collab_options"] = get_collab_options(assesment, answer)
+        print(context["collab_options"])
         context["question_history"] = get_answers_sorted(assesment, question)
 
         return render(request, "base/q_detail.html", context)
