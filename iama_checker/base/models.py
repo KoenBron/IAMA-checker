@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import wrap
 from django.utils.timezone import now
 
 # Helper functions to set be able to set User object as a foreignkey, could be removed when exiting debug state
@@ -125,3 +126,10 @@ class Reference(models.Model):
     description = models.TextField()
     url = models.URLField(max_length=128)
     questions = models.ManyToManyField(Question)
+
+class LawCluster(models.Model):
+    description = models.TextField()
+    cluster_name = models.CharField(max_length=100, default="Default cluster")
+    subclusters = models.JSONField(null=True)
+
+

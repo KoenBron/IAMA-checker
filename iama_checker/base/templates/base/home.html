@@ -58,7 +58,7 @@ Overzicht assesments
                                 {% endif %}
                             </td>
                             <td>
-                              <a data-toggle="modal", data-target=#delete_modal{{ item.id }} href="#">
+                              <a data-bs-toggle="modal", data-bs-target=#delete_modal{{ item.id }} href="#">
                                   <i class="material-icons">delete</i>
                               </a>
                             </td>
@@ -69,7 +69,7 @@ Overzicht assesments
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Assesment permanent verwijderen?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -77,7 +77,7 @@ Overzicht assesments
                                     Weet je zeker dat je {{ item.name }} wil verwijderen? 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
                                     <a href="{% url 'base:delete_assesment' item.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
                                 </div>
                                 </div>
@@ -174,7 +174,7 @@ Overzicht assesments
                                 {% endif %}
                             </td>
                             <td>
-                              <a data-toggle="modal", data-target=#delete_editor_modal{{ editor_item.id }} href="#">
+                              <a data-bs-toggle="modal", data-bs-target=#delete_editor_modal{{ editor_item.id }} href="#">
                                   <i class="material-icons">delete</i>
                               </a>
                             </td>
@@ -185,7 +185,7 @@ Overzicht assesments
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Jezelf als editor verwijderen?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -193,7 +193,7 @@ Overzicht assesments
                                     Weet je zeker dat je jezelf als editor van {{ editor_item.name }} wil verwijderen? 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
                                     <a href="{% url 'base:delete_editor' editor_item.id request.user.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
                                 </div>
                                 </div>

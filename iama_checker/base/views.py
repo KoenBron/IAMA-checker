@@ -148,6 +148,7 @@ def question_detail(request, assesment_id, question_id):
         # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
         if question.question_phase == 4:
             context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
+            context["jobs"] = jobs_per_phase(5)# Again remeber that phase 5 in the file questions.json refers to the subquestions in phase 4 for convenience
             if "error" in request.session:
                 context["error"] = request.session["error"]
                 del request.session["error"]
@@ -178,7 +179,6 @@ def question_detail(request, assesment_id, question_id):
         context["answer"] = answer
         context["collab_list"] = Collaborator.objects.filter(answers=answer)
         context["collab_options"] = get_collab_options(assesment, answer)
-        print(context["collab_options"])
         context["question_history"] = get_answers_sorted(assesment, question)
 
         return render(request, "base/q_detail.html", context)
@@ -537,6 +537,7 @@ def law_detail(request, law_id, law_question_id):
     context["question"] = question
     context["reference_list"] = Reference.objects.filter(questions=question)
     context["jobs"] = question.jobs_as_py_list()
+    context["law_clusters"] = True
 
     # Get the newest answer
     try:

@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-7 text-center">
-        <h2 class="text-primary">Vraag {{ question.question_phase }}.{{ question.question_number }} </h2>
+        <h2>Onderdeel {{ question.question_phase }}: {{ question.question_title }}</h2>
     </div>
     <div class="col"></div>
 </div>
@@ -38,22 +38,51 @@
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title"> {{ question.question_title }} </h4>
+                <h4 class="card-title"> {{ question.question_text }} </h4>
             </div>
             <div class="card-body">
-                <center>
-                    <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
-                </center>
                 <div class="text-center">
-                    <button class="btn btn-info" style="padding-left:5em;padding-right:5em;" type="button" data-toggle="collapse" data-target="#question_context">Vraag context en uitleg</button>
+                    <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Stappenplan context en uitleg</button>
                 </div>
                 <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
                     <p style="margin: 1em"> {{ question.question_context|safe }} </p>
                 </div>
-                <p style="margin-top:1em"> {{ question.question_instruction|safe }} </p>
-                <br>
+                <p style="margin-top: 0.5em">{{ question.question_instruction|safe }}</p>
             </div>
         </div>
+        <div class="card" style="margin-top: 60px; margin-bottom: 60px">
+          <div class="card-header card-header-rose">
+            <h4 class="card-title">Disciplines betrokken bij vragen</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th class="text-center">Vragen</th>
+                  <th>Baanbeschrijving</th>
+                </thead> 
+                <tbody>
+                  {% for job in jobs %}
+                    <tr>
+                      <td class="text-center">
+                        {{ job.q_number }}
+                      </td>
+                      <td>
+                        {% for dicipline in job.job_list %}
+                          {% if dicipline.priority == 1 %}
+                            <span class="badge badge-danger" style="font-size: 15px;">{{ dicipline.description }}</span>
+                          {% else %}
+                            <span class="badge badge-warning" style="font-size: 15px;">{{ dicipline.description }}</span>
+                          {% endif %}
+                        {% endfor %} 
+                      </td>
+                    </tr>  
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> 
         {% include 'includes/rights_listing.html' with law_list=law_list assesment=assesment %}
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
     </div>

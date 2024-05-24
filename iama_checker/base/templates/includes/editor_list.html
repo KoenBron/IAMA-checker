@@ -11,7 +11,7 @@
             </div>
             
             <div class="d-flex align-items-center">
-                <a href="#" data-toggle="modal" data-target="#delete_modal{{ editor.id }}">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#delete_modal{{ editor.id }}">
                     <i class="material-icons">delete</i>
                 </a>
                 <div class="dropdown-menu">
@@ -24,7 +24,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Waarschuwing - permanent verwijderen?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -32,7 +32,7 @@
                     Weet je zeker dat je {{ editor.name }} als editor wil verwijderen?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
                     <a href="{% url 'base:delete_editor' assesment.id editor.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
                 </div>
                 </div>
