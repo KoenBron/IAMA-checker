@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm, LawForm
-from .models import Assesment, Phase4Answer, Question, Answer, Collaborator, Reference, Law
+from .models import Assesment, LawCluster, Phase4Answer, Question, Answer, Collaborator, Reference, Law
 from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
@@ -537,7 +537,10 @@ def law_detail(request, law_id, law_question_id):
     context["question"] = question
     context["reference_list"] = Reference.objects.filter(questions=question)
     context["jobs"] = question.jobs_as_py_list()
-    context["law_clusters"] = True
+
+    # This subquestion of phase4 has lawclusters as appendix
+    if law_question_id ==  11:
+        context["law_clusters"] = LawCluster.objects.all()
 
     # Get the newest answer
     try:

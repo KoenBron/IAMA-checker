@@ -1,43 +1,46 @@
 {% load static %}
+{% load base_extra %}
 <div class="modal fade" id="law_clusters" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Bijlage grondwetten clusters</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <div class="row">
+          <nav id="cluster-navbar" class="navbar bg-body-tertiary px-3 mb-3">
+            <ul class="nav nav-pills">
+              {% for law_cluster in law_clusters %}
+                <li class="nav-item border rounded">
+                  <a class="nav-link" href="#scrollspyHeading{{ law_cluster.pk }}">{{ law_cluster.cluster_name }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
       </div>
-      <div class="modal-body">
-          <table class="table table-striped-columns">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="modal-body scrollspy-example bg-body-tertiary p-3 rounded-2" data-bs-spy="scroll" data-bs-target="#cluster_navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+          {% for law_cluster in law_clusters %}
+        <h2 id="scrollspyHeading{{ law_cluster.id }}">{{ law_cluster.cluster_name }}</h2>
+            <p>{{law_cluster.description }}</p>
+            <table class="table table-striped-columns border-left border-right">
+              <thead>
+                <tr>
+                  <th scope="col">Cluster</th>
+                  <th scope="col">Voorbeelden</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for subcluster in law_cluster.subclusters %}
+                  <tr>
+                    <td>{{ subcluster|cluster:0|safe }}</td>
+                    <td>{{ subcluster|cluster:1|safe }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        {% endfor %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

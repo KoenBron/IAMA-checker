@@ -1,0 +1,52 @@
+[
+   {
+      "model":"base.lawcluster",
+      "pk":1,
+      "fields":{
+         "cluster_name":"Aan de persoon gerelateerde rechten",
+         "description":"Tijdelijke beschrijving",
+         "subclusters":[
+            {
+               "subcluster_name":"Persoonlijke identiteit /persoonlijkheidsrechten /persoonlijke autonomie",
+               "examples":"- Recht op zelfontplooiing<br>- Vrijheid om het eigen gedrag te bepalen<br>- Vrijheid om eigen uiterlijk vorm te geven<br>- Vrije beroepskeuze, onderwijskeuze, opleidingskeuze etc.<br>- Respect voor de eigen identiteit (genderidentiteit / seksuele identiteit etc.)<br>- Reproductieve rechten<br>- Recht op kennis van de eigen afstamming<br>- Naamrechten<br>- Contractvrijheid<br>"
+            },
+            {
+               "subcluster_name":"Sociale identiteit / relationele privacyrechten / relationeleautonomie",
+               "examples":"- Recht op respect voor familierelaties / gezinsleven<br>- Recht om te huwen<br>- Recht op gezinsvorming<br>- Recht om seksuele relaties aan te gaan<br>- Recht om professionele/zakelijke relaties aan te gaan<br>- Recht op toegang tot de arbeid/professie<br>- Recht op toegang tot een land / verblijfsrechten<br>- Recht op onderwijs<br>"
+            },
+            {
+               "subcluster_name":"Lichamelijke en geestelijke integriteit",
+               "examples":"- Gewetensvrijheid / vrijheid van gedachte<br>- Recht op leven<br>- Verbod van foltering / onmenselijke of vernederende behandeling en bestraffing<br>- Verbod van refoulement<br>- Verbod op fouilleren: lijfsvisitatie<br>- Toestemmingsvereiste bij medische behandeling en onderzoek<br>- Recht op toegang tot de gezondheidszorg<br>- Respect voor handelingsbekwaamheid<br>- Recht op vrijwillige levensbe\u00ebindiging<br>- Recht op abortus<br>- Verbod op (moderne) slavernij/dienstbaarheid/gedwongen arbeid/mensenhandel/uitbuiting<br>"
+            },
+            {
+               "subcluster_name":"Gegevensbescherming / informationele privacyrechten",
+               "examples":"- Bescherming tegen ongeautoriseerde/onzorgvuldige gegevensverwerking<br>- Recht op toegang tot gegevens<br>- Recht op correctie van gegevens<br>- Recht op vergetelheid<br>"
+            },
+            {
+               "subcluster_name":"Communicatierechten",
+               "examples":"- Briefgeheim<br>- Bescherming tegen afluisteren/aftappen/interceptie<br>- Verbod op ongeautoriseerde doorgifte van communicatiegegevens<br>- Vertrouwelijkheid communicatie met advocaat, arts etc.<br>"
+            },
+            {
+               "subcluster_name":"Ruimtelijke privacyrechten",
+               "examples":"- Bewegingsvrijheid<br>- Habeas-corpusrechten (verbod van vrijheidsbeneming, huisarrest etc.)<br>- Vrije woonplaatskeuze<br>- Vrijverkeersrechten (EU-recht)<br>- Recht om het land te verlaten<br>- Verbod op ongeautoriseerd volgen van personen (GPS-tracker)<br>- Verbod op ongeautoriseerd cameratoezicht<br>"
+            },
+            {
+               "subcluster_name":"Eigendomsgebonden privacyrechten",
+               "examples":"- Huisrecht (bescherming tegen invallen/doorzoekingen)<br>- Vrije beschikking over eigendom<br>- Bescherming tegen onteigening<br>- Bescherming tegen doorzoeking kleding/tassen/laptop/computer etc.<br>- Intellectueel-eigendomsrechten<br>"
+            },
+            {
+               "subcluster_name":"Reputatierechten",
+               "examples":"- Verbod van strafbare belediging / smaad / laster<br>- Bescherming van eer en goede naam<br>"
+            },
+            {
+               "subcluster_name":"Gezonde leefomgeving",
+               "examples":"- Recht op duurzame ontwikkeling<br>- Recht op milieubescherming<br>- Bescherming tegen uitstoot van schadelijke stoffen<br>- Recht op toegang tot schoon drinkwater<br>- Recht op toegang tot sanitatie (riolering)<br>- Recht op toegang tot energie<br>"
+            },
+            {
+               "subcluster_name":"Sociale en economische rechten",
+               "examples":"- Recht op een minimum bestaansniveau<br>- Recht op sociale zekerheid en bijstand<br>- Toegang tot onderwijs<br>"
+            }
+         ]
+      }
+   }
+]

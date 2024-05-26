@@ -27,3 +27,7 @@ div.text-highlight-blue h6 {
   padding: 0;
   text-decoration: underline;
 }
+
+html::-webkit-scrollbar {
+  display: none !important;
+}
