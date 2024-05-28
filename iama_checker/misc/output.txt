@@ -1,0 +1,30 @@
+[
+    {
+        "subcluster_name": "Recht op behoorlijk bestuur (precontentieuze fase)",
+        "examples": "- Recht op transparantie en informatievoorziening<br>- Participatie- en verdedigingsrechten (bijv. hoorrechten)<br>- Recht op zorgvuldige besluitvorming<br>- Motiveringsplichten<br>- Verbod van willekeur<br>- Verbod van abus/d\u00e9tournement de pouvoir<br>"
+    },
+    {
+        "subcluster_name": "Recht op een effectief rechtsmiddel en toegang tot de rechter (contentieuze fase)",
+        "examples": "- Bevoegdheid tot bieden van effectief rechtsherstel<br>- Recht op toegang tot een overheidsrechter<br>- Recht op inhoudelijke behandeling<br>- \u2018Full jurisdiction\u2019 (gehele zaak moet kunnen worden beoordeeld)<br>- Ius de non evocandi (recht om niet te worden afgehouden van de rechter die iemand in een bepaald geschil toekomt)<br>- Verbod van hoge drempels (griffierecht, bijstand door advocaat, immuniteiten, termijnen)<br>- Recht op gefinancierde rechtsbijstand<br>- Recht op effectieve tenuitvoerlegging rechterlijke uitspraak<br>"
+    },
+    {
+        "subcluster_name": "Recht op een onafhankelijke en onpartijdige rechter",
+        "examples": "- Persoonlijke onafhankelijkheid (bijv. ambtsduur)<br>- Zakelijke/functionele afhankelijkheid (bescherming tegen druk van buitenaf)<br>- Institutionele onafhankelijkheid<br>- Subjectieve onpartijdigheid (geen betrokkenheid bij een van de partijen)<br>- Objectieve onpartijdigheid (geen legitieme twijfel mogelijk over onbevooroordeelde beoordeling)<br>"
+    },
+    {
+        "subcluster_name": "Recht op beoordeling binnen redelijke termijn",
+        "examples": "- Gehele procedure (inclusief voorprocedure) mag niet te lang duren<br>- Recht op mogelijkheden tot versnelling van de procedure<br>- Recht op compensatie bij te lange duur van procedure<br>"
+    },
+    {
+        "subcluster_name": "Recht op een eerlijk proces",
+        "examples": "- Procedure op tegenspraak<br>- Equality of arms (voorbereidingstijd, toegang tot dossiers/documenten)<br>- Hoor en wederhoor<br>- Evenwichtige en faire bewijsregels<br>- Motiveringsplicht voor rechter<br>- Gelijke mogelijkheden tot horen getuigen / deskundigen<br>- Openbaarheid zitting/vonnis<br>- Rechtszekerheid<br>- Verschoningsrechten<br>"
+    },
+    {
+        "subcluster_name": "Recht op een eerlijk proces: strafrechtelijke waarborgen",
+        "examples": "- Onschuldpresumptie<br>- Zwijgrecht/recht om niet mee te werken<br>- Uitlokverbod<br>- Ne bis in idem<br>- Recht op bijstand door een advocaat<br>- Recht op bijstand door een tolk<br>"
+    },
+    {
+        "subcluster_name": "Strafrechtelijk legaliteitsvereiste (geen straf zonder wet)",
+        "examples": "- Verbod op terugwerkende kracht van strafwetgeving<br>- Lex mitior-beginsel<br>"
+    }
+]

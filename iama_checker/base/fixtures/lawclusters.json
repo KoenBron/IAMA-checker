@@ -4,7 +4,7 @@
       "pk":1,
       "fields":{
          "cluster_name":"Aan de persoon gerelateerde rechten",
-         "description":"Tijdelijke beschrijving",
+         "description":"Deze groep van rechten zijn er om een individu te beschermen tegen invloeden die de mogelijkheid om jezelf te zijn willen inperken. Denk aan rechten om een gezonde omgeving te geranderen, je sociale leven te onderhouden, jezelf te kunnen onderhouden en nog meer rechten betreffende het beschermen van de volgende kernwaarden: waardigheid, identiteit, autonomie en lichamelijk en fysieke integriteit.",
          "subclusters":[
             {
                "subcluster_name":"Persoonlijke identiteit /persoonlijkheidsrechten /persoonlijke autonomie",
@@ -48,5 +48,123 @@
             }
          ]
       }
-   }
+   },
+   {
+      "model":"base.lawcluster",
+      "pk":2,
+      "fields":{
+         "cluster_name":"Vrijheidsrechten",
+         "description":"Deze rechten sluiten goed aan op de aan de persoon gerelateerde rechten die hierboven worden besproken. Echter, vrijheidsrechten gaan meer over het in staat stellen om een mensen zich naar de buitenwereld te uitten zoals zij dat willen en hoe zij ermee mogen interageren.",
+         "subclusters":[
+              {
+                  "subcluster_name": "Uitingsvrijheid",
+                  "examples": "- Persvrijheid/journalistieke vrijheid<br>- Artistieke vrijheid<br>- Vrijheid van wetenschap/academische vrijheid<br>- Vrijheid tot keuze van uitingsmiddel (mondeling/schriftelijk etc.)<br>- Klokkenluiden<br>- Journalistieke bronbescherming/verschoningsrecht<br>"
+              },
+              {
+                  "subcluster_name": "Vrijheid om informatie te ontvangen",
+                  "examples": "- Passieve informatievergaring (recht op toegang tot aangeboden, bestaande informatie)<br>- Actieve informatievergaring (recht op toegang tot overheidsinformatie / openbaarheid van bestuur)<br>- Plicht tot voorzien in pluriforme informatie<br>- Recht op vrije toegang tot het internet<br>"
+              },
+              {
+                  "subcluster_name": "Godsdienstvrijheid",
+                  "examples": "- Vrijheid om een religie te hebben of niet te hebben<br>- Religieuze uitingsvrijheid (symbolen, rituelen)<br>- Vrijheid om samen te komen met andere gelovigen<br>- Vrijheden van kerkgenootschappen/religieuze gemeenschappen<br>- Scheiding staat en religie (religieuze neutraliteit van de staat)<br>- Respect voor religieuze/filosofische overtuigingen in het onderwijs<br>"
+              },
+              {
+                  "subcluster_name": "Demonstratievrijheid",
+                  "examples": "- Vrijheid van vergadering<br>- Samenkomsten, protestmarsen etc.<br>- Vrije keuze onderwerp, tijd, plaats en middelen<br>- Bescherming tegen \u2018hostile audiences\u2019<br>"
+              },
+              {
+                  "subcluster_name": "Verenigingsvrijheid",
+                  "examples": "- Vrijheid om al dan niet lid te zijn van een vereniging<br>- Interne verenigingsvrijheid (eigen keuze leden, activiteiten)<br>- Vrijheid van politieke partijen<br>- Vakbondsvrijheid<br>- Collectieve actierechten<br>- Stakingsrecht<br>"
+              },
+              {
+                  "subcluster_name": "Politieke rechten/vrijheden",
+                  "examples": "- Recht op periodieke organisatie van vrije en geheime verkiezingen<br>- Actief en passief kiesrecht<br>- Petitierecht<br>"
+              }
+          ]
+      }
+   },
+   {
+      "model":"base.lawcluster",
+      "pk":3,
+      "fields":{
+         "cluster_name":"Gelijkheidsrechten",
+         "description":"Deze rechten spelen natuurlijk een grote rol wanneer het gaat om algoritmes en ethiek, zo moet de wet iedereen gelijk behandelen en datzelfde geld voor algoritmes die door overheid in gebruik worden genomen. Zelfs in situaties waar de wet verwachte wordt om speciaal rekening te houden met groepen mensen gebaseerd op de benodigdheden van die groep, is dit bedoeld om iedereen op gelijke voet te zetten vanuit het perspectief van de wet. De kernwaarden die hier centraal zijn de volgende: rechtsgelijkheid, rechtszekerheid en bescherming tegen willekeur van overheidshandelen.",
+         "subclusters": [
+              {
+                  "subcluster_name": "Gelijkheid voor de wet",
+                  "examples": "- Gelijke toepassing van algemene wetgeving op iedereen die onder haar bereik valt<br>- Verbod van willekeur<br>- Consistentievereiste<br>- Rechtszekerheidsbeginsel<br>"
+              },
+              {
+                  "subcluster_name": "Verbod van direct onderscheid op bepaalde gronden",
+                  "examples": "- Beslissingen of regels mogen niet in doorslaggevende mate zijn ingegeven door of gebaseerd op beschermde<br>"
+              },
+              {
+                  "subcluster_name": "persoonskenmerkenVerbod van indirect onderscheid op bepaalde gronden",
+                  "examples": "- Beslissingen of regels mogen niet disproportioneel benadelend uitpakken voor personen die behoren tot groepen met<br>"
+              },
+              {
+                  "subcluster_name": "beschermde persoonskenmerkenVerbod van discriminatoir gemotiveerd handelen",
+                  "examples": "- Verbod van racistisch/xenofoob etc. gemotiveerd handelen (bijv. geweldpleging)<br>- Verbod van het geven van opdracht tot discriminatie<br>"
+              },
+              {
+                  "subcluster_name": "Recht op materieel onderscheid / maatwerk",
+                  "examples": "- Plicht om rekening te houden met verschillen tussen mensen en groepen<br>"
+              },
+              {
+                  "subcluster_name": "Recht op redelijke accommodatie / positieve actie",
+                  "examples": "- Recht op voorzieningen voor mensen met een handicap die hen in staat stellen gelijkwaardig in de samenleving te<br>"
+              },
+              {
+                  "subcluster_name": "participeren",
+                  "examples": "- Recht op compenserende maatregelen voor in het verleden ontstane structurele maatschappelijke ongelijkheid<br>"
+              },
+              {
+                  "subcluster_name": "Verbod van profilering",
+                  "examples": "- Verbod van het cre\u00ebren van categorie\u00ebn of profielen op basis van beschermde persoonskenmerken, die vervolgens de basis<br>"
+              },
+              {
+                  "subcluster_name": "vormen voor besluitvorming of beleidVerbod van segregatie",
+                  "examples": "- Verbod van ruimtelijke of andere vormen van scheiding van groepen die daarbij wel een vergelijkbare behandeling krijgen<br>"
+              }
+          ]
+      }
+   },
+   {
+      "model":"base.lawcluster",
+      "pk":4,
+      "fields":{
+         "cluster_name":"Procedurele rechten",
+         "description":"Procedurele rechten kunnen gezien worden als een middel om te garanderen  het bewind van de overheid gecontroleerd kan worden door een onafhankelijke derde partij en dat geschillen vanuit een objectief stand punt opgelost kunnen worden. Deze rechten komen van pas in de contentieuze fase (fase van geschil over een daarvoor genomen besluit of geschil tussen twee civiele partijen) en de precontentieuze fase (fase waar besluiten worden genomen) waar er rekening met de rechten moet worden gehouden om ze kunnen waarborgen. De kernwaarden die gelinkt zijn aan deze rechten zijn de volgende: eerlijkheid, openheid, evenwichtigheid, objectiviteit en procedurele rechtvaardigheid.",
+         "subclusters": [
+              {
+                  "subcluster_name": "Recht op behoorlijk bestuur (precontentieuze fase)",
+                  "examples": "- Recht op transparantie en informatievoorziening<br>- Participatie- en verdedigingsrechten (bijv. hoorrechten)<br>- Recht op zorgvuldige besluitvorming<br>- Motiveringsplichten<br>- Verbod van willekeur<br>- Verbod van abus/d\u00e9tournement de pouvoir<br>"
+              },
+              {
+                  "subcluster_name": "Recht op een effectief rechtsmiddel en toegang tot de rechter (contentieuze fase)",
+                  "examples": "- Bevoegdheid tot bieden van effectief rechtsherstel<br>- Recht op toegang tot een overheidsrechter<br>- Recht op inhoudelijke behandeling<br>- \u2018Full jurisdiction\u2019 (gehele zaak moet kunnen worden beoordeeld)<br>- Ius de non evocandi (recht om niet te worden afgehouden van de rechter die iemand in een bepaald geschil toekomt)<br>- Verbod van hoge drempels (griffierecht, bijstand door advocaat, immuniteiten, termijnen)<br>- Recht op gefinancierde rechtsbijstand<br>- Recht op effectieve tenuitvoerlegging rechterlijke uitspraak<br>"
+              },
+              {
+                  "subcluster_name": "Recht op een onafhankelijke en onpartijdige rechter",
+                  "examples": "- Persoonlijke onafhankelijkheid (bijv. ambtsduur)<br>- Zakelijke/functionele afhankelijkheid (bescherming tegen druk van buitenaf)<br>- Institutionele onafhankelijkheid<br>- Subjectieve onpartijdigheid (geen betrokkenheid bij een van de partijen)<br>- Objectieve onpartijdigheid (geen legitieme twijfel mogelijk over onbevooroordeelde beoordeling)<br>"
+              },
+              {
+                  "subcluster_name": "Recht op beoordeling binnen redelijke termijn",
+                  "examples": "- Gehele procedure (inclusief voorprocedure) mag niet te lang duren<br>- Recht op mogelijkheden tot versnelling van de procedure<br>- Recht op compensatie bij te lange duur van procedure<br>"
+              },
+              {
+                  "subcluster_name": "Recht op een eerlijk proces",
+                  "examples": "- Procedure op tegenspraak<br>- Equality of arms (voorbereidingstijd, toegang tot dossiers/documenten)<br>- Hoor en wederhoor<br>- Evenwichtige en faire bewijsregels<br>- Motiveringsplicht voor rechter<br>- Gelijke mogelijkheden tot horen getuigen / deskundigen<br>- Openbaarheid zitting/vonnis<br>- Rechtszekerheid<br>- Verschoningsrechten<br>"
+              },
+              {
+                  "subcluster_name": "Recht op een eerlijk proces: strafrechtelijke waarborgen",
+                  "examples": "- Onschuldpresumptie<br>- Zwijgrecht/recht om niet mee te werken<br>- Uitlokverbod<br>- Ne bis in idem<br>- Recht op bijstand door een advocaat<br>- Recht op bijstand door een tolk<br>"
+              },
+              {
+                  "subcluster_name": "Strafrechtelijk legaliteitsvereiste (geen straf zonder wet)",
+                  "examples": "- Verbod op terugwerkende kracht van strafwetgeving<br>- Lex mitior-beginsel<br>"
+              }
+          ]
+      }
+  }
 ]

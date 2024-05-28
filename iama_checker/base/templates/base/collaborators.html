@@ -1,10 +1,10 @@
 {% load base_extra %}
-<ul class="list-group rounded border">
-    <li class="list-group-item border-bottom rounded-top d-flex justify-content-center" style="background-color:#9c27b0">
+<ul class="list-group rounded border-top">
+    <li class="list-group-item rounded-top d-flex justify-content-center" style="background-color:#9c27b0">
       <h4 style="color:white; margin-bottom: 0">Medewerkers</h4>
     </li>
     {% for collab in collab_list %}
-        <li class="list-group-item list-group-item-light border-top d-flex justify-content-between">
+        <li class="list-group-item list-group-item-light border-top rounded-bottom d-flex justify-content-between">
             <div class="">
                 <p style="margin-bottom: 0px; font-size: 20px"> <b>{{collab.name}}</b></p>
                 <p style="margin-bottom: 0px"> {{collab.discipline}} </p>
@@ -41,11 +41,11 @@
         </div>
     {% endfor %}
     {% if not collab_list %}
-        <li class="list-group-item list-group-item-light border d-flex justify-content-between">
+        <li class="list-group-item list-group-item-light border-top-0 d-flex justify-content-between">
           <div>Geen Medewerkers</div>
         </li>
     {% endif %}
-    <li class="list-group-item list-group-item-light border-top rounded-bottom d-flex justify-content-center">
+    <li class="list-group-item list-group-item-light border-top rounded-bottom d-flex justify-content-center bg-transparent">
         <div class="d-flex justify-content-center">
             <div class="dropdown w-100">
                 <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
