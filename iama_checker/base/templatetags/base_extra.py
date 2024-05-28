@@ -19,6 +19,10 @@ def is_reviewed(status):
     return status == Answer.Status.RV
 
 @register.filter
+def is_cut_off(status):
+    return status == Law.Status.CO
+
+@register.filter
 def get_law_status(status):
     match status:
         case Law.Status.CP:

@@ -22,6 +22,7 @@ class AssesmentForm(ModelForm):
 class AnswerForm(Form):
     # Review button can be submitted checked or unchecked
     reviewed = BooleanField(required=False)
+    cut_off = BooleanField(required=False)
     answer_content = Textarea()
 
 # For handling create collaborator post request

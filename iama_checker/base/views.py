@@ -465,6 +465,7 @@ def create_law(request, assesment_id):
             # Create the Law object
             law = Law(name=form.cleaned_data["name"])
             law.assesment = assesment
+            generate_empty_law_answers(law)
             law.save()
             return HttpResponseRedirect(next)
 
@@ -531,7 +532,7 @@ def law_detail(request, law_id, law_question_id):
     # Objects need te render the question index correctly
     context["index_context_objects"] = {
         "question_list": Question.objects.filter(question_phase=5).order_by("pk"),
-        "status_list": get_law_complet_status(request, law.assesment)
+        "status_list": get_law_complete_status(request, law.assesment)
     }
 
     # Get context that helps display question information
@@ -595,8 +596,6 @@ def save_law_answer(request, law_id, law_question_id):
                 # Update answer data
                 answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
 
-            # Check the state of the question
-
             # Unanswered
             if answer.answer_content == "":# is_valid drops answer content from cleaned data?????
                 answer.status = Answer.Status.UA
@@ -611,7 +610,23 @@ def save_law_answer(request, law_id, law_question_id):
 
             answer.save()
 
-            # TODO: Check the completion status of the law answering   
+
+            # Check if the law is limiting, this can only be checked at question 4.1
+            if question.question_number == 1: 
+                if "cut_off" in answer_form.cleaned_data:
+                    law.status = Law.Status.CO
+                else:
+                    # Determine if the law is complete if t
+                    law.status = is_law_complete(law)
+            # Only on question 1 can the cut off be determined, but answering another question shouldn't undo the cut-off setting
+            elif law.status != Law.Status.CO:
+                # Determine if the law is complete if t
+                law.status = is_law_complete(law)
+
+            law.save()
+
+            # Check the completion status of the law answering
+            
             # Return to question detail page with updated answer
             return HttpResponseRedirect(reverse("base:law_detail", args=(law_id, law_question_id,)))
 

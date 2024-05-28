@@ -77,11 +77,11 @@
                         {% if cut_off %}
                             <div class="col-md-3 d-flex justify-content-center align-items-center">
                                 <div class="form-check">
-                                    <label class="form-check-label" for="reviewed"> Uitputtend 
+                                    <label class="form-check-label" for="cut_off"> Uitputtend 
                                     {% if law.status|is_cut_off %}
-                                        <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed" checked>
+                                        <input class="form-check-input" id="cut_off" name="cut_off" type="checkbox" value="cut_off" checked>
                                     {% else %}
-                                        <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed">
+                                        <input class="form-check-input" id="cut_off" name="cut_off" type="checkbox" value="cut_off">
                                     {% endif %}
                                     <span class="form-check-sign">
                                         <span class="check"></span>

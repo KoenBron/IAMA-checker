@@ -1,5 +1,5 @@
 # File with the helpler functions for the base views
-from .models import Assesment, Phase4Answer, Question, Answer
+from .models import Assesment, Phase4Answer, Question, Answer, Law
 
 def get_answers_sorted(assesment, question):
     return_list = Answer.objects.filter(assesment_id=assesment, question_id=question).order_by("-created")
@@ -15,13 +15,14 @@ def user_has_edit_privilidge(user_id, assesment):
 
 # Return true if all answers have the reviewed status
 def all_answers_reviewed(assesment_id):
-    # Loop through all the answers of an assesment 
-    answers = Answer.objects.filter(assesment_id=assesment_id)
-    for answer in answers:
-        # Found an answer that isn't reviewed
-        if answer.status != Answer.Status.RV:
+    # Loop through all questions
+    for question in Question.objects.filter(assesment_id=assesment_id).exclude(question_phase=5):
+        # Make sure to only check questions and not phase intros, then check only if the latest element is not reviewed
+        if question.question_number != 0 and Answer.objects.filter(assesment=assesment_id, question_id=question).latest("created").status != Answer.Status.RV:
             return False
+    # All answer have reviewed status
     return True
+
 
 # Generates a list of dictionaries for all jobs required in a phase
 def jobs_per_phase(phase_num):
@@ -36,15 +37,21 @@ def jobs_per_phase(phase_num):
             jobs.append(job)
     return jobs
 
-
 # Generates emtpy answers for all of questions in the assesment
 def generate_empty_answers(assesment, user):
     # Go through all the questions
-    for question in Question.objects.all():
+    for question in Question.objects.exclude(question_phase=5):
         # Only create answers for question and not phase introductions 
         if question.question_number != 0:
             # Create an empty answer and store it in the db
             answer = Answer(assesment_id=assesment, question_id=question, user=user, status=Answer.Status.UA)
+            answer.save()
+
+# Generate empty answers for a law in phase phase 4
+def generate_empty_law_answers(law):
+    for question in Question.objects.filter(question_phase=5):
+        if question.question_number != 0:
+            answer = Phase4Answer(law=law, assesment_id=law.assesment, question_id=question, user=assesment.user, status=Answer.Status.UA) 
             answer.save()
 
 # Retrieve a list of options to add as possible collaborators to an answer
@@ -93,7 +100,18 @@ def get_complete_status(request, assesment):
 
     return status_list
 
-def get_law_complet_status(request, assesment):
+# Return the law complete or incomplete status based on wether the phase 4 questions of that law were reviewed
+def is_law_complete(law):
+    # Loop through all questions of phase 4, remember that the question are have 
+    for question in Question.objects.filter(question_phase=5):
+        # Make sure to only check questions and not phase intros, then check only if the latest element is not reviewed
+        if question.question_number != 0 and Phase4Answer.objects.filter(law=law, assesment_id=law.assesment, question_id=question).latest("created").status != Answer.Status.RV:
+            return Law.Status.ICP
+    # All answer have reviewed status
+    return Law.Status.CP
+
+# Get the completion status of all the questions for a given law
+def get_law_complete_status(request, assesment):
     questions = Question.objects.filter(question_phase=5)
     status_list = {}
     for question in questions:
