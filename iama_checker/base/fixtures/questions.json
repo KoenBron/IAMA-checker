@@ -288,7 +288,21 @@
             "question_context": "Context voor de eerste vraag",
             "question_instruction": "Dit moet het antwoord bevatten",
             "question_phase": 5,
-            "question_number": 1
+            "question_number": 1,
+            "job_list": [
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "DE",
+                "priority": 1
+              },
+              {
+                "type": "JR",
+                "priority": 1
+              }
+            ]
         }
     },
     {
@@ -300,7 +314,21 @@
             "question_context": "Context voor de tweede vraag",
             "question_instruction": "Dit zijn de instructies voor de derde vraag",
             "question_phase": 5,
-            "question_number": 2
+            "question_number": 2,
+            "job_list": [
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "DE",
+                "priority": 1
+              },
+              {
+                "type": "JR",
+                "priority": 1
+              }
+            ]
         }
     }
 ]
