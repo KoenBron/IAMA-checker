@@ -48,6 +48,14 @@
                     <p style="margin: 1em"> {{ question.question_context|safe }} </p>
                 </div>
                 <p style="margin-top: 0.5em">{{ question.question_instruction|safe }}</p>
+                {% if law_clusters %}
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
+                          Bijlage
+                        </button>
+                        {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="card" style="margin-top: 60px; margin-bottom: 60px">

@@ -74,8 +74,25 @@
                     {% endif %}
                     <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
                     <div class="row">
-                        <div class="col-md-3">
-                        </div>
+                        {% if cut_off %}
+                            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                <div class="form-check">
+                                    <label class="form-check-label" for="reviewed"> Uitputtend 
+                                    {% if law.status|is_cut_off %}
+                                        <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed" checked>
+                                    {% else %}
+                                        <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed">
+                                    {% endif %}
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                    </label>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-md-3">
+                            </div>
+                        {% endif %}
                         <div class="col-md-3 d-flex justify-content-center align-items-center">
                             <div class="form-check">
                                 <label class="form-check-label" for="reviewed"> Reviewed en Compleet
@@ -91,14 +108,6 @@
                             </div>
                         </div>
                         <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
-                        {% if law_clusters %}
-                            <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
-                              Bijlage
-                            </button>
-                            </div>
-                            {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
-                        {% endif %}
                     </div>
                 </form>
             </div>
