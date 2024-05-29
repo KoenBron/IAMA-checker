@@ -29,7 +29,7 @@ def get_law_status(status):
             return "<i class='material-icons' style='color: green'>done</i>"
         case Law.Status.ICP:
             return "<i class='material-icons' style='color: red'>close</i>"
-        case _:
-            return "<i class='material-icons' style='color: yellow'>remove</i>"
+        case Law.Status.CO:
+            return "<i class='material-icons' style='color: orange'>remove</i>"
 
 

@@ -613,7 +613,7 @@ def save_law_answer(request, law_id, law_question_id):
 
             # Check if the law is limiting, this can only be checked at question 4.1
             if question.question_number == 1: 
-                if "cut_off" in answer_form.cleaned_data:
+                if answer_form.cleaned_data["cut_off"]:
                     law.status = Law.Status.CO
                 else:
                     # Determine if the law is complete if t
