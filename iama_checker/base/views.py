@@ -559,8 +559,12 @@ def law_detail(request, law_id, law_question_id):
     context["question_history"] = get_answers_sorted(law.assesment, question)
 
     # Check if fase 4 can be cut off due to finding limiting legislation, this is assessed in qustion 4.1
-    if (question.question_number == 1):
+    if question.question_number == 1:
         context["cut_off"] = True
+    
+    # Make sure the appendix containing the risk image appears in question 4.2
+    elif question.question_number == 2:
+        context["risk_appendix"] = True
 
     return render(request, "base/law_detail.html", context)
     

@@ -19,22 +19,6 @@
     <div class="col"></div>
 </div>
 <div class="row">
-  <div class="col-md-7 offset-md-1">
-    <div class="card">
-      <div class="card-body">
-        <h6 class="text-primary"><b>Betrokken beroepen:</b></h6>
-        {% for job in jobs %}
-            {% if job.priority == 1 %}
-                <span class="badge badge-danger" style="font-size: 13px">{{ job.description }}</span>
-            {% else %}
-                <span class="badge badge-warning" style="font-size: 13px">{{ job.description }}</span>
-            {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary">

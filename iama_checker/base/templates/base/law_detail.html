@@ -108,6 +108,16 @@
                             </div>
                         </div>
                         <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
+                        {% if risk_appendix %}
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
+                                      Bijlage
+                                    </button>
+                                    {% include 'includes/risk_appendix.html' %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </form>
             </div>
