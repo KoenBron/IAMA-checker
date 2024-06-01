@@ -337,12 +337,23 @@
         "model": "base.Question",
         "pk": 13,
         "fields": {
-            "question_title": "Vraag 3",
-            "question_text": "Hier komt de 2e Vraag",
-            "question_context": "Context voor de tweede vraag",
-            "question_instruction": "Dit zijn de instructies voor de derde vraag",
+            "question_title": "Doelstellingen",
+            "question_text": "Welke doelen worden met inzet van het algoritme nagestreefd? Kijk hierbij naar uw antwoord op vraag 1.2",
+            "question_instruction": "Deze vraag is bedoel om nog eens stil te staan bij wat de doelstelling is van het algoritme in een latere ontwikkelingsfase van het algoritme omdat deze kennis nodig is voor het doorlopen van de rest van het stappenplan. Dus vul hier de het antwoord gegeven bij vraag 1.2 in en lees het nog eens goed door!",
             "question_phase": 5,
-            "question_number": 3,
+            "question_number": 3
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 14,
+        "fields": {
+            "question_title": "",
+            "question_text": "",
+            "question_context": "",
+            "question_instruction": "",
+            "question_phase": 5,
+            "question_number": 4,
             "job_list": [
               {
                 "type": "PL",

@@ -52,12 +52,14 @@
                     <center>
                         <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
                     </center>
-                    <div class="text-center">
-                        <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Vraag context en uitleg</button>
-                    </div>
-                    <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
-                        <p style="margin: 1em"> {{ question.question_context|safe }} </p>
-                    </div>
+                    {% if question_context %}
+                        <div class="text-center">
+                            <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Vraag context en uitleg</button>
+                        </div>
+                        <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
+                            <p style="margin: 1em"> {{ question.question_context|safe }} </p>
+                        </div>
+                    {% endif %}
                     <p style="margin-top:1em"> {{ question.question_instruction|safe }} </p>
                     <br>
                     {% if question.question_reference_text %}
