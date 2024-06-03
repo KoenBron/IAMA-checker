@@ -161,6 +161,10 @@ def question_detail(request, assesment_id, question_id):
     
     # Render question_detail page
     else:
+        # Make sure the questions of phase 5 are not rendered using with this template and context
+        if question.question_phase == 5:
+            return render(request, "errors/error.html", {"message": "Deze vraag bestaat niet zonder bijbehorend grondrecht!"})
+
         context = {
             "assesment": assesment, 
             "question": question, 
@@ -565,6 +569,10 @@ def law_detail(request, law_id, law_question_id):
     # Make sure the appendix containing the risk image appears in question 4.2
     elif question.question_number == 2:
         context["risk_appendix"] = True
+
+    # Add appendix containing mitigating measures to question 4.6
+    elif question.question_number == 6:
+        context["measure_appendix"] = True
 
     return render(request, "base/law_detail.html", context)
     

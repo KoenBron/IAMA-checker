@@ -348,12 +348,66 @@
         "model": "base.Question",
         "pk": 14,
         "fields": {
-            "question_title": "",
-            "question_text": "",
-            "question_context": "",
-            "question_instruction": "",
+            "question_title": "Doeltreffendheid/effectiviteit/geschiktheid",
+            "question_text": "Vormt het in te zetten algoritme een doeltreffend middel om de gestelde doelen te realiseren? Leg uit.",
+            "question_context": "Er moet gekeken worden of het algoritme zijn doel(en) weet te behalen in verhouding tot de mate waarin dit grondrecht wordt aangetast. Het kan namelijk zijn dat een algoritme wordt verwacht zijn niet of slechts deels te halen en dan moet er een discussie plaats vinden om te bepalen of het algoritme nog steeds als een effectieve oplossing kan dienen. Om dit te doen is het van belang dat er met een realistisch beeld naar de toekomst van het algoritme wordt gekeken,  zo wordt het concreet te maken wat het algoritme verwacht op te leveren met als prijs concrete consequenties. Het gaat hier om kwantificeerbare gevolgen, zoals tijd- en geldbesparing minus de ontwikkelings- en onderhoudskosten van het algoritme of het percentage van false positives en false negatives, en om meer open vraagstukken, zoals op welke manier het algoritme ondersteuning kan bieden en hoe voordelig is het om het algoritme te gebruiken in speciale gevallen in plaats van een specialist. <br><br> In welke mate het algoritme zijn doelen haalt wordt belangrijker naarmate de zwaartebepaling, gegeven in vraag 4.2 hoger is. Je kunt zeggen dat er dan wordt verwacht dat algoritme zorgvuldiger moet zijn in het halen van al zijn doelen naarmate de zwaartebepaling van de grondrechten inbreuk zwaarder wordt. Zo is het problematisch als een algoritme in categorie <b>zwaar</b> niet al haar belangrijkste doelen haalt, want bij een dergelijk zware inbreuk op grondrechten is het het niet waard om het algoritme als deze niet heel doelmatig blijkt te zijn. Terwijl bij een lagere zwaartebepaling het minder uit zo maken aangezien de risico's voor dit grondrecht minder zijn.",
+            "question_instruction": "Om deze vraag goed te beantwoorden moet er een ja of nee antwoord gegeven worden, gevolgd door een compacte versie van de discussie is gevoerd omtrent de doelmatigheid van het algoritme in verhouding tot dit grondrecht. Het is nodig om bij deze discussie over doelmatigheid om een realistisch toekomstbeeld in gedachten te hebben en daardoor concrete positieve en concrete negatieve gevolgen tegen elkaar af te wegen. Er is geen gestandaardiseerde regel voor het bepalen van de doelmatigheid en deze stap dient als uitnodiging tot discussie om zo een goed gemotiveerd antwoord vast te leggen.",
             "question_phase": 5,
             "question_number": 4,
+            "job_list": [
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "DE",
+                "priority": 1
+              },
+              {
+                "type": "JR",
+                "priority": 1
+              }
+            ]
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 15,
+        "fields": {
+            "question_title": "Noodzakelijkheid/subsidiariteit",
+            "question_text": "Is inzet van dit specifieke algoritme noodzakelijk om dit doel te bereiken en zijn er geen andere of mitigerende maatregelen beschikbaar om dit te doen? Leg uit",
+            "question_context": "De in vraag 1.2 en vraag 4.3 genoemde doelen zijn te halen op meerdere technische en niet-technische manieren waar een algoritme er één van is. Met deze vraag wordt na gegaan of het inzetten van dit algoritme op de manier die nu in gedachten wordt gehouden de beste manier is om de voorgenoemde doelen te halen. Alle alternatieven aan het algoritme moeten dus op een rijtje gezet worden. Daarna moet er gekeken worden naar mogelijke mitigerende maatregelen die het aantasten van het grondrecht kunnen verminderen, kijk voor een niet-uitputtende lijst (betekent dat dit voorstellen zijn en er evengoed maatregelen zijn die niet in de lijst staan) van mogelijke mitigerende maatregelen kijk naar de bijlage. Het kan natuurlijk zijn dat een maatregel de effectiviteit of efficiëntie van het algoritme verminderd. In dit geval moet overwogen worden of het gebruiken van de maatregel wenselijk is, dit hangt grotendeels af van de zwaartebepaling gedaan in vraag 4.4. Bij zwaardere aantasting van het grondrecht kan het zijn dat de maatregel noodzakelijk is, maar bij minder zware aantasting is het misschien niet nodig om de aantasting verder in te perken als dat ten koste gaat van het algoritme.<br><br> Met alle weloverwogen middelen om de doelen te halen op een rijtje kan er nu een discussie gevoerd worden over of een algoritme de beste optie is.",
+            "question_instruction": "Om deze vraag goed te beantwoorden moeten moeten de volgende sub-vragen eerst beantwoord worden.<ul><li>Welke verschillende instrumenten kunnen worden ingezet om de gestelde doelen te verwezenlijken, naast het voorgenomen algoritme?</li><li>Zijn er niet-algoritmische instrumenten voorhanden?</li><li>Is er een keuze uit verschillende soorten algoritmen of aanbieders daarvan?</li></ul> Kijk naar de bijlage voor een niet uitputtende lijst van mitigerende maatregelen. Met deze vraag beantwoord moet geredeneerd worden dat dit algoritme de beste optie is om de gestelde doelen te halen. Schrijf ook expliciet op welke mitegerende maatregelen genomen worden en om welke reden.. Weet wel dat als er nog steeds twijfel is over de gevolgen van het algoritme zelfs als de gewenste mitigerende maatregelen getroffen worden, dan moet het algoritme gerapporteerd worden!",
+            "question_warning": "Wanneer er een nieuwe mitigerende maatregel wordt toegepast dan moet het hele stappenplan van fase 4 opnieuw doorlopen worden met deze maatregel in gedachten!",
+            "question_phase": 5,
+            "question_number": 5,
+            "job_list": [
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "DE",
+                "priority": 1
+              },
+              {
+                "type": "JR",
+                "priority": 1
+              }
+            ]
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 16,
+        "fields": {
+            "question_title": "Belangenafweging/proportionaliteit",
+            "question_text": "Levert inzet van het algoritme een redelijk evenwicht op tussen de te realiseren doelen en de grondrechten die worden geraakt, en waarom is dat zo?",
+            "question_context": "",
+            "question_instruction": "Met alle nodige aspecten van de grondrecht inbreuk behandelt te hebben is het als laatste nog nodig om de afweging te maken tussen het relatieve gewicht van het grondrecht dat geraakt wordt, tegenover het relatieve gewicht van de maatschappelijk bevorderende doelen worden nagestreefd. Is het belang van de ondersteuning die het algoritme biedt aan de besluitvorming proportioneel aan de zwaarte van de inbreuk op het grondrecht met alle risico's van dien. Hoe zwaarder de zwaartebepaling van vraag 4.2, hoe zwaarder het maatschappelijke doel moet wegen om het inzetten van het algoritme te rechtvaardigen?<br><br> Er is hier vaak niet een concreet en eenduidig antwoord op, leg daarom de redenering voor het antwoord dat uit de discussie volgt vast in duidelijke taal hieronder. Verwijs hierbij naar eerder ingevulde antwoorden, zoals de genoemde publieke waarden van vraag 1.3. Maak de afwegingen die gemaakt zijn expliciet in het antwoord.",
+            "question_warning": "",
+            "question_phase": 5,
+            "question_number": 6,
             "job_list": [
               {
                 "type": "PL",

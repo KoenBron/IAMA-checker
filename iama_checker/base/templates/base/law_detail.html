@@ -3,7 +3,7 @@
 {% load base_extra %}
 
 {% block navigation %}
-  <a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}</a>
+  <a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}; Grondrecht - {{ law.name}}</a>
 {% endblock %}
 
 {% block add_editor %}
@@ -52,7 +52,7 @@
                     <center>
                         <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
                     </center>
-                    {% if question_context %}
+                    {% if question.question_context %}
                         <div class="text-center">
                             <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Vraag context en uitleg</button>
                         </div>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
-                        {% if risk_appendix %}
+                        {% if question.question_number == 2 %}
                             <div class="col-md-3">
                                 <div class="text-center">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
@@ -120,16 +120,27 @@
                                 </div>
                             </div>
                         {% endif %}
+                        {% if question.question_number == 6 %}
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
+                                      Bijlage
+                                    </button>
+                                    {% include 'includes/measure_appendix.html' %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </form>
             </div>
         </div>
         <div class="row mb-4">
           <div class="col text-center">
-            {% if question.id != 1 %}
+            {% if question.id != 10 %}
                 <a href="{% url 'base:law_detail' law.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+            {% elif question.id != 16 %}
+                <a href="{% url 'base:law_detail' law.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
             {% endif %}
-            <a href="{% url 'base:law_detail' law.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
           </div>
         </div>
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
