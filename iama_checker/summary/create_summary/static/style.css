@@ -1,0 +1,19 @@
+h1 {
+  margin-bottom: 1em;
+}
+
+hgroup {
+  margin-bottom: 1em;
+}
+
+.responsibility {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+}
+
+.table-center {
+  display: flex;
+  justify-content: center;
+}
+
