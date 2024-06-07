@@ -1,5 +1,5 @@
 import pdfkit
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader
 
 question_list_example = [
     {
@@ -22,18 +22,47 @@ question_list_example = [
     }
 ]
 
-# Load the template to substitue data on
+# Get the data to insert into the template
+rights_list_example = [
+    {
+        "name": "Grondrecht1",
+        "phase4": [
+            {
+                "question": "Eerste vraag stappenplan",
+                "answer": "Eerste antwoord"
+            },
+            {
+                "question": "Tweede vraag stappenplan",
+                "answer": "Tweede antwoord"
+            }
+        ]
+    },
+    {
+        "name": "Grondrecht2",
+        "phase4": [
+            {
+                "question": "Eerste vraag stappenplan",
+                "answer": "Eerste antwoord"
+            },
+            {
+                "question": "Tweede vraag stappenplan",
+                "answer": "Tweede antwoord"
+            }
+        ]
+    }
+]
+
+# Create the template
 env = Environment(loader=FileSystemLoader("templates/"))
 template = env.get_template("summary.html")
-
-# Get the data to insert into the template
 context = {
-    "assessment_name": "test_assessemnt",
+    "assessment_name": "test_assessment",
     "question_list": question_list_example,
     "utlimately_responsible": {
         "person": "Joost Klein",
         "organisation": "Joost inc."
     },
+    "rights": rights_list_example,
 }
 
 # Fill in the template and output the content into the .html file to be converted to .pdf
