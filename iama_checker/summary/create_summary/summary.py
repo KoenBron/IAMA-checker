@@ -22,21 +22,24 @@ question_list_example = [
     }
 ]
 
-# Create the template
+# Load the template to substitue data on
 env = Environment(loader=FileSystemLoader("templates/"))
-template = env.get_template("table.html")
+template = env.get_template("summary.html")
+
+# Get the data to insert into the template
 context = {
     "assessment_name": "test_assessemnt",
     "question_list": question_list_example,
     "utlimately_responsible": {
         "person": "Joost Klein",
-        "organisation": "Joost Klein"
+        "organisation": "Joost inc."
     },
 }
+
+# Fill in the template and output the content into the .html file to be converted to .pdf
 template_output = template.render(context)
 
-with open("table.html", 'w') as file:
+with open("input.html", 'w') as file:
     file.write(template_output)
 
 pdfkit.from_file("input.html", "output.pdf", css="static/style.css", options={"enable-local-file-access": ""})
-
