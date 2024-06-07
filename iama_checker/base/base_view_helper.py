@@ -16,9 +16,9 @@ def user_has_edit_privilidge(user_id, assesment):
 # Return true if all answers have the reviewed status
 def all_answers_reviewed(assesment_id):
     # Loop through all questions
-    for question in Question.objects.filter(assesment_id=assesment_id).exclude(question_phase=5):
+    for question in Question.objects.exclude(question_phase=5):
         # Make sure to only check questions and not phase intros, then check only if the latest element is not reviewed
-        if question.question_number != 0 and Answer.objects.filter(assesment=assesment_id, question_id=question).latest("created").status != Answer.Status.RV:
+        if question.question_number != 0 and Answer.objects.filter(assesment_id=assesment_id, question_id=question).latest("created").status != Answer.Status.RV:
             return False
     # All answer have reviewed status
     return True

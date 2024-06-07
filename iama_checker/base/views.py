@@ -244,7 +244,7 @@ def save_answer(request, assesment_id, question_id):
             answer.save()
 
             # Only reverse the stored completion status when the return value indicates a change in completion
-            assesment.complete_status = all_answers_reviewed(assesment_id)
+            assesment.complete_status = all_answers_reviewed(assesment)
             assesment.save()
                  
             # Return to question detail page with updated answer
