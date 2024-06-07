@@ -1,5 +1,5 @@
 import pdfkit
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader
 
 question_list_example = [
     {
@@ -22,20 +22,50 @@ question_list_example = [
     }
 ]
 
+rights_list_example = [
+    {
+        "name": "Grondrecht1",
+        "phase4": [
+            {
+                "question": "Eerste vraag stappenplan",
+                "answer": "Eerste antwoord"
+            },
+            {
+                "question": "Tweede vraag stappenplan",
+                "answer": "Tweede antwoord"
+            }
+        ]
+    },
+    {
+        "name": "Grondrecht2",
+        "phase4": [
+            {
+                "question": "Eerste vraag stappenplan",
+                "answer": "Eerste antwoord"
+            },
+            {
+                "question": "Tweede vraag stappenplan",
+                "answer": "Tweede antwoord"
+            }
+        ]
+    }
+]
+
 # Create the template
 env = Environment(loader=FileSystemLoader("templates/"))
-template = env.get_template("table.html")
+template = env.get_template("summary.html")
 context = {
-    "assessment_name": "test_assessemnt",
+    "assessment_name": "test_assessment",
     "question_list": question_list_example,
     "utlimately_responsible": {
         "person": "Joost Klein",
         "organisation": "Joost Klein"
     },
+    "rights": rights_list_example,
 }
 template_output = template.render(context)
 
-with open("table.html", 'w') as file:
+with open("input.html", 'w') as file:
     file.write(template_output)
 
 pdfkit.from_file("input.html", "output.pdf", css="static/style.css", options={"enable-local-file-access": ""})
