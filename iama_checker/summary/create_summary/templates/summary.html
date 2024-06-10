@@ -21,19 +21,19 @@
 <div id="responsible">
     <b>Eindverantwoordelijken:</b>
     <ul>
-        <li><b>Persoon:&emsp;&emsp;&emsp;&ensp;&ensp;</b>{{ utlimately_responsible.person }}</li>
-        <li><b>Organisatie:&emsp;&emsp;</b>{{ utlimately_responsible.organisation }}</li>
+        <li><b>Persoon:&emsp;&emsp;&emsp;&ensp;&ensp;</b>{{ ultimately_responsible.person }}</li>
+        <li><b>Organisatie:&emsp;&emsp;</b>{{ ultimately_responsible.organisation }}</li>
     </ul>
 </div>
 <div class="subheader">
     <h3>Vragen fase 1<h3>
 </div>
 <div class="table-center">
-    <table class="table-wide">
+    <table class="table-wide" role="grid">
       <tr>
-        <th>Vraag nummer</th>
-        <th>Vraag</th>
-        <th>Antwoord</th>
+        <th scope="col">Vraag nummer</th>
+        <th scope="col">Vraag</th>
+        <th scope="col">Antwoord</th>
       </tr>
       {% for question in question_list %}
         <tr>
@@ -54,8 +54,8 @@
 <div class="table-center">
     <table class="table-wide">
         <tr>
-            <th>Vraag</th>
-            <th>Antwoord</th>
+            <th scope="col">Vraag</th>
+            <th scope="col">Antwoord</th>
         </tr>
         {% for step in right.phase4 %}
             <tr>
