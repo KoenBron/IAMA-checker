@@ -5,8 +5,8 @@ from base.models import Question, Answer, Law, Phase4Answer
 
 # Crude solution but gets the job done
 def get_questions_by_phase(assesment):
-    # Get the questions of phase 1-3 and their answers in a dict ordered by phase
-    questions_by_phase = {}
+    # Get all 3 phases as dict and group them in the list
+    questions_by_phase = []
     total_phasess = 3
 
     # Go through each phase
@@ -18,7 +18,7 @@ def get_questions_by_phase(assesment):
             for question in questions:
                 # Get the latest answer to dispaly or no answer at all
                 try:
-                    answer = Answer.objects.filter(question=question, assesment=assesment).latest("created")
+                    answer = Answer.objects.filter(question_id=question, assesment_id=assesment).latest("created").answer_content
                 except (KeyError, Answer.DoesNotExist):
                     answer = "- Geen antwoord beschikbaar"
 
@@ -29,10 +29,13 @@ def get_questions_by_phase(assesment):
                     "question_text": question.question_text,
                     "question_answer": answer
                 }
+                 
                 # Add the dict to the list of all the questions in this phase
                 question_list.append(question_dict)
-            # Add the list to the dictionary ordering them by phase
-            questions_by_phase[str(phase)] = question_list
+
+            # Add the dict to the list of phases
+            questions_by_phase.append({"phase": phase, "question_list": question_list})
+
     return questions_by_phase
 
 def get_laws(assesment):
@@ -55,11 +58,13 @@ def get_laws(assesment):
             phase4_object = {
                 "question": question.question_text,
             }
+            
             # Either get the associated answer or alternative message
             try:
-                phase4_object["answer"] = Phase4Answer.objects.filter(assesment=assesment, law=law, question=question).latest("created")
+                phase4_object["answer"] = Phase4Answer.objects.filter(assesment_id=assesment, law=law, question_id=question).latest("created").answer_content
             except (KeyError, Phase4Answer.DoesNotExist):
                 phase4_object["answer"] = "- Geen antwoord beschikbaar"
+            if phase4_object["answer"].strip() == "" : phase4_object["answer"] = "- Geen antwoord beschikbaar"
 
             # Append the question/answer dict to the phase4 object list
             law_object["phase4"].append(phase4_object)
@@ -69,19 +74,30 @@ def get_laws(assesment):
 
     return law_list
 
+
 def produce_summary(assesment):
     # Get context objects for the template
     context = {
         "questions": get_questions_by_phase(assesment),
         "laws": get_laws(assesment),
+        "assesment_name": assesment.name,
+        "ultimately_responsible": {
+            "person": assesment.ultimately_responsible,
+            "organisation": assesment.organisation
+        }
     }
 
-    print(context)
+    # Create the environment for jinja2 to load the template from the templates/ directory
+    env = Environment(loader=FileSystemLoader("summary/create_summary/templates/"))
+    template = env.get_template("summary.html")
 
-def print_name_in_console():
-    print(__name__)
+    # Get the filled in template and write it to the input file
+    template_output = template.render(context)
+    with open("input.html", "w") as input:
+        input.write(template_output)
 
-
+    # Convert the filled in .html file to a .pdf file
+    pdfkit.from_file("input.html", "output.pdf", css="summary/create_summary/static/style.css", options={"enable-local-file-access": ""})
 
 if __name__ == "__main__":
     

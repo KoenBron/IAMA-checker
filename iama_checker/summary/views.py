@@ -18,6 +18,7 @@ def create_summary(request, assesment_id):
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
 
     next = request.GET.get("next", reverse("base:detail", args=(assesment.id,)))
+     
     if summary.produce_summary(assesment):
         return HttpResponseRedirect(next)
 

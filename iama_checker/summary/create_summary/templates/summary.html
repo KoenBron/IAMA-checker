@@ -25,31 +25,31 @@
         <li><b>Organisatie:&emsp;&emsp;</b>{{ ultimately_responsible.organisation }}</li>
     </ul>
 </div>
-<div class="subheader">
-    <h3>Vragen fase 1<h3>
-</div>
-<div class="table-center">
-    <table class="table-wide" role="grid">
-      <tr>
-        <th scope="col">Vraag nummer</th>
-        <th scope="col">Vraag</th>
-        <th scope="col">Antwoord</th>
-      </tr>
-      {% for question in question_list %}
+{% for phase_object in questions %}
+  <div class="subheader">
+          <h3>Vragen fase {{ phase_object.phase }}<h3>
+  </div>
+  <div class="table-center">
+      <table class="table-wide" role="grid">
         <tr>
-            <td>{{ question.question_phase }}.{{ question.question_number }}</td>
-            <td>{{ question.question_text }}</td>
-            <td>{{question.question_answer }}</td>
+          <th scope="col">Vraag</th>
+          <th scope="col">Antwoord</th>
         </tr>
-      {% endfor %}
-    </table>
-</div>
+        {% for question in phase_object.question_list %}
+          <tr>
+              <td>{{ question.question_text }}</td>
+              <td>{{ question.question_answer }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+  </div>
+{% endfor %}
 <div class="subheader">
     <h3>Grondrechten stappenplannen</h3>
 </div>
-{% for right in rights %}
+{% for law in laws %}
 <div class="rights-title">
-  <b>Naam grondrecht:</b>&nbsp; {{ right.name }}
+  <b>Naam grondrecht:</b>&nbsp; {{ law.name }}
 </div>
 <div class="table-center">
     <table class="table-wide">
@@ -57,7 +57,7 @@
             <th scope="col">Vraag</th>
             <th scope="col">Antwoord</th>
         </tr>
-        {% for step in right.phase4 %}
+        {% for step in law.phase4 %}
             <tr>
               <td>{{ step.question }}</td>
               <td>{{ step.answer }}</td>

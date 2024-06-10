@@ -37,3 +37,7 @@ hgroup {
   margin-top: 2em;
   margin-bottom: 1em;
 }
+
+table {
+  table-layout: fixed;
+}
