@@ -5,7 +5,10 @@ IAMA-Assesment - {{ assesment.name}}
 {% endblock %}
 
 {% block add_editor %}
-<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round foat-right">Voeg editor toe aan assemsent +</a>
+<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="margin-right:1em;" class="btn btn-info btn-round ">Voeg editor toe aan assessment +</a>
+{% endblock %}
+{% block download %}
+<a href="{% url 'summary:create_summary' assesment.id %}" style="margin-right:1em;" class="btn btn-success btn-round">Download assessment overzicht</a>
 {% endblock %}
 
 {% block content %}

@@ -21,6 +21,9 @@ def get_questions_by_phase(assesment):
                     answer = Answer.objects.filter(question_id=question, assesment_id=assesment).latest("created").answer_content
                 except (KeyError, Answer.DoesNotExist):
                     answer = "- Geen antwoord beschikbaar"
+                # Just in case something funky happened to the answer content
+                if answer.strip() == "" : answer = "- Geen antwoord beschikbaar"
+
 
                 # Construct the object to be displayed
                 question_dict = {
@@ -97,78 +100,8 @@ def produce_summary(assesment):
         input.write(template_output)
 
     # Convert the filled in .html file to a .pdf file
-    pdfkit.from_file("input.html", "output.pdf", css="summary/create_summary/static/style.css", options={"enable-local-file-access": ""})
+    return pdfkit.from_file("input.html", css="summary/create_summary/static/style.css", options={"enable-local-file-access": ""})
 
-if __name__ == "__main__":
-    
-    question_list_example = [
-        {
-            "question_phase": 1,
-            "question_number": 1,
-            "question_text": "Dit is de eerste vraag",
-            "question_answer": "Dit is het antwoord op de eerste vraag"
-        },
-        {
-            "question_phase": 2,
-            "question_number": 2,
-            "question_text": "Dit is de tweede vraag",
-            "question_answer": "Dit is het antwoord op de tweede vraag"
-        },
-        {
-            "question_phase": 3,
-            "question_number": 3,
-            "question_text": "Dit is de derde vraag",
-            "question_answer": "Dit is het antwoord op de derde vraag"
-        }
-    ]
+def delete_summary(assesment):
+    pass
 
-# Get the data to insert into the template
-    rights_list_example = [
-        {
-            "name": "Grondrecht1",
-            "phase4": [
-                {
-                    "question": "Eerste vraag stappenplan",
-                    "answer": "Eerste antwoord"
-                },
-                {
-                    "question": "Tweede vraag stappenplan",
-                    "answer": "Tweede antwoord"
-                }
-            ]
-        },
-        {
-            "name": "Grondrecht2",
-            "phase4": [
-                {
-                    "question": "Eerste vraag stappenplan",
-                    "answer": "Eerste antwoord"
-                },
-                {
-                    "question": "Tweede vraag stappenplan",
-                    "answer": "Tweede antwoord"
-                }
-            ]
-        }
-    ]
-
-# Create the template
-    env = Environment(loader=FileSystemLoader("templates/"))
-    template = env.get_template("summary.html")
-    context = {
-        "assessment_name": "test_assessment",
-        "question_list": question_list_example,
-        "ultimately_responsible": {
-            "person": "Joost Klein",
-            "organisation": "Joost incorporated"
-        },
-        "rights": rights_list_example,
-    }
-
-# Fill in the template and output the content into the .html file to be converted to .pdf
-    template_output = template.render(context)
-
-    with open("input.html", 'w') as file:
-        file.write(template_output)
-
-    pdfkit.from_file("input.html", "output.pdf", css="static/style.css", options={"enable-local-file-access": ""})
