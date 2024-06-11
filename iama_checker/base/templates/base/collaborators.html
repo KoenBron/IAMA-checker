@@ -46,43 +46,47 @@
         </li>
     {% endif %}
     <li class="list-group-item list-group-item-light border-top rounded-bottom d-flex justify-content-center bg-transparent">
-        <div class="d-flex justify-content-center">
-            <div class="dropdown w-100">
-                <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Nieuw+
-                </button>
-                <form class="dropdown-menu p-4" style="width:300px !important" action="{% url 'base:create_add_collab' answer_id %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label for="name">Naam</label>
-                      <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
-                    </div>
-                    <div class="form-group">
-                      <label for="discipline">Discipline/beroep</label>
-                      <input type="text" class="form-control" name="discipline" placeholder="Vul hier in">
-                    </div>
-                    <div class="form-group">
-                      <label for="organisation">Organisatie</label>
-                      <input type="text" class="form-control" name="organisation" placeholder="Vul hier in">
-                    </div>
-                    <input type="hidden" name="next" value="{{request.path}}">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+        <div class="row d-flex justify-content-center">
+            <div class="col px-1 text-center">
+              <div class="dropdown w-100">
+                  <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Nieuw+
+                  </button>
+                  <form class="dropdown-menu p-4" style="width:300px !important" action="{% url 'base:create_add_collab' answer_id %}" method="post">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="name">Naam</label>
+                        <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
+                      </div>
+                      <div class="form-group">
+                        <label for="discipline">Discipline/beroep</label>
+                        <input type="text" class="form-control" name="discipline" placeholder="Vul hier in">
+                      </div>
+                      <div class="form-group">
+                        <label for="organisation">Organisatie</label>
+                        <input type="text" class="form-control" name="organisation" placeholder="Vul hier in">
+                      </div>
+                      <input type="hidden" name="next" value="{{request.path}}">
+                      <button type="submit" class="btn btn-primary">Save</button>
+                  </form>
+              </div>
             </div>
-            <div class="dropdown">
-                <button class="btn btn-secundary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                    Bestaand+
-                </button>
+            <div class="col px-1 text-center">
+                <div class="dropdown">
+                    <button class="btn btn-secundary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                        Bestaand+
+                    </button>
 
-                <ul class="dropdown-menu">
-                    {% if collab_options %}
-                        {% for option in collab_options %}
-                        <li><a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}?next={{ request.path }}"> {{option.name}}</a></li>
-                        {% endfor %} 
-                    {% else %}
-                        <li><a class="dropdown-item disabled">Geen andere medewerkers</a></li>
-                    {% endif %}
-                </ul>
+                    <ul class="dropdown-menu">
+                        {% if collab_options %}
+                            {% for option in collab_options %}
+                            <li><a class="dropdown-item" href="{% url 'base:add_collab' answer_id option.id%}?next={{ request.path }}"> {{option.name}}</a></li>
+                            {% endfor %} 
+                        {% else %}
+                            <li><a class="dropdown-item disabled">Geen andere medewerkers</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
 

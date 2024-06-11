@@ -1,10 +1,28 @@
 <div class="col">
     <div class="card">
-        <div class="card-header card-header-primary">
+        <div class="card-header card-header-danger">
             <h4 class="card-title">Voordat je begint!</h4>
-            <p class="card-category">Loop deze functionaliteiten van IAMA Checker om een betere assesment te doen!</p>
+            <p class="card-category">Loop deze functionaliteiten van IAMA Checker om een betere assessment te doen!</p>
         </div>
         <div class="card-body">
+            <h6>Editors</h6>
+            Een van de belangrijkste features van IAMA Checker is het vermogen om een assessment vanuit meerdere accounts aan te kunnen passen. Dit wordt gedaan via het editors systeem. Rechtsboven op deze pagina is deze knop te vinden:
+            <div class="row d-flex justify-content-center">
+              <div class="col text-center">
+                <a href="#" style="margin-right:1em;" class="btn btn-info btn-round ">Voeg editor toe aan assessment +</a>
+              </div>
+            </div>
+            Met deze knop kun je een editor toevoegen aan de assessment op basis van hun gebruikers id, die gevonden kan worden op de <i class="material-icons" style="position: relative; top:5px; color: grey">person</i> account pagina te kijken. Wanneer je toegevoegd bent aan een assessment kun je deze bewerken. De assessments waar jij een editor bent zijn te vinden op de <i class="material-icons" style="position: relative; top:5px; color: grey">dashboard</i> assessment pagina en de editors van deze assessment zijn te zien en verwijderen onderaan deze pagina in de editor lijst.
+            <hr/>
+            <h6>Download overzicht</h6>
+            Je kunt alleen op de overzichtspagina van een assessment deze knop hieronder gebruiken om een pdf overzicht te produceren van de tot nu toe ingevulde assessment.
+            <div class="row d-flex justify-content-center">
+              <div class="col text-center">
+                <a href="#" style="margin-right:1em;" class="btn btn-success btn-round ">Download assesment overzicht</a>
+              </div>
+            </div>
+            Het geproduceerde overzicht bevat alle gegeven antwoorden met hun vragen en wanneer er nog geen antwoord gegeven is wordt dit vermeld. Dit geld voor alle onderdelen van de originele IAMA en grondrechten stappenplannen waarnaar gevraagd wordt in onderdeel 4. Hoewel de eindverantwoordelijke persoon en eindverantwoordelijke organisatie vermeld worden in het overzicht, wordt niet vermeld welke personen hebben bijgedragen aan een antwoord wegens privacy redenenen. 
+            <hr/>
             <h6>Compleetheids status</h6>
             Iedere vraag heeft een compleetheids status die te zien is in de vragen-index rechts op het scherm.
             Er zijn 3 verschillende compleetheids statussen:
@@ -15,7 +33,7 @@
             </div>
             Wat belangrijk is om te weten is dat <span class='badge badge-danger badge-pill'>Onbeantwoord</span> <span class='badge badge-warning badge-pill'>Beantwoord</span> automatisch wordt bijgehouden door de tool en dat het aan de gebruiker is om de vraag als <span class='badge badge-success badge-pill'>Reviewed</span> te markeren door de checkbox onderaan de vraag te markeren of demarkeren.
             <br><br>
-            <b>Het is aan de gebruiker zelf om te bepalen wanneer een vraag "reviewed" is</b>, maar het wordt aangeraden om een vraag als <span class='badge badge-success badge-pill'>Reviewed</span> te beschouwen wanneer iedereen die mee heeft gewerkt aan het antwoord (idealiter is dit een groep mensen met alle aangeraden beroepen/disciplines bij de vraag) het antwoord goedkeurt. Tot slot, het is belangrijk om te weten dat een assesment als compleet wordt gemarkeerd als alle antwoorden in de assesment een <span class='badge badge-success badge-pill'>Reviewed</span> status hebben.
+            <b>Het is aan de gebruiker zelf om te bepalen wanneer een vraag "reviewed" is</b>, maar het wordt aangeraden om een vraag als <span class='badge badge-success badge-pill'>Reviewed</span> te beschouwen wanneer iedereen die mee heeft gewerkt aan het antwoord (idealiter is dit een groep mensen met alle aangeraden beroepen/disciplines bij de vraag) het antwoord goedkeurt. Tot slot, het is belangrijk om te weten dat een assessment als compleet wordt gemarkeerd als alle antwoorden in de assessment een <span class='badge badge-success badge-pill'>Reviewed</span> status hebben.
             <hr/>
             <h6>Disciplines/Beroepen</h6>
             Bij iedere vraag onder de titel of in een tabel bij de introductie van een onderdeel staat vermeld welke beroepen/disciplines (sterk) aangeraden zijn om te betrekken bij het formuleren van een antwoord.
@@ -26,48 +44,56 @@
                     <span class="badge badge-danger">Benodigd</span> <span class="badge badge-warning">Eventueel handig</span>
                 </div>
             </div>
-            De genoemde beroepen/disciplines kunnen in titels en functie verschillen van organisatie tot organisatie, daarom wordt er een beroep gedaan op de organisatie die de assesment uitvoert om een groep samen te stellen die zoveel mogelijk van de functionaliteiten en kennis omslaat van de aangeraden beroepen/disciplines. 
+            De genoemde beroepen/disciplines kunnen in titels en functie verschillen van organisatie tot organisatie, daarom wordt er een beroep gedaan op de organisatie die de assessment uitvoert om een groep samen te stellen die zoveel mogelijk van de functionaliteiten en kennis omslaat van de aangeraden beroepen/disciplines. 
             <hr/>
             <h6>Medewerkers</h6>
             IAMA Checker definiëert medewerkers als iedereen die het antwoord of delen daarvan heeft goed- of afgekeurd en/of aangepast.
             Door op de "Nieuwe medewerker" knop links van een vraag te drukken kan je een medewerker toevoegen aan de vraag. Deze medewerker wordt dan aan de lijst van medewerkers toegevoegd met naam en bijbehorende organisatie.
-            Door op het plus symbool te drukken naast de save knop kan je kiezen uit een lijst van medewerkers die al aan andere antwoorden in de assesment hebben meegewerkt om toe te voegen. Kijk het voorbeeld hieronder.
+            Door op het plus symbool te drukken naast de save knop kan je kiezen uit een lijst van medewerkers die al aan andere antwoorden in de assessment hebben meegewerkt om toe te voegen. Kijk het voorbeeld hieronder.
           <div class="row justify-content-center" style="padding-top: 15px; padding-bottom: 15px;">
-          <div class="col" align="center">
-              <div class="dropdown">
-                  <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Nieuw+
-                  </button>
-                  <form class="dropdown-menu p-4" style="width:300px !important">
-                      <div class="form-group">
-                        <label for="name">Naam</label>
-                        <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
-                      </div>
-                      <div class="form-group">
-                        <label for="discipline">Discipline/beroep</label>
-                        <input type="text" class="form-control" name="discipline" placeholder="Vul hier in">
-                      </div>
-                      <div class="form-group">
-                        <label for="organisation">Organisatie</label>
-                        <input type="text" class="form-control" name="organisation" placeholder="Vul hier in">
-                      </div>
-                      <input type="hidden" name="next" value="{{request.path}}">
-                      <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                  <button class="btn dropdown-toggle btn-round" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                      Bestaand+
-                  </button>
+            <div class="col" align="center">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Nieuw+
+                    </button>
+                    <form class="dropdown-menu p-4" style="width:300px !important">
+                        <div class="form-group">
+                          <label for="name">Naam</label>
+                          <input type="text" class="form-control" name="name" placeholder="Voor/Achter-naam">
+                        </div>
+                        <div class="form-group">
+                          <label for="discipline">Discipline/beroep</label>
+                          <input type="text" class="form-control" name="discipline" placeholder="Vul hier in">
+                        </div>
+                        <div class="form-group">
+                          <label for="organisation">Organisatie</label>
+                          <input type="text" class="form-control" name="organisation" placeholder="Vul hier in">
+                        </div>
+                        <input type="hidden" name="next" value="{{request.path}}">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                      </form>
+                    <button class="btn dropdown-toggle btn-round" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                        Bestaand+
+                    </button>
 
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item disabled">Voorbeeld Medewerker 1</a></li>
-                      <li><a class="dropdown-item disabled">Voorbeeld Medewerker 2</a></li>
-                      <li><a class="dropdown-item disabled">Voorbeeld Medewerker 3</a></li>
-                  </ul>
-              </div>
-          </div>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item disabled">Voorbeeld Medewerker 1</a></li>
+                        <li><a class="dropdown-item disabled">Voorbeeld Medewerker 2</a></li>
+                        <li><a class="dropdown-item disabled">Voorbeeld Medewerker 3</a></li>
+                    </ul>
+                </div>
+            </div>
           </div>
           <b>Het is van groot belang dat er zorgvuldig wordt bijgehouden wie er mee heeft gewerkt aan welk antwoord en names welke organisatie</b>, ondanks de grootte of uiteindlijke impact van de bijdrage aan de inhoud.
-          Hiermee wordt namelijk de verantwoordelijkheid en integriteit van de assesment gewaarborgt. 
+          Hiermee wordt namelijk de verantwoordelijkheid en integriteit van de assessment gewaarborgt. 
+          <hr/>
+          <h6>Vraag context en instructie</h6>
+          Bijna alle vragen in IAMA Checker hebben een knop genaamd vraag context zoals hieronder. Wanneer er op deze knop gedrukt wordt opent dit een venster met hierin alle nodige informatie over waarom deze vraag belangrijk is en extra uitleg die gebruikt kan worden om de vraag goed te beantwoorden. Deze context is optioneel en handig als je voor het eerst deze vraag tegenkomt, maar als je al eerder deze vraag hebt behandelt hoeft er alleen maar gekeken te worden naar de text eronder: de vraag instructies. Deze instructie benoemd wat er verwacht wordt van een goed antwoord.
+          <div class="row d-flex justify-content-center">
+            <div class="col text-center">
+              <a href="#" style="padding-left:5em;padding-right:5em;" class="btn btn-secundary">Vraag context en uitleg</a>
+            </div>
+          </div>
           <hr/>
           <h6>Referenties</h6>
           Onderaan de vraag staan er aantal referenties naar externe literatuur die specifiek bij het invullen van die vraag kunnen helpen met geven van een beter geïnformeerd antwoord. Daarbij staat ook een beschrijving van het document. Klik op het icoontje rechts van de referentie (voorbeeld hieronder) om de de site te openen in een andere tab.
@@ -83,8 +109,16 @@
             <p> In deze blauwe box staat de informatie die extra toelichting geeft over hoe en waarom de referenties kunnen helpen bij het beter beantwoorden van de vraag. Het is sterk aangeraden om voor iedere vraag te rade te gaan bij deze referenties wanneer de personen die antwoord geven nog niet de referentie gelezen hadden. </p>
           </div>
           <hr/>
+          <h6>Vraag geschiedenis</h6>
+          Door op deze knop te klikken kan je kijken naar de complete vraag geschiedenis voor een bepaalde vraag, met informatie over wanneer deze antwoorden zijn opgeslagen en door wie.
+          <div class="row d-flex justify-content-center">
+            <div class="col text-center">
+              <a href="#" style="margin-right:1em;" class="btn btn-info btn-round ">Open vraag geschiedenis</a>
+            </div>
+          </div>
+          <hr/>
           <h6>Tot slot!</h6>
-          IAMA heeft meerdere functies. Naast het doen van een assesment om te bepalen of het alogiritme in gebruik genomen moet worden, functioneert het ook als naslagwerk dat laat zien welke beslissingen waarom zijn genomen.
+          IAMA heeft meerdere functies. Naast het doen van een assessment om te bepalen of het alogiritme in gebruik genomen moet worden, functioneert het ook als naslagwerk dat laat zien welke beslissingen waarom zijn genomen.
           Daarom is het ook beter om zo grondig mogelijk te zijn in het opschrijven van een antwoord, schrijf liever te veel dan te weinig.
           Een persoon die niks te maken heeft gehad met de ontwikkelen van het algoritme en gemiddelde technische kennis moet de antwoorden kunnen lezen en achteraf zonder belangrijke vragen komen te zitten, zoals "Waarom hebben ze hiervoor gekozen?" of "Wie is verantwoordelijk voor de beslissing?".
           <br>

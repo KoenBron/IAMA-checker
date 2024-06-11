@@ -136,9 +136,10 @@
         </div>
         <div class="row mb-4">
           <div class="col text-center">
-            {% if question.id != 10 %}
+            {% if question.id != 11 %}
                 <a href="{% url 'base:law_detail' law.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
-            {% elif question.id != 16 %}
+            {% endif %}
+            {% if question.id != 16 %}
                 <a href="{% url 'base:law_detail' law.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
             {% endif %}
           </div>

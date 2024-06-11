@@ -17,6 +17,7 @@ IAMA-Assesment - {{ assesment.name}}
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">{{ assesment.name }}</h4>
+                <p class="card-category">Update hier de informatie van deze asssessment</p>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -67,11 +68,11 @@ IAMA-Assesment - {{ assesment.name}}
       </div>
       <div class="row justify-content-center">
           <div class="col d-flex justify-content-center">
-              <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round">Start Assesment!</a>
+              <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round px-5">Start Assesment!</a>
           </div>
       </div>
       <div class="row justify-content-center" style="margin-top: 25px">
-      <div class="col-3">
+      <div class="col-4">
               {% include "includes/editor_list.html" with editor_list=index_context_objects.editor_list %}
           </div>
       </div>

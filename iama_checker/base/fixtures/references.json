@@ -6,7 +6,7 @@
             "title": "Non-discriminatie by design",
             "description": "Dit document laat zien welke juridische, technische en organisatorische vragen er aan bod moeten komen wanneer men een AI-systeem wilt ontwikkelen of implementeren. De link verwijst naar een kamerbrief waar het document als bijlage te downloaden is.",
             "url": "https://www.tweedekamer.nl/kamerstukken/brieven_regering/detail?id=2021Z10411&did=2021D22770",
-            "questions": [2,3,4,5,6,7]
+            "questions": [2,3,4,5,6,7,11]
         }
     },
     {
@@ -16,7 +16,7 @@
             "title": "Toetsingskader Algemen Rekenkamer",
             "description": "Een excel sheet met bijbehorend begeleidend document dat als praktisch instrument dient zodat een organisatie kan toetsen of een algoritme aan bepaalde ethische en kwalitatiefe criteria voldoen. Het instrument bestaat uit 5 verschillende perspectieven die bekeken moeten worden en is te downloaden met deze link.",
             "url": "https://www.rekenkamer.nl/onderwerpen/algoritmes-digitaal-toetsingskader",
-            "questions": [2,3,4,5,6,7]
+            "questions": [2,3,4,5,6,7,11]
         }
     },
     {
@@ -36,7 +36,7 @@
             "title": "Data Protection Impact Assesment (DPIA)",
             "description": "Het instrument om privacy-risico's te identificeren bij de inzet van algoritmes die omgaan met persoongegevens. De DPIA is een smallere en op persoonsgevens gerichte impact assesment, die is gebruikt voor het ontwikkelen van IAMA. Dit betekent dat vragen overeenkomen tussen de twee en dat sommige antwoorden uitgewisseld kunnen worden.",
             "url": "https://autoriteitpersoonsgegevens.nl/themas/basis-avg/praktisch-avg/data-protection-impact-assessment-dpia",
-            "questions": [3]
+            "questions": [3,11]
         }
     },
     {

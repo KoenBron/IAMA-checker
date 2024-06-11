@@ -39,7 +39,7 @@ Overzicht assesments
                         {% for item in assesments_list %}
                         <tr>
                             <td>
-                            <a href="{% url 'base:detail' item.id %}">{{ item.name }}</a> 
+                            <a href="{% url 'base:detail' item.id %}" class="btn btn-primary">{{ item.name }}</a> 
                             </td>
                             <td>
                             {{ item.organisation }}
@@ -130,7 +130,7 @@ Overzicht assesments
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                    <table class="table iama-bottom-border">
+                    <table class="table ">
                         <thead class=" text-primary">
                         <th>
                             Naam
@@ -203,6 +203,11 @@ Overzicht assesments
                         {% if not assesments_editor_list %}
                     <tr>
                 <td>Geen assesments</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                     </tr>
                         {% endif %}
                         </tbody>
