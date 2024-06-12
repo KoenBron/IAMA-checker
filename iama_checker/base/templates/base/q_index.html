@@ -8,11 +8,11 @@
         {% if question.question_number == 0 %}
             {% if current_question == question.id %}
                 <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-light list-group-item-action active border-bottom border-top">
-                    Onderdeel {{ question.question_phase }}: {{ question.question_title }}
+                    Fase {{ question.question_phase }} overzicht: {{ question.question_title }}
                 </a>
             {% else %}
                 <a href="{% url 'base:question_detail' assesment.id question.id %}" class="list-group-item list-group-item-light list-group-item-action border-bottom border-top">
-                    Onderdeel {{ question.question_phase }}: {{ question.question_title }}
+                    Fase {{ question.question_phase }} overzicht: {{ question.question_title }}
                 </a>
             {% endif %}
         {% else %}

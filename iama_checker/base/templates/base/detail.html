@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block navigation %}
-IAMA-Assesment - {{ assesment.name}}
+IAMA-Assesment - Overzicht {{ assesment.name}} 
 {% endblock %}
 
 {% block add_editor %}
@@ -16,11 +16,11 @@ IAMA-Assesment - {{ assesment.name}}
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title">{{ assesment.name }}</h4>
+                <h4 class="card-title">Overzicht {{ assesment.name }}</h4>
                 <p class="card-category">Update hier de informatie van deze asssessment</p>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div class="row bp-4">
                     <div class="col-md-6">
                         <div class="text-gray font-weight-bold">Laatst aangepast:</div>
                         <p class="border-bottom" style="font-size: 15px;">{{ assesment.date_last_saved }}</p>
@@ -39,13 +39,13 @@ IAMA-Assesment - {{ assesment.name}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam assesment</label>
+                                <label class="bmd-label-floating">Naam assessment/algoritme (aanpasbaar)</label>
                                 <input type="text" class="form-control" name="name" value="{{ assesment.name }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam uitvoerende organisatie</label>
+                                <label class="bmd-label-floating">Naam uitvoerende organisatie (aanpasbaar)</label>
                                 <input type="text" class="form-control" name="organisation" value="{{ assesment.organisation }}">
                             </div>
                         </div>
@@ -53,7 +53,7 @@ IAMA-Assesment - {{ assesment.name}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam eindverandwoordelijke van de IAMA</label>
+                                <label class="bmd-label-floating">Naam eindverandwoordelijke van de IAMA (aanpasbaar)</label>
                                 <input type="text" class="form-control" name="ultimately_responsible" value="{{ assesment.ultimately_responsible }}">
                             </div>
                         </div>
@@ -68,7 +68,7 @@ IAMA-Assesment - {{ assesment.name}}
       </div>
       <div class="row justify-content-center">
           <div class="col d-flex justify-content-center">
-              <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round px-5">Start Assesment!</a>
+              <a href="{% url 'base:question_detail' assesment.id 1 %}" class="btn btn-primary btn-round px-5">Start Assessment!</a>
           </div>
       </div>
       <div class="row justify-content-center" style="margin-top: 25px">

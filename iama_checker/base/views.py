@@ -36,7 +36,7 @@ def create_assesment(request):
         else:
             # Get all the assesments associated to the logged in user en present them descendingly
             assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
-            return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide dat in!"})
+            return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide data in!"})
     
 @login_required
 def delete_assesment(request, assesment_id):

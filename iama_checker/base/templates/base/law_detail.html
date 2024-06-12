@@ -8,7 +8,7 @@
 
 {% block add_editor %}
 {% include "includes/question_history.html" with question=question question_history=question_history %}
-<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" class="btn btn-primary btn-round">Voeg editor toe aan assemsent +</a>
+<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" class="btn btn-info btn-round">Voeg editor toe aan assemsent +</a>
 {% endblock %}
 
 {% block content %}
@@ -54,7 +54,7 @@
                     </center>
                     {% if question.question_context %}
                         <div class="text-center">
-                            <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Vraag context en uitleg</button>
+                            <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">KLik hier voor vraag context en uitleg</button>
                         </div>
                         <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
                             <p style="margin: 1em"> {{ question.question_context|safe }} </p>

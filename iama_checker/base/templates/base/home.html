@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block navigation %}
-Overzicht assesments
+Overzicht assessments
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@ Overzicht assesments
                     <table class="table iama-bottom-border">
                         <thead class=" text-primary">
                         <th>
-                            Naam
+                            Naam assessment/algoritme
                         </th>
                         <th>
                             Uitgevoerd Door
@@ -68,7 +68,7 @@ Overzicht assesments
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Assesment permanent verwijderen?</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Waarschuwing - Assessment permanent verwijderen?</h5>
                                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -87,7 +87,7 @@ Overzicht assesments
                         </tbody>
                     </table>
                     </div>
-                    <h4 class="text-primary">Maak hier een nieuw assesment!</h4>
+                    <h4 class="text-primary pt-4">Vul hier informatie in om een nieuwe assessment te maken!</h4>
                     <form action="{% url 'base:create_assesment' %}" method="post">
                         {% csrf_token %}
                         {% if error %}
@@ -96,8 +96,8 @@ Overzicht assesments
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Naam assesment</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Vul hier de naam van de assesment in">
+                                    <label class="bmd-label-floating">Naam assessment/algoritme</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Vul hier de naam van de assessment in">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -115,7 +115,7 @@ Overzicht assesments
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right">Maak nieuwe assesment</button>
+                        <button type="submit" class="btn btn-primary pull-left">Maak nieuwe assessment</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -126,7 +126,7 @@ Overzicht assesments
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-info">
-                    <h4 class="card-title ">Assesments waar jij editor bent</h4>
+                    <h4 class="card-title ">Assessments waar jij editor bent</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -202,12 +202,12 @@ Overzicht assesments
                         {% endfor %}
                         {% if not assesments_editor_list %}
                     <tr>
-                <td>Geen assesments</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                        <td>Geen assessments</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                         {% endif %}
                         </tbody>
