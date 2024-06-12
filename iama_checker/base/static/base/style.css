@@ -31,3 +31,7 @@ div.text-highlight-blue h6 {
 html::-webkit-scrollbar {
   display: none !important;
 }
+
+p {
+  font-size: 17px;
+}

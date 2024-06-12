@@ -20,6 +20,11 @@ def all_answers_reviewed(assesment_id):
         # Make sure to only check questions and not phase intros, then check only if the latest element is not reviewed
         if question.question_number != 0 and Answer.objects.filter(assesment_id=assesment_id, question_id=question).latest("created").status != Answer.Status.RV:
             return False
+
+    # Check if laws are completed
+    for law in Law.objects.filter(assesment_id=assesment_id):
+        if law.status == Law.Status.ICP:
+            return False
     # All answer have reviewed status
     return True
 
@@ -51,7 +56,7 @@ def generate_empty_answers(assesment, user):
 def generate_empty_law_answers(law):
     for question in Question.objects.filter(question_phase=5):
         if question.question_number != 0:
-            answer = Phase4Answer(law=law, assesment_id=law.assesment, question_id=question, user=assesment.user, status=Answer.Status.UA) 
+            answer = Phase4Answer(law=law, assesment_id=law.assesment, question_id=question, user=law.assesment.user, status=Answer.Status.UA) 
             answer.save()
 
 # Retrieve a list of options to add as possible collaborators to an answer

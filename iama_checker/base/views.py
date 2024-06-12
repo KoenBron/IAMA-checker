@@ -230,7 +230,7 @@ def save_answer(request, assesment_id, question_id):
             # Check the state of the question
 
             # Unanswered
-            if answer_form.data["answer_content"] == "":# is_valid drops answer content from cleaned data?????
+            if answer_form.data["answer_content"].strip() == "":# is_valid drops answer content from cleaned data?????
                 answer.status = Answer.Status.UA
 
             # Reviewed
@@ -469,8 +469,8 @@ def create_law(request, assesment_id):
             # Create the Law object
             law = Law(name=form.cleaned_data["name"])
             law.assesment = assesment
-            generate_empty_law_answers(law)
             law.save()
+            generate_empty_law_answers(law)
             return HttpResponseRedirect(next)
 
         # Form error

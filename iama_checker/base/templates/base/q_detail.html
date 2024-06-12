@@ -99,7 +99,7 @@
           <div class="col text-center">
             {% if question.id != 1 %}
                 <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
-            {% endif}
+            {% endif %}
             {% if question.id != 9 %}
                 <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
             {% endif %}
