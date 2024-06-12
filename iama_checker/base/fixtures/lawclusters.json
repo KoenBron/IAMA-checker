@@ -96,14 +96,14 @@
               },
               {
                   "subcluster_name": "Verbod van direct onderscheid op bepaalde gronden",
-                  "examples": "- Beslissingen of regels mogen niet in doorslaggevende mate zijn ingegeven door of gebaseerd op beschermde<br>"
+                  "examples": "- Beslissingen of regels mogen niet in doorslaggevende mate zijn ingegeven door of gebaseerd op beschermde persoonskenmerken<br>"
               },
               {
-                  "subcluster_name": "persoonskenmerkenVerbod van indirect onderscheid op bepaalde gronden",
-                  "examples": "- Beslissingen of regels mogen niet disproportioneel benadelend uitpakken voor personen die behoren tot groepen met<br>"
+                  "subcluster_name": "Verbod van indirect onderscheid op bepaalde gronden",
+                  "examples": "- Beslissingen of regels mogen niet disproportioneel benadelend uitpakken voor personen die behoren tot groepen met beschermde persoonskenmerken<br>"
               },
               {
-                  "subcluster_name": "beschermde persoonskenmerkenVerbod van discriminatoir gemotiveerd handelen",
+                  "subcluster_name": "Verbod van discriminatoir gemotiveerd handelen",
                   "examples": "- Verbod van racistisch/xenofoob etc. gemotiveerd handelen (bijv. geweldpleging)<br>- Verbod van het geven van opdracht tot discriminatie<br>"
               },
               {
@@ -112,18 +112,14 @@
               },
               {
                   "subcluster_name": "Recht op redelijke accommodatie / positieve actie",
-                  "examples": "- Recht op voorzieningen voor mensen met een handicap die hen in staat stellen gelijkwaardig in de samenleving te<br>"
-              },
-              {
-                  "subcluster_name": "participeren",
-                  "examples": "- Recht op compenserende maatregelen voor in het verleden ontstane structurele maatschappelijke ongelijkheid<br>"
+                  "examples": "- Recht op voorzieningen voor mensen met een handicap die hen in staat stellen gelijkwaardig in de samenleving te participeren<br>- Recht op compenserende maatregelen voor in het verleden ontstane structurele maatschappelijke ongelijkheid<br>"
               },
               {
                   "subcluster_name": "Verbod van profilering",
-                  "examples": "- Verbod van het cre\u00ebren van categorie\u00ebn of profielen op basis van beschermde persoonskenmerken, die vervolgens de basis<br>"
+                  "examples": "- Verbod van het cre\u00ebren van categorie\u00ebn of profielen op basis van beschermde persoonskenmerken, die vervolgens de basis vormen voor besluitvorming of beleid<br>"
               },
               {
-                  "subcluster_name": "vormen voor besluitvorming of beleidVerbod van segregatie",
+                  "subcluster_name": "Verbod van segregatie",
                   "examples": "- Verbod van ruimtelijke of andere vormen van scheiding van groepen die daarbij wel een vergelijkbare behandeling krijgen<br>"
               }
           ]
