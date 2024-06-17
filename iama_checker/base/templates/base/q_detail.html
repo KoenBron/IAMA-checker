@@ -50,20 +50,28 @@
                 <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
                     {% csrf_token %}
                     <center>
-                        <p><h4><i>{{ question.question_text|safe }}</i></h4></p>
+                        <p><h4 style="color: black"><i>{{ question.question_text|safe }}</i></h4></p>
                     </center>
                     <div class="text-center">
                         <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Klik hier voor vraag context en uitleg</button>
                     </div>
                     <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
-                      <p style="margin: 1em"> {{ question.question_context|safe }} </p>
+                      <p style="margin: 1em; font-size: 17px"> {{ question.question_context|safe }} </p>
                     </div>
-                    <p style="margin-top: 0.5em"> {{ question.question_instruction|safe }} </p>
+                    <p style="margin-top: 0.5em; font-size:17px"> {{ question.question_instruction|safe }} </p>
+                    {% if law_clusters %}
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
+                              Klik voor bijlage
+                            </button>
+                            {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
+                        </div>
+                    {% endif %}
                     <br>
                     {% if question.question_reference_text %}
                       <div class="rounded text-highlight-blue">
                         <h6 class="text-primary">Externe literatuur</h6>
-                        <p> {{ question.question_reference_text|safe }} </p>
+                        <p style="font-size: 17px"> {{ question.question_reference_text|safe }} </p>
                       </div>
                     {% endif %}
                     {% if question.question_warning %}
@@ -72,7 +80,11 @@
                         <p class="lead">{{ question.question_warning }}</p>
                       </div>
                     {% endif %}
-                    <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
+                    {% if answer.answer_content %}
+                        <textarea class="form-control rounded px-1" name="answer_content" rows="15" style="background-color: #E8E8E8" placeholder="Vul hier uw antwoord in"> {{ answer.answer_content }} </textarea>
+                    {% else %}
+                        <textarea class="form-control rounded px-1" name="answer_content" rows="15" style="background-color: #E8E8E8" placeholder="Vul hier uw antwoord in"></textarea>
+                    {% endif %}
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-3 d-flex justify-content-center align-items-center">

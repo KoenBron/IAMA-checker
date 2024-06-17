@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.template import ContextPopException
 from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm, LawForm
 from .models import Assesment, LawCluster, Phase4Answer, Question, Answer, Collaborator, Reference, Law
 from django.contrib.auth.models import User 
@@ -181,6 +182,9 @@ def question_detail(request, assesment_id, question_id):
         except (KeyError, Answer.DoesNotExist):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
+
+        if question_id in [4, 5]:
+            context["law_clusters"] = LawCluster.objects.all()
 
         # Add necessary context for questions that are not in phase 4
         context["answer"] = answer

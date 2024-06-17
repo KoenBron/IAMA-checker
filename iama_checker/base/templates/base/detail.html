@@ -22,11 +22,11 @@ IAMA-Assesment - Overzicht {{ assesment.name}}
             <div class="card-body">
                 <div class="row bp-4">
                     <div class="col-md-6">
-                        <div class="text-gray font-weight-bold">Laatst aangepast:</div>
+                        <div class="font-weight-bold" style="color: black">Laatst aangepast:</div>
                         <p class="border-bottom" style="font-size: 15px;">{{ assesment.date_last_saved }}</p>
                     </div>
                     <div class="col-md-6">
-                        <div class="text-gray font-weight-bold">Compleetheids status:</div>
+                        <div class="font-weight-bold" style="color: black">Compleetheids status:</div>
                         {% if assesment.complete_status %}
                             <p class="border-bottom" style="font-size: 15px;">Compleet</p>
                         {% else %}
@@ -39,26 +39,26 @@ IAMA-Assesment - Overzicht {{ assesment.name}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam assessment/algoritme (aanpasbaar)</label>
-                                <input type="text" class="form-control" name="name" value="{{ assesment.name }}">
+                                <label class="bmd-label-floating" style="color: black;">Naam assessment/algoritme (aanpasbaar)</label>
+                                <input type="text" class="form-control px-1" name="name" value="{{ assesment.name }}" style="background-color: #E8E8E8">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam uitvoerende organisatie (aanpasbaar)</label>
-                                <input type="text" class="form-control" name="organisation" value="{{ assesment.organisation }}">
+                                <label class="bmd-label-floating" style="color: black;">Naam uitvoerende organisatie (aanpasbaar)</label>
+                                <input type="text" class="form-control px-1" name="organisation" value="{{ assesment.organisation }}" style="background-color: #E8E8E8">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Naam eindverandwoordelijke van de IAMA (aanpasbaar)</label>
-                                <input type="text" class="form-control" name="ultimately_responsible" value="{{ assesment.ultimately_responsible }}">
+                                <label class="bmd-label-floating" style="color: black;">Naam eindverandwoordelijke van de IAMA (aanpasbaar)</label>
+                                <input type="text" class="form-control px-1" name="ultimately_responsible" value="{{ assesment.ultimately_responsible }}" style="background-color: #E8E8E8">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update</button>
+                    <button type="submit" class="btn btn-primary pull-right">Klik om assessment te updaten</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

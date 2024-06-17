@@ -57,10 +57,26 @@
                             <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">KLik hier voor vraag context en uitleg</button>
                         </div>
                         <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
-                            <p style="margin: 1em"> {{ question.question_context|safe }} </p>
+                            <p style="margin: 1em; font-size: 17px"> {{ question.question_context|safe }} </p>
                         </div>
                     {% endif %}
-                    <p style="margin-top:1em"> {{ question.question_instruction|safe }} </p>
+                    <p style="margin-top:1em; font-size:17px"> {{ question.question_instruction|safe }} </p>
+                    {% if question.question_number == 2 %}
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
+                              Klik voor bijlage over risico classificatie
+                            </button>
+                            {% include 'includes/risk_appendix.html' %}
+                        </div>
+                    {% endif %}
+                    {% if question.question_number == 6 %}
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
+                              Klik voor bijlage over mitigerende maatregelen
+                            </button>
+                            {% include 'includes/measure_appendix.html' %}
+                        </div>
+                    {% endif %}
                     <br>
                     {% if question.question_reference_text %}
                       <div class="rounded text-highlight-blue">
@@ -74,7 +90,11 @@
                         <p class="lead">{{ question.question_warning }}</p>
                       </div>
                     {% endif %}
-                    <textarea class="form-control rounded" name="answer_content" rows="15" style="background-color: #F8F8F8"> {{ answer.answer_content }} </textarea>
+                    {% if answer.answer_content %}
+                        <textarea class="form-control rounded px-1" name="answer_content" rows="15" style="background-color: #E8E8E8" placeholder="Vul hier uw antwoord in"> {{ answer.answer_content }} </textarea>
+                    {% else %}
+                        <textarea class="form-control rounded px-1" name="answer_content" rows="15" style="background-color: #E8E8E8" placeholder="Vul hier uw antwoord in"></textarea>
+                    {% endif %}
                     <div class="row">
                         {% if cut_off %}
                             <div class="col-md-3 d-flex justify-content-center align-items-center">
@@ -110,26 +130,6 @@
                             </div>
                         </div>
                         <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
-                        {% if question.question_number == 2 %}
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
-                                      Bijlage
-                                    </button>
-                                    {% include 'includes/risk_appendix.html' %}
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if question.question_number == 6 %}
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#risk_appendix">
-                                      Bijlage
-                                    </button>
-                                    {% include 'includes/measure_appendix.html' %}
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
                 </form>
             </div>

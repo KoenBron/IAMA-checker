@@ -35,3 +35,8 @@ html::-webkit-scrollbar {
 p {
   font-size: 17px;
 }
+
+black-placeholder::placeholder {
+  color: black;
+  opacity: 0.8;
+}
