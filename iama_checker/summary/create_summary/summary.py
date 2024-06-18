@@ -83,7 +83,7 @@ def produce_summary(assesment):
     context = {
         "questions": get_questions_by_phase(assesment),
         "laws": get_laws(assesment),
-        "assesment_name": assesment.name,
+        "assessment_name": assesment.name,
         "ultimately_responsible": {
             "person": assesment.ultimately_responsible,
             "organisation": assesment.organisation
