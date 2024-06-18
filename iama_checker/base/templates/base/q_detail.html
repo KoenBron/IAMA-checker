@@ -88,14 +88,14 @@
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-3 d-flex justify-content-center align-items-center">
-                            <div class="form-check">
+                            <div class="form-check align-items-center">
                                 <label class="form-check-label" for="reviewed"> Reviewed en Compleet
                                 {% if answer.status|is_reviewed %}
                                     <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed" checked>
                                 {% else %}
                                     <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed">
                                 {% endif %}
-                                <span class="form-check-sign">
+                                <span class="form-check-sign mt-2">
                                     <span class="check"></span>
                                 </span>
                                 </label>

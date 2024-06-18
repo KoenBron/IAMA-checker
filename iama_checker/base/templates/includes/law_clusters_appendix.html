@@ -19,7 +19,7 @@
       <div class="modal-body scrollspy-example bg-body-tertiary p-3 rounded-2" data-bs-spy="scroll" data-bs-target="#cluster_navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
           {% for law_cluster in law_clusters %}
         <h2 id="scrollspyHeading{{ law_cluster.id }}">{{ law_cluster.cluster_name }}</h2>
-            <p>{{law_cluster.description }}</p>
+            <p class="text-left">{{law_cluster.description }}</p>
             <table class="table table-striped-columns border-left border-right">
               <thead>
                 <tr>
@@ -30,8 +30,8 @@
               <tbody>
                 {% for subcluster in law_cluster.subclusters %}
                   <tr>
-                    <td>{{ subcluster|cluster:0|safe }}</td>
-                    <td>{{ subcluster|cluster:1|safe }}</td>
+                    <td class="text-left">{{ subcluster|cluster:0|safe }}</td>
+                    <td class="text-left">{{ subcluster|cluster:1|safe }}</td>
                   </tr>
                 {% endfor %}
               </tbody>

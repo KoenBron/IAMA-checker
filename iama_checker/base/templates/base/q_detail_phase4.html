@@ -35,13 +35,14 @@
                 {% if law_clusters %}
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
-                          Klik voor bijlage
+                          Klik voor grondrechtenclusters overzicht
                         </button>
                         {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
                     </div>
                 {% endif %}
             </div>
         </div>
+        {% include 'includes/rights_listing.html' with law_list=law_list assesment=assesment %}
         <div class="card" style="margin-top: 60px; margin-bottom: 60px">
           <div class="card-header card-header-rose">
             <h4 class="card-title">Disciplines betrokken bij vragen</h4>
@@ -75,7 +76,6 @@
             </div>
           </div>
         </div> 
-        {% include 'includes/rights_listing.html' with law_list=law_list assesment=assesment %}
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
     </div>
     <div class="col-md-3">
