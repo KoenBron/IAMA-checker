@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block add_editor %}
-    <a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round">Voeg editor toe aan assesment +</a>
+    <a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round btn-info">Voeg editor toe aan assesment +</a>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +31,7 @@
         </div>
         <div class="card" style="margin-top: 30px">
           <div class="card-header card-header-rose">
-            <h4 class="card-title">Disciplines betrokken bij vragen</h4>
+            <h4 class="card-title">Beroepen/specialisaties betrokken bij vragen</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
