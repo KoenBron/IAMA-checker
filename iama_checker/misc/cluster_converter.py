@@ -1,3 +1,6 @@
+# Run this file to convert the clusters from input.txt into the required json format in output.txt
+# This method is imperfect when just copying the clusters from the original IAMA document
+
 import json
 
 if __name__ == "__main__":

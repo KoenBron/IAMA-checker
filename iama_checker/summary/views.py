@@ -21,7 +21,6 @@ def create_summary(request, assesment_id):
 
     # Create the pdf
     pdf = summary.produce_summary(assesment)
-    print(type(pdf))
     buffer = io.BytesIO()
     buffer.write(pdf)
     buffer.seek(0)
