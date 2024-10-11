@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block add_editor %}
-{% include "includes/question_history.html" with question=question question_history=question_history %}
 <a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" class="btn btn-info btn-round">Voeg editor toe aan assemsent +</a>
 {% endblock %}
 
@@ -17,6 +16,7 @@
     <div class="col-md-7 text-center">
         <h2 class="text-primary">Vraag 4.{{ question.question_number.normalize }} </h2>
         <h2 class="text-primary">{{ law.name }}</h2>
+        {% include "includes/question_history.html" with question=question question_history=question_history %}
     </div>
     <div class="col"></div>
 </div>
