@@ -146,6 +146,8 @@ def question_detail(request, assesment_id, question_id):
             "jobs": jobs_per_phase(question.question_phase),
         }
 
+        #TODO: clean up "phase 5" elements that are no longer used
+
         # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
         if question.question_phase == 4:
             # Gather additional context needed for fase 4

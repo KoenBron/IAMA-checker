@@ -92,6 +92,8 @@ class Answer(models.Model):
     # For tracking answer history
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
+#TODO: restructure so phase 4 is no longer per law and remove cut-off property
+
 # The phase 4 of each assesment is structered so that all the answers and questions are assigned per
 # law. Aside form that the answer and question model remains the same
 class Law(models.Model):
