@@ -32,12 +32,16 @@ def get_questions_by_phase(assesment):
                     "question_text": question.question_text,
                     "question_answer": answer
                 }
+                #print(question_dict)
+                #print("\nObject append....\n")
                  
                 # Add the dict to the list of all the questions in this phase
                 question_list.append(question_dict)
+                #print(question_list)
 
             # Add the dict to the list of phases
             questions_by_phase.append({"phase": phase, "question_list": question_list})
+            print(questions_by_phase)
 
     return questions_by_phase
 
@@ -80,6 +84,7 @@ def get_laws(assesment):
 
 def produce_summary(assesment):
     # Get context objects for the template
+    print("succesfully here")
     context = {
         "questions": get_questions_by_phase(assesment),
         "laws": get_laws(assesment),
@@ -89,15 +94,21 @@ def produce_summary(assesment):
             "organisation": assesment.organisation
         }
     }
+    print("produce_summary context object made")
 
     # Create the environment for jinja2 to load the template from the templates/ directory
     env = Environment(loader=FileSystemLoader("summary/create_summary/templates/"))
+    print("tussenstap")
     template = env.get_template("summary.html")
+
+    print("template created")
 
     # Get the filled in template and write it to the input file
     template_output = template.render(context)
     with open("input.html", "w") as input:
         input.write(template_output)
+
+    print("template writey stuff")
 
     # Convert the filled in .html file to a .pdf file
     return pdfkit.from_file("input.html", css="summary/create_summary/static/style.css", options={"enable-local-file-access": ""})
