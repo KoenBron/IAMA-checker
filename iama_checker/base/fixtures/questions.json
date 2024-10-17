@@ -82,12 +82,12 @@
       "model": "base.question",
       "pk": "4",
       "fields": {
-        "question_title": "Publieke waarden 1",
+        "question_title": "Publieke waarden",
         "question_text": "Wat zijn de publieke waarden die de inzet van het algoritme ingeven? Indien meerdere publieke waarden de inzet van het algoritme ingeven, kan daar een rangschikking in aangebracht worden?",
         "question_context": "De publieke waarden genoemd in de vraag zijn de belangen en principes waar waarde aan wordt gehecht door het publiek en die op een manier heeft geleid tot de inzet van het algoritme. Deze waarden kunnen per groep verschillen, zo zal de bevolking/samenleving andere waarden hebben of belangrijk vinden dan een bepaalde organisatie. Verder worden publieke waarden vaak gebaseerd op (grond)rechten of het streven/de filosofieën van organisaties, zoals bijvoorbeeld bedrijven of de overheid. Voorbeelden van publieke waarden zijn: Gelijkwaardigheid, Vrijheid, Duurzaamheid of Veiligheid. Concreter en tevens correct zou een vertaling van grondrechten zijn, bijvoorbeeld: het beschermen van de vrijheid van meningsuiting of persoonsgegevensbescherming.<br><br>Het is belangrijk om deze publieke waarden die aanleiding geven tot de inzet van het algoritme op papier genoteerd te krijgen omdat het dan later makkelijker is om het algoritme te evalueren. Zo kan er vastgesteld worden welke publieke waardes het algoritme moet respecteren en waarborgen en welke niet. Met deze informatie wordt er gekeken of er maatregelen getroffen moeten worden om dit te verhelpen of dat het resultaat acceptabel is. Dit is zeker belangrijk aangezien algoritmes direct invloed kunnen hebben op het bestuur en handelen rond deze publieke waarden.",
         "question_instruction": "Voor het goed beantwoorden van deze vraag is het belangrijk om een rangorde te maken van de publieke waarden die betrokken zijn bij het inzetten van het algoritme gebaseerd op hoe belangrijk ze worden geacht. Zo wordt er ook voor iedere waarde nagedacht over hoe ernstig het is als een van deze niet helemaal gerespecteerd kan worden met de inzet van het algoritme en wanneer het nodig is om hiervoor mitigerende maatregelen te treffen. Verder is het voor het naslagwerk handig om kort uit te leggen waarom de genoemde publieke waarden relevant zijn voor dit algoritme, het kan hierbij helpen om te refereren naar de aanleiding en doelen benoemd in de vorige twee vragen.",
         "question_phase": 1,
-        "question_number": 3,
+        "question_number": 3.1,
         "question_reference_text": "Voor meer informatie over de invloed van algoritmes op publieke waarden zie <b>Code goed digitaal bestuur</b> (sectie 4), <b>Handreiking non-discriminatie by design</b> (fase 1) en <b>Toetsingskader Algemene Rekenkamer</b> (onder <b>Ethiek</b>).<br><br>Voor meer uitleg over waarom het waardevol is om burgers te betrekken bij de discussie en hoe dit te doen, zie <b>Code goed openbaar digitaal bestuur</b>.",
         "job_list": [
           {
@@ -117,12 +117,12 @@
       "model": "base.question",
       "pk": "5",
       "fields": {
-        "question_title": "Publieke waarden 2",
+        "question_title": "Publieke waarden",
         "question_text": "Wat zijn de publieke waarden die mogelijk in het gedrang komen door de inzet van het algoritme?",
         "question_context": "De publieke waarden genoemd in de vraag zijn de belangen en principes waar waarde aan wordt gehecht door het publiek en die op een manier heeft geleid tot de inzet van het algoritme. Deze waarden kunnen per groep verschillen, zo zal de bevolking/samenleving andere waarden hebben of belangrijk vinden dan een bepaalde organisatie. Verder worden publieke waarden vaak gebaseerd op (grond)rechten of het streven/de filosofieën van organisaties, zoals bijvoorbeeld bedrijven of de overheid. Voorbeelden van publieke waarden zijn: Gelijkwaardigheid, Vrijheid, Duurzaamheid of Veiligheid. Concreter en tevens correct zou een vertaling van grondrechten zijn, bijvoorbeeld: het beschermen van de vrijheid van meningsuiting of persoonsgegevensbescherming.<br><br>In de vorige vraag ging het over de publieke waarden die aanleiding geven tot de inzet van het algoritme, bij deze vraag wordt nagedacht over de publieke waarden mogelijk negatief aangetast worden door het inzetten van een algoritme. Zoals bijvoorbeeld bij een inbreuk op grondrechten, denk hier bijvoorbeeld aan het schenden van vrijheid van meningsuiting door geautomatiseerd censureren. Zodra deze publieke waarden geïdentificeerd worden kan er in een later stadium van de IAMA gekeken worden naar maatregelen die getroffen moeten worden om de inzet van het algoritme rechtvaardigen.",
         "question_instruction": "Om een goed antwoord te geven op deze vraag is het handig om een rangorde te maken op basis van de ernst van de (mogelijke) inbreuk. Verder is het voor het naslagwerk handig om context toe te voegen aan de genoemde publieke waarden, zodat de motivatie achter de benoeming achterhaalbaar is. Let op: Het is niet de bedoeling om nu al te noteren wat voor mitigerende maatregelen en verdere afwegingen genomen moeten worden, dat komt later. Deze vraag moet ervoor zorgen dat deze botsende publieke waarden in het achterhoofd gehouden worden tijdens het formuleren van antwoorden op de resterende IAMA vragen.",
         "question_phase": 1,
-        "question_number": 4,
+        "question_number": 3.2,
         "question_reference_text": "Voor meer informatie over de invloed van algoritmes op publieke waarden zie <b>Code goed digitaal bestuur</b> (sectie 4), <b>Handreiking non-discriminatie by design</b> (fases 1) en <b>Toetsingskader Algemene Rekenkamer</b> (onder Ethiek).<br><br>Voor meer uitleg over waarom het waardevol is om burgers te betrekken bij de discussie en hoe dit te doen, zie <b>Code goed openbaar digitaal bestuur</b>.",
         "job_list": [
           {
@@ -157,7 +157,7 @@
         "question_context": "In de meeste gevallen, dus niet altijd, is het nodig om de inzet van een algoritme te rechtvaardigen en legaal te maken met wettelijke grondslag. Echter, als het algoritme inbreuk maakt op de grondrechten, vrijheid of leven van mensen, <b>is het verplicht</b> om een duidelijke en voorzienbare wettelijke grondslag aan te tonen of, in sommige gevallen, een lagere regeling zoals een AMvB om de inzet van een algoritme te rechtvaardigen.<br><br>De formele wet of lagere regeling die hier gevraagd wordt moet aan een paar kwaliteitseisen voldoen om goed genoeg te zijn als wettelijke grondslag. Dit zijn de volgende eisen:<ul><li>Wettelijke grondslag moet concreet en duidelijk verwoord zijn</li><li>Wettelijke grondslag moet voorzienbaar zijn, dat betekent dat alledaagse mensen de wet of regeling goed genoeg moeten kunnen begrijpen om geïnformeerd hun handelen er op aan te passen, indien ze dat nodig achten</li><li>De wet of regeling moet het handelen dat volgt uit het algoritme beschermen tegen willekeur</li><li>De wet of regelingen moet transparantie bieden over de besluiten die genomen worden rondom het handelen dat volgt uit het algoritme</li><li>De wet of regeling moet voldoende rechtsbescherming bieden</li></ul>",
         "question_instruction": "Om deze vraag goed te beantwoorden moet, indien vereist, de voorzienbare formele wet of juridische regeling genoemd worden die de inzet van het algoritme rechtvaardigd en moet vermeld worden waarom deze volstaat.  Deze vraag is bedoeld om de inzet van het algoritme wettelijk te rechtvaardigen, schrijf daarom ook liever te veel dan te weinig op bij het verklaren waarom dit antwoord volstaat!",
         "question_phase": 1,
-        "question_number": 5,
+        "question_number": 4,
         "question_warning": "Als het algoritme kans heeft om inbreuk te maken op de vrijheid of grondrechten van burgers en de wettelijke grondslag voor het alsnog inzetten ervan ontbreekt, mag het algoritme niet worden ingezet!",
         "question_reference_text": "Extra informatie over het rechtmatig inzetten van een algoritme kan gevonden worden bij <b>Toetsingskader Algemen Rekenkamer</b> (<b>Privacy/Rechtmatige Grondslag</b>) en <b>Ethische Richtsnoeren voor betrouwbare Kunstmatige Intelligentie</b> (Hoofdstuk I).<br><br>Ook het Beleidskompas (sectie 3.2 Rechtmatigheid) helpt bij het vinden van het juridisch kader om een beleidsinstrument, waar een algoritme onder valt, te kunnen rechtvaardigen. Zie ook <b>Code goed digitaal bestuur</b> (Hoofdstukken 2 en 3).<br><br>Voor meer uitleg over waarom het waardevol is om burgers te betrekken bij de discussie en hoe dit te doen.<br> Voor meer informatie over het mogelijkmaken om burgers beslissingen aan te laten vechten en zo meer rechtsbescherming te bieden zie <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).",
         "job_list": [ 
@@ -176,12 +176,12 @@
       "model": "base.question",
       "pk": "7",
       "fields": {
-        "question_title": "Aansprakelijkheid en verantwoordelijkheden 1",
+        "question_title": "Betrokkenen en verantwoordelijkheden",
         "question_text": "Welke partijen en personen zijn er bij de ontwikkeling/het gebruik/het onderhoud van het algoritme betrokken?",
         "question_context": "Het is natuurlijk van belang om aan de start van het ontwikkelen/aanpassen van een algoritme vooruit te denken en te proberen te identificeren wie er in welke mate betrokken zullen zijn bij de inzet van het algoritme. Dit geldt voor personen, organisaties en andere partijen. Later zal dit helpen bij de planning rondom het algoritme, terwijl het ook voorkomt dat hierover pas over nagedacht wordt wanneer men al diep in productie zit en mogelijk door tunnelvisie geen goed overzicht meer kan houden.<br><br>Het is van belang dat er niet alleen voor de ontwikkelingsperiode gekeken wordt naar betrokkenen, maar ook naar de betrokkenen voor nadat het algoritme is afgerond voor in zoverre dat nu al op papier te zetten is. Ga dus de discussie aan over de betrokken partijen in alle stadia van het algoritme om zo de positie van burgers en andere partijen die betrokken zijn te waarborgen.",
         "question_instruction": "Om deze vraag goed te beantwoorden moet er een duidelijke lijst gemaakt worden van personen, organisaties en/of partijen die in enige mate betrokken (zullen) zijn bij het ontwikkelen/gebruik/onderhoud van het algoritme. Geef ook waar nodig extra informatie over hoe of waarom de persoon/organisatie/partij betrokken is, zodat er zo min mogelijk aan de interpretatie van de lezer wordt overgelaten. <b>Let op</b>: Er wordt niet gevraagd waar de verantwoordelijkheden liggen in deze vraag, dat wordt gevraagd in de volgende vraag. Hier wordt specifiek gevraagd naar de betrokkenen en waarom ze betrokken zijn!",
         "question_phase": 1,
-        "question_number": 6,
+        "question_number": 5.1,
         "question_reference_text": "Voor meer informatie over het belang van vroegtijdig identificeren van betrokkenen en belanghebbende, zie de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).<br><br>In <b>Code Goed Openbaar Digitaal Bestuur</b> (Deel 1.1 en 1.2) wordt meer uitgelegd over verhoudingen tussen burgers, politieke verantwoording en bestuursbeleid betreffende een algoritme.<br><br>Voor meer specificaties over het goed en concreet vastleggen van de rollen en taken van betrokkenenen en bijbehorende verantwoordelijkheden rondom een algoritme zie <b>Toetsingskader Algemene Rekenkamer</b> (<b>Sturing en verantwoording/Rollen, taken, verantwoordelijkheden en bevoegdheden</b>).",
         "job_list": [
           {
@@ -207,12 +207,12 @@
       "model": "base.question",
       "pk": "8",
       "fields": {
-        "question_title": "Aansprakelijkheid en verantwoordelijkheden 2",
+        "question_title": "Betrokkenen en verantwoordelijkheden",
         "question_text": "Hoe zijn de verantwoordelijkheden belegd ten aanzien van de ontwikkeling en de inzet van het algoritme, ook nadat het algoritme eenmaal is afgerond?",
         "question_context": "Het kunnen noteren en daarmee waarborgen van de verdeling van verantwoordelijkheden rondom de ontwikkeling/inzet/gebruik van een algoritme is één van de belangrijkste stappen in het garanderen dat een algoritme voldoet aan de ethische, kwalitatieve en functionele eisen. Deze verantwoordelijkheden vroegtijdig verdelen is enorm behulpzaam in het efficiënt en verantwoordelijk laten verlopen van de inzet van het algoritme. Zo geeft het duidelijk aan wie er verantwoordelijk is voor bijvoorbeeld het maken van een bepaalde aanpassing of het nemen van mitigerende maatregelen. Verder laat het bij een mogelijke verandering in personeel zien welke verantwoordelijkheden door wie worden achtergelaten en dus door iemand anders opgepakt moeten worden.<br><br>Het is ook goed om te kijken naar eventuele valkuilen rondom het gebruiken van een algoritme in het maken van besluiten. Er moet over valkuilen, zoals bijvoorbeeld automation bias, nagedacht worden tijdens het verdelen van verantwoordelijkheden om aan te wijzen wie er rekening mee moet gaan houden. <br><br>Deze verdeling, hoewel hij later in het proces aangepast kan worden, moet gewaarborgd kunnen worden in de toekomst. Er dient tijdens het vormen van besluiten altijd aan deze vedeling gedacht te worden om zo niet het burgerperspectief uit het oog te verliezen. Dit kan namelijk gebeuren wanneer de besluiten voornamelijk genomen worden vanuit een bestuursperspectief zonder aandacht voor de politieke verantwoordelijkheid of het beschermen van de burgers. Wanneer dit duidelijk vastgelegd kan worden zorgt dit voor meer transparantie rondom de besluitvorming van het algoritme en laat daarmee de burgers beter de discussie aangaan over de aansprakelijkheid en verantwoordelijkheden omtrent het algoritme.",
         "question_instruction": "Om deze vraag goed te beantwoorden moet er een uitgebreide lijst met de verdeling van verantwoordelijkheden gemaakt worden die dubbel dient als een taakverdeling. Schrijf de content van de verantwoordelijkheden uit en wees hier wederom zo concreet, duidelijk en uitgebreid over als mogelijk is. Schrijf liever te veel dan te weinig en mocht ergens twijfel zijn of de verantwoordelijheid gewaarborgd kan worden, kijk dan naar mitigerende maatregelen en schrijf deze zo uitgebreid op als op dit punt in de assessment kan. Het helpt om een structuur/format op te stellen voor het noteren van de verantwoordelijkheden, zodat het antwoord niet één grote brei aan tekst is.",
         "question_phase": 1,
-        "question_number": 7,
+        "question_number": 5.2,
         "question_warning": "Als het niet mogelijk is om de verdeling van verantwoordelijkheden voldoende te waarborgen, mag het algoritme niet worden ingezet.",
         "question_reference_text": "Voor meer informatie over het belang van vroegtijdig identificeren van betrokkenen en belanghebbende, zie de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).<br><br>In <b>Code Goed Openbaar Digitaal Bestuur</b> (Deel 1.1 en 1.2) wordt meer uitgelegd over verhoudingen tussen burgers, politieke verantwoording en bestuursbeleid betreffende een algoritme.<br><br>Voor meer specificatie over het goed en concreet vastleggen van de rollen en taken van betrokkenenen en bijbehorende verantwoordelijkheden rondom een algoritme zie <b>Toetsingskader Algemene Rekenkamer</b> (<b>Sturing en verantwoording/Rollen, taken, verantwoordelijkheden en bevoegdheden</b>).",
         "job_list": [
@@ -239,12 +239,12 @@
       "model": "base.question",
       "pk": "9",
       "fields": {
-        "question_title": "Aansprakelijkheid en verantwoordelijkheden 3",
+        "question_title": "Betrokkenen en verantwoordelijkheden",
         "question_text": "Wie is eindverantwoordelijk voor het algoritme?",
         "question_context": "Deze vraag bouwt voort op de motivaties genoemd bij de uitleg van de vorige vraag. Het is voor de verdeling van verantwoordelijkheden altijd belangrijk om te weten wie er eindverantwoordelijk is voor het algoritme dat wordt ingezet.<br><br>Ondanks dat het niet direct gevraagd word is het goed om hier te proberen een exit-strategie vast te leggen voor het geval dat de ontwikkeling van het algoritme om wat voor reden niet meer gewenst is. Dit is om te voorkomen dat er geen publieke middelen en tijd verspilt worden aan de ontwikkeling van het algoritme, omdat er bijvoorbeeld al zoveel tijd en verzonken kosten inzit. Zo komt er geen ineffectief, overbodig of inaccuraat algoritme de op markt.",
         "question_instruction": "Om een goed antwoord te geven moet de naam en functie van de eindverantwoordelijke partij genoteerd worden in concreet detail. Daarnaast moet in grote lijnen een exit-strategie beschreven worden, dit hoeft niet in detail en is meer bedoeld om vroegtijdig al nagedacht en gediscussieerd te hebben over wat te doen als het project faalt. Maak hiervan, zover dat gaat, een stappenplan.",
         "question_phase": 1,
-        "question_number": 8,
+        "question_number": 5.3,
         "question_warning": "Als het niet mogelijk is om een eindverantwoordelijke te noemen, mag het algoritme niet worden ingezet.",
         "question_reference_text": "Voor meer informatie over het belang van vroegtijdig identificeren van betrokkenen en belanghebbende, zie de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 1).<br><br>In <b>Code Goed Openbaar Digitaal Bestuur</b> (Deel 1.1 en 1.2) wordt meer uitgelegd over verhoudingen tussen burgers, politieke verantwoording en bestuursbeleid betreffende een algoritme.<br><br>Voor meer specificatie over het goed en concreet vastleggen van de rollen en taken van betrokkenenen en bijbehorende verantwoordelijkheden rondom een algoritme zie <b>Toetsingskader Algemene Rekenkamer</b> (<b>Sturing en verantwoording/Rollen, taken, verantwoordelijkheden en bevoegdheden</b>).",
         "job_list": [
@@ -268,20 +268,32 @@
       }
     },
     {
-        "model": "base.Question",
-        "pk": 10,
-        "fields": {
-            "question_title": "Grondrechten",
-            "question_text": "Wordt er een grondrecht geraakt door het in te zetten algoritme?",
-            "question_context": "Dit onderdeel is wat IAMA onderscheid van andere impact assessments omtrent algoritmes. Hier gaan we na welke grondrechten geraakt worden door de inzet van het algoritme, hoe deze geraakt worden en of het mogelijk is om het algoritme verantwoord en legaal in te zetten.<br><br>Om dit op een gestructureerde manier te doen is er in het IAMA een 7-delig stappenplan opgezet, waar bij iedere stap een vraag gerelateerd aan grondrechten beantwoord dient te worden per grondrecht dat mogelijk geraakt kan worden. De essentie van dit stappenplan is in een nieuwe vorm gegoten binnen IAMA Checker. Zo vind je hieronder een tabel waaraan grondrechten kunnen worden toegevoegd die mogelijk geraakt worden door de inzet van het algoritme. Vanuit deze entries wordt doorverwezen naar de resterende 6 vragen die dan per grondrecht ingevuld kunnen worden. Voor alle vragen wordt het sterk aangeraden om een groep deze vragen te laten beantwoorden die disciplines/beroepen omvatten die hierboven vermeld staan.<br><br>Het doel van dit stappenplan is om alle grondrechten die aangetast kunnen worden in kaart te brengen en vervolgens een discussie te starten over de maatregelen die genomen moeten worden om het inzetten van dit algoritme mogelijk nog te realiseren.<br><br>Om te beginnen met het identificeren van mogelijk aangetaste grondrechten is het een goed idee om de volgende drie rechten na te gaan: recht op gelijke behandeling, persoonsgegevens bescherming en recht op behoorlijk bestuur. Raadpleeg vanuit de eerste paar genoteerde grondrechten de bijlage hieronder om clusters en sub-clusters te vinden van grondrechten die nauw samenhangen. Door deze gerelateerde clusters na te gaan kan of het mogelijk is dat als één van de rechten in het cluster geraakt wordt, dat dan andere in datzelfde cluster ook het risico lopen Kijk ook naar het antwoord gegeven op 1.3 over publieke waarden om nog meer grondrechten te vinden. Deze bijlage dient als ondersteuning voor het zoeken naar geraakte grondrechten en staat dus niet in als een uitputtende lijst, blijf te alle tijden zelf zoeken naar grondrechten die mogelijk risico lopen.",
-            "question_instruction": "Maak voor alle gevonden grondrechten een entry in de tabel hieronder. Er wordt in dit onderdeel verder niet naar een wettelijk kader gevraagd dat de inzet van het algoritme kan rechtvaardigen aangezien er al naar deze gevraagd is bij vraag 1.4, houdt dit in gedachte en verwijs naar dat antwoord waar dat nodig wordt geacht.<br><br>Een oranje streep zoals hieronder weergegeven betekent dat er wetgeving gevonden is die uitputtend is (uitleg is te vinden in vraag 4.1), dit heeft als gevolg dat het stappenplan ervoor niet verder doorlopen hoeft te worden! Verder zijn er nog twee andere symbolen die aangeven of alle benodigde antwoorden voor het gronrecht gereviewed zijn of niet.<div class='row text-center'><i class='material-icons' style='color: red'>close</i><i class='material-icons' style='color: orange'>remove</i><i class='material-icons' style='color: green'>done</i></div>",
-            "question_phase": 4,
-            "question_number": 0
-        }
+      "model": "base.Question",
+      "pk": 10,
+      "fields": {
+          "question_title": "Grondrechten",
+          "question_text": "",
+          "question_context": "Dit onderdeel is wat IAMA onderscheid van andere impact assessments omtrent algoritmes. Hier gaan we na welke grondrechten geraakt worden door de inzet van het algoritme, hoe deze geraakt worden en of het mogelijk is om het algoritme verantwoord en legaal in te zetten.<br><br>Om dit op een gestructureerde manier te doen is er in het IAMA een 7-delig stappenplan opgezet, waar bij iedere stap een vraag gerelateerd aan grondrechten beantwoord dient te worden per grondrecht dat mogelijk geraakt kan worden. Voor alle vragen wordt het sterk aangeraden om een groep deze vragen te laten beantwoorden die disciplines/beroepen omvatten die hieronder vermeld staan.<br><br>Het doel van dit stappenplan is om alle grondrechten die aangetast kunnen worden in kaart te brengen en vervolgens een discussie te starten over de maatregelen die genomen moeten worden om het inzetten van dit algoritme mogelijk nog te realiseren.",
+          "question_instruction": "Er wordt in dit onderdeel verder niet naar een wettelijk kader gevraagd dat de inzet van het algoritme kan rechtvaardigen aangezien er al naar deze gevraagd is bij vraag 1.4, houdt dit in gedachte en verwijs naar dat antwoord waar dat nodig wordt geacht.<br><br>Een oranje streep zoals hieronder weergegeven betekent dat er wetgeving gevonden is die uitputtend is (uitleg is te vinden in vraag 4.1), dit heeft als gevolg dat het stappenplan ervoor niet verder doorlopen hoeft te worden! Verder zijn er nog twee andere symbolen die aangeven of alle benodigde antwoorden voor het gronrecht gereviewed zijn of niet.<div class='row text-center'><i class='material-icons' style='color: red'>close</i><i class='material-icons' style='color: orange'>remove</i><i class='material-icons' style='color: green'>done</i></div>",
+          "question_phase": 4,
+          "question_number": 0
+      }
     },
     {
         "model": "base.Question",
         "pk": 11,
+        "fields": {
+            "question_title": "Grondrechten",
+            "question_text": "Wordt er een grondrecht geraakt door het in te zetten algoritme?",
+            "question_context": "Om te beginnen met het identificeren van mogelijk aangetaste grondrechten is het een goed idee om de volgende drie rechten na te gaan: recht op gelijke behandeling, persoonsgegevens bescherming en recht op behoorlijk bestuur. Raadpleeg vanuit de eerste paar genoteerde grondrechten de bijlage bovenin om clusters en sub-clusters te vinden van grondrechten die nauw samenhangen. Het is mogelijk dat als één van de rechten in het cluster geraakt wordt, dat anderen in datzelfde cluster dan ook het risico lopen. Kijk ook naar het antwoord gegeven op 1.3 over publieke waarden om nog meer grondrechten te vinden. Deze bijlage dient als ondersteuning voor het zoeken naar geraakte grondrechten en staat dus niet in als een uitputtende lijst, blijf te alle tijden zelf zoeken naar grondrechten die mogelijk risico lopen.",
+            "question_instruction": "",
+            "question_phase": 4,
+            "question_number": 1
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 12,
         "fields": {
             "question_title": "Specifieke wetgeving en richtsnoeren",
             "question_text": "Zijn er specifieke wettelijke bepalingen of richtsnoeren van toepassing op de grondrechteninbreuk?",
@@ -289,33 +301,7 @@
             "question_instruction": "Om deze vraag goed te beantwoorden moet er een opsomming gemaakt worden van wetgevingen die van toepassing zijn op de mogelijke grondrechten inbreuk die begaan kunnen worden door de inzet van het algoritme. Geef bij iedere genoemde wetgeving een korte toelichting op hoe deze van toepassing is op de inbreuk van het geselecteerde grondrecht en in welke mate hij van toepassing is. Ga na of er uitpttende wetgeving is, zoja dan kan je het vinkje voor uitputtend aan zetten en stoppen met het stappenplan voor dit grondrecht.",
             "question_warning": "Als blijkt dat er uitputtende wetgeving (zie de vraag context voor uitleg) bestaat die over het geheel van de inbreuk gaat, vink dan het knopje uitputtend onderaan de vraag aan en het is dan niet nodig om dit stappenplan verder te doorlopen voor dit grondrecht.",
             "question_reference_text": "Voor meer informatie over het voldoen aan de gelijkheidsbehandelingswetgeving met een concrete toetsingstappen en de discriminatie risico's van een algoritme gedurende verschillende fases in de ontwikkeling en de inzet kun je terecht bij de <b>Handreiking non-discriminatie by design</b> (Hoofdstuk 6 en de hele handleiding).<br><br> Voor meer informatie over de risico's van bias vertaald naar de output van een model/algoritme kan gekeken worden bij het <b>Toetsingskader Algemene Rekenkamer</b>.",
-            "question_phase": 5,
-            "question_number": 1,
-            "job_list": [
-              {
-                "type": "PL",
-                "priority": 1
-              },
-              {
-                "type": "DE",
-                "priority": 1
-              },
-              {
-                "type": "JR",
-                "priority": 1
-              }
-            ]
-        }
-    },
-    {
-        "model": "base.Question",
-        "pk": 12,
-        "fields": {
-            "question_title": "Zwaartebepaling",
-            "question_text": "Hoe zwaar wordt een grondrecht geraakt door het algoritme?",
-            "question_context": "Mocht het algoritme een grondrecht aantasten, dan betekent dit niet per se dat het algoritme niet ingezet mag worden. Het betekent wel dat afhankelijk van de zwaarte van de aantasting er maatregelen genomen moeten worden om het gebruik te kunnen rechtvaardigen. Bij deze zwaartebepaling moet allereerst gekeken worden naar welke delen van het grondrecht aangetast kunnen worden door het algoritme en vervolgens moet er gediscussieerd worden over de zwaarte categorie waar deze invalt. Er wordt onderscheid gemaakt tussen 3 zwaartecategorieën:<ul><li>Zwaar</li><li>Middelzwaar</li><li>Licht</li></ul><p style='margin: 1em'>Om te bepalen in welke categorie het algoritme valt voor dit grondrecht worden de publieke waarden (voor meer uitleg over publieke waarden ga naar vraag 1.3) die de kern vormen van het grondrecht op een rijtje gezet. Deze waarden zijn wat het grondrecht probeert te beschermen. Neem als voorbeeld privacy rechten, de publiek waarden die hiervan de kern vormen zijn: persoonlijke autonomie, menselijke waardigheid, geestelijk en fysieke integriteit en identiteit. Of hoe bij de lockdown tijdens corona volledige bewegingsvrijheid de kern vormde van de ruimtelijke privacy rechten die in het geding kwamen. De volgende stap is om te kijken in welke mate deze kernwaarden worden gehinderd door het algoritme. Neem geen hindering als startpunt en werk vanaf daar verder naar één van de drie categorieën door te discussiëren in welke mate de kern van het grondrecht wordt gehinderd. Voor een voorbeeld van het indelen van verschillende corona maatregelen in deze drie categorieën, kijk naar de bijlage.</p>",
-            "question_instruction": "Om deze vraag goed te beantwoorden moet het worden vastgesteld in welke zwaartecategorie de aantasting van dit grondrecht past. Kies uit: <b>zwaar, middelzwaar of licht</b>. Leg de redenering voor het kiezen van één van deze categorieën vast, geef hierbij aan welke delen van het grondrecht en de bijbehorende publieke waarden in welke mate worden aangetast. Er is voor deze vraag vaak niet één correcte keuze, het is een spectrum dus probeer een zo duidelijk mogelijke rechtvaardiging te schrijven voor het kiezen van een categorie. Kijk naar de bijlage voor een voorbeeld van de coronamaatregelen.",
-            "question_phase": 5,
+            "question_phase": 4,
             "question_number": 2,
             "job_list": [
               {
@@ -337,23 +323,12 @@
         "model": "base.Question",
         "pk": 13,
         "fields": {
-            "question_title": "Doelstellingen",
-            "question_text": "Welke doelen worden met inzet van het algoritme nagestreefd? Kijk hierbij naar uw antwoord op vraag 1.2",
-            "question_instruction": "Deze vraag is bedoel om nog eens stil te staan bij wat de doelstelling is van het algoritme in een latere ontwikkelingsfase van het algoritme omdat deze kennis nodig is voor het doorlopen van de rest van het stappenplan. Dus vul hier de het antwoord gegeven bij vraag 1.2 in en lees het nog eens goed door!",
-            "question_phase": 5,
-            "question_number": 3
-        }
-    },
-    {
-        "model": "base.Question",
-        "pk": 14,
-        "fields": {
-            "question_title": "Doeltreffendheid/effectiviteit/geschiktheid",
-            "question_text": "Vormt het in te zetten algoritme een doeltreffend middel om de gestelde doelen te realiseren? Leg uit.",
-            "question_context": "Er moet gekeken worden of het algoritme zijn doel(en) weet te behalen in verhouding tot de mate waarin dit grondrecht wordt aangetast. Het kan namelijk zijn dat een algoritme wordt verwacht zijn niet of slechts deels te halen en dan moet er een discussie plaats vinden om te bepalen of het algoritme nog steeds als een effectieve oplossing kan dienen. Om dit te doen is het van belang dat er met een realistisch beeld naar de toekomst van het algoritme wordt gekeken,  zo wordt het concreet te maken wat het algoritme verwacht op te leveren met als prijs concrete consequenties. Het gaat hier om kwantificeerbare gevolgen, zoals tijd- en geldbesparing minus de ontwikkelings- en onderhoudskosten van het algoritme of het percentage van false positives en false negatives, en om meer open vraagstukken, zoals op welke manier het algoritme ondersteuning kan bieden en hoe voordelig is het om het algoritme te gebruiken in speciale gevallen in plaats van een specialist. <br><br> In welke mate het algoritme zijn doelen haalt wordt belangrijker naarmate de zwaartebepaling, gegeven in vraag 4.2 hoger is. Je kunt zeggen dat er dan wordt verwacht dat algoritme zorgvuldiger moet zijn in het halen van al zijn doelen naarmate de zwaartebepaling van de grondrechten inbreuk zwaarder wordt. Zo is het problematisch als een algoritme in categorie <b>zwaar</b> niet al haar belangrijkste doelen haalt, want bij een dergelijk zware inbreuk op grondrechten is het het niet waard om het algoritme als deze niet heel doelmatig blijkt te zijn. Terwijl bij een lagere zwaartebepaling het minder uit zo maken aangezien de risico's voor dit grondrecht minder zijn.",
-            "question_instruction": "Om deze vraag goed te beantwoorden moet er een ja of nee antwoord gegeven worden, gevolgd door een compacte versie van de discussie is gevoerd omtrent de doelmatigheid van het algoritme in verhouding tot dit grondrecht. Het is nodig om bij deze discussie over doelmatigheid om een realistisch toekomstbeeld in gedachten te hebben en daardoor concrete positieve en concrete negatieve gevolgen tegen elkaar af te wegen. Er is geen gestandaardiseerde regel voor het bepalen van de doelmatigheid en deze stap dient als uitnodiging tot discussie om zo een goed gemotiveerd antwoord vast te leggen.",
-            "question_phase": 5,
-            "question_number": 4,
+            "question_title": "Zwaartebepaling",
+            "question_text": "Hoe zwaar wordt een grondrecht geraakt door het algoritme?",
+            "question_context": "Mocht het algoritme een grondrecht aantasten, dan betekent dit niet per se dat het algoritme niet ingezet mag worden. Het betekent wel dat afhankelijk van de zwaarte van de aantasting er maatregelen genomen moeten worden om het gebruik te kunnen rechtvaardigen. Bij deze zwaartebepaling moet allereerst gekeken worden naar welke delen van het grondrecht aangetast kunnen worden door het algoritme en vervolgens moet er gediscussieerd worden over de zwaarte categorie waar deze invalt. Er wordt onderscheid gemaakt tussen 3 zwaartecategorieën:<ul><li>Zwaar</li><li>Middelzwaar</li><li>Licht</li></ul><p style='margin: 1em'>Om te bepalen in welke categorie het algoritme valt voor dit grondrecht worden de publieke waarden (voor meer uitleg over publieke waarden ga naar vraag 1.3) die de kern vormen van het grondrecht op een rijtje gezet. Deze waarden zijn wat het grondrecht probeert te beschermen. Neem als voorbeeld privacy rechten, de publiek waarden die hiervan de kern vormen zijn: persoonlijke autonomie, menselijke waardigheid, geestelijk en fysieke integriteit en identiteit. Of hoe bij de lockdown tijdens corona volledige bewegingsvrijheid de kern vormde van de ruimtelijke privacy rechten die in het geding kwamen. De volgende stap is om te kijken in welke mate deze kernwaarden worden gehinderd door het algoritme. Neem geen hindering als startpunt en werk vanaf daar verder naar één van de drie categorieën door te discussiëren in welke mate de kern van het grondrecht wordt gehinderd. Voor een voorbeeld van het indelen van verschillende corona maatregelen in deze drie categorieën, kijk naar de bijlage.</p>",
+            "question_instruction": "Om deze vraag goed te beantwoorden moet het worden vastgesteld in welke zwaartecategorie de aantasting van dit grondrecht past. Kies uit: <b>zwaar, middelzwaar of licht</b>. Leg de redenering voor het kiezen van één van deze categorieën vast, geef hierbij aan welke delen van het grondrecht en de bijbehorende publieke waarden in welke mate worden aangetast. Er is voor deze vraag vaak niet één correcte keuze, het is een spectrum dus probeer een zo duidelijk mogelijke rechtvaardiging te schrijven voor het kiezen van een categorie. Kijk naar de bijlage voor een voorbeeld van de coronamaatregelen.",
+            "question_phase": 4,
+            "question_number": 3,
             "job_list": [
               {
                 "type": "PL",
@@ -372,14 +347,24 @@
     },
     {
         "model": "base.Question",
+        "pk": 14,
+        "fields": {
+            "question_title": "Doelstellingen",
+            "question_text": "Welke doelen worden met inzet van het algoritme nagestreefd? Kijk hierbij naar uw antwoord op vraag 1.2",
+            "question_instruction": "Deze vraag is bedoel om nog eens stil te staan bij wat de doelstelling is van het algoritme in een latere ontwikkelingsfase van het algoritme omdat deze kennis nodig is voor het doorlopen van de rest van het stappenplan. Dus vul hier de het antwoord gegeven bij vraag 1.2 in en lees het nog eens goed door!",
+            "question_phase": 4,
+            "question_number": 4
+        }
+    },
+    {
+        "model": "base.Question",
         "pk": 15,
         "fields": {
-            "question_title": "Noodzakelijkheid/subsidiariteit",
-            "question_text": "Is inzet van dit specifieke algoritme noodzakelijk om dit doel te bereiken en zijn er geen andere of mitigerende maatregelen beschikbaar om dit te doen? Leg uit",
-            "question_context": "De in vraag 1.2 en vraag 4.3 genoemde doelen zijn te halen op meerdere technische en niet-technische manieren waar een algoritme er één van is. Met deze vraag wordt na gegaan of het inzetten van dit algoritme op de manier die nu in gedachten wordt gehouden de beste manier is om de voorgenoemde doelen te halen. Alle alternatieven aan het algoritme moeten dus op een rijtje gezet worden. Daarna moet er gekeken worden naar mogelijke mitigerende maatregelen die het aantasten van het grondrecht kunnen verminderen, kijk voor een niet-uitputtende lijst (betekent dat dit voorstellen zijn en er evengoed maatregelen zijn die niet in de lijst staan) van mogelijke mitigerende maatregelen kijk naar de bijlage. Het kan natuurlijk zijn dat een maatregel de effectiviteit of efficiëntie van het algoritme verminderd. In dit geval moet overwogen worden of het gebruiken van de maatregel wenselijk is, dit hangt grotendeels af van de zwaartebepaling gedaan in vraag 4.4. Bij zwaardere aantasting van het grondrecht kan het zijn dat de maatregel noodzakelijk is, maar bij minder zware aantasting is het misschien niet nodig om de aantasting verder in te perken als dat ten koste gaat van het algoritme.<br><br> Met alle weloverwogen middelen om de doelen te halen op een rijtje kan er nu een discussie gevoerd worden over of een algoritme de beste optie is.",
-            "question_instruction": "Om deze vraag goed te beantwoorden moeten moeten de volgende sub-vragen eerst beantwoord worden.<ul><li>Welke verschillende instrumenten kunnen worden ingezet om de gestelde doelen te verwezenlijken, naast het voorgenomen algoritme?</li><li>Zijn er niet-algoritmische instrumenten voorhanden?</li><li>Is er een keuze uit verschillende soorten algoritmen of aanbieders daarvan?</li></ul> Kijk naar de bijlage voor een niet uitputtende lijst van mitigerende maatregelen. Met deze vraag beantwoord moet geredeneerd worden dat dit algoritme de beste optie is om de gestelde doelen te halen. Schrijf ook expliciet op welke mitegerende maatregelen genomen worden en om welke reden.. Weet wel dat als er nog steeds twijfel is over de gevolgen van het algoritme zelfs als de gewenste mitigerende maatregelen getroffen worden, dan moet het algoritme gerapporteerd worden!",
-            "question_warning": "Wanneer er een nieuwe mitigerende maatregel wordt toegepast dan moet het hele stappenplan van fase 4 opnieuw doorlopen worden met deze maatregel in gedachten!",
-            "question_phase": 5,
+            "question_title": "Doeltreffendheid/effectiviteit/geschiktheid",
+            "question_text": "Vormt het in te zetten algoritme een doeltreffend middel om de gestelde doelen te realiseren? Leg uit.",
+            "question_context": "Er moet gekeken worden of het algoritme zijn doel(en) weet te behalen in verhouding tot de mate waarin dit grondrecht wordt aangetast. Het kan namelijk zijn dat een algoritme wordt verwacht zijn niet of slechts deels te halen en dan moet er een discussie plaats vinden om te bepalen of het algoritme nog steeds als een effectieve oplossing kan dienen. Om dit te doen is het van belang dat er met een realistisch beeld naar de toekomst van het algoritme wordt gekeken,  zo wordt het concreet te maken wat het algoritme verwacht op te leveren met als prijs concrete consequenties. Het gaat hier om kwantificeerbare gevolgen, zoals tijd- en geldbesparing minus de ontwikkelings- en onderhoudskosten van het algoritme of het percentage van false positives en false negatives, en om meer open vraagstukken, zoals op welke manier het algoritme ondersteuning kan bieden en hoe voordelig is het om het algoritme te gebruiken in speciale gevallen in plaats van een specialist. <br><br> In welke mate het algoritme zijn doelen haalt wordt belangrijker naarmate de zwaartebepaling, gegeven in vraag 4.2 hoger is. Je kunt zeggen dat er dan wordt verwacht dat algoritme zorgvuldiger moet zijn in het halen van al zijn doelen naarmate de zwaartebepaling van de grondrechten inbreuk zwaarder wordt. Zo is het problematisch als een algoritme in categorie <b>zwaar</b> niet al haar belangrijkste doelen haalt, want bij een dergelijk zware inbreuk op grondrechten is het het niet waard om het algoritme als deze niet heel doelmatig blijkt te zijn. Terwijl bij een lagere zwaartebepaling het minder uit zo maken aangezien de risico's voor dit grondrecht minder zijn.",
+            "question_instruction": "Om deze vraag goed te beantwoorden moet er een ja of nee antwoord gegeven worden, gevolgd door een compacte versie van de discussie is gevoerd omtrent de doelmatigheid van het algoritme in verhouding tot dit grondrecht. Het is nodig om bij deze discussie over doelmatigheid om een realistisch toekomstbeeld in gedachten te hebben en daardoor concrete positieve en concrete negatieve gevolgen tegen elkaar af te wegen. Er is geen gestandaardiseerde regel voor het bepalen van de doelmatigheid en deze stap dient als uitnodiging tot discussie om zo een goed gemotiveerd antwoord vast te leggen.",
+            "question_phase": 4,
             "question_number": 5,
             "job_list": [
               {
@@ -401,13 +386,40 @@
         "model": "base.Question",
         "pk": 16,
         "fields": {
+            "question_title": "Noodzakelijkheid/subsidiariteit",
+            "question_text": "Is inzet van dit specifieke algoritme noodzakelijk om dit doel te bereiken en zijn er geen andere of mitigerende maatregelen beschikbaar om dit te doen? Leg uit",
+            "question_context": "De in vraag 1.2 en vraag 4.3 genoemde doelen zijn te halen op meerdere technische en niet-technische manieren waar een algoritme er één van is. Met deze vraag wordt na gegaan of het inzetten van dit algoritme op de manier die nu in gedachten wordt gehouden de beste manier is om de voorgenoemde doelen te halen. Alle alternatieven aan het algoritme moeten dus op een rijtje gezet worden. Daarna moet er gekeken worden naar mogelijke mitigerende maatregelen die het aantasten van het grondrecht kunnen verminderen, kijk voor een niet-uitputtende lijst (betekent dat dit voorstellen zijn en er evengoed maatregelen zijn die niet in de lijst staan) van mogelijke mitigerende maatregelen kijk naar de bijlage. Het kan natuurlijk zijn dat een maatregel de effectiviteit of efficiëntie van het algoritme verminderd. In dit geval moet overwogen worden of het gebruiken van de maatregel wenselijk is, dit hangt grotendeels af van de zwaartebepaling gedaan in vraag 4.4. Bij zwaardere aantasting van het grondrecht kan het zijn dat de maatregel noodzakelijk is, maar bij minder zware aantasting is het misschien niet nodig om de aantasting verder in te perken als dat ten koste gaat van het algoritme.<br><br> Met alle weloverwogen middelen om de doelen te halen op een rijtje kan er nu een discussie gevoerd worden over of een algoritme de beste optie is.",
+            "question_instruction": "Om deze vraag goed te beantwoorden moeten moeten de volgende sub-vragen eerst beantwoord worden.<ul><li>Welke verschillende instrumenten kunnen worden ingezet om de gestelde doelen te verwezenlijken, naast het voorgenomen algoritme?</li><li>Zijn er niet-algoritmische instrumenten voorhanden?</li><li>Is er een keuze uit verschillende soorten algoritmen of aanbieders daarvan?</li></ul> Kijk naar de bijlage voor een niet uitputtende lijst van mitigerende maatregelen. Met deze vraag beantwoord moet geredeneerd worden dat dit algoritme de beste optie is om de gestelde doelen te halen. Schrijf ook expliciet op welke mitegerende maatregelen genomen worden en om welke reden.. Weet wel dat als er nog steeds twijfel is over de gevolgen van het algoritme zelfs als de gewenste mitigerende maatregelen getroffen worden, dan moet het algoritme gerapporteerd worden!",
+            "question_warning": "Wanneer er een nieuwe mitigerende maatregel wordt toegepast dan moet het hele stappenplan van fase 4 opnieuw doorlopen worden met deze maatregel in gedachten!",
+            "question_phase": 4,
+            "question_number": 6,
+            "job_list": [
+              {
+                "type": "PL",
+                "priority": 1
+              },
+              {
+                "type": "DE",
+                "priority": 1
+              },
+              {
+                "type": "JR",
+                "priority": 1
+              }
+            ]
+        }
+    },
+    {
+        "model": "base.Question",
+        "pk": 17,
+        "fields": {
             "question_title": "Belangenafweging/proportionaliteit",
             "question_text": "Levert inzet van het algoritme een redelijk evenwicht op tussen de te realiseren doelen en de grondrechten die worden geraakt, en waarom is dat zo?",
             "question_context": "",
             "question_instruction": "Met alle nodige aspecten van de grondrecht inbreuk behandelt te hebben is het als laatste nog nodig om de afweging te maken tussen het relatieve gewicht van het grondrecht dat geraakt wordt, tegenover het relatieve gewicht van de maatschappelijk bevorderende doelen worden nagestreefd. Is het belang van de ondersteuning die het algoritme biedt aan de besluitvorming proportioneel aan de zwaarte van de inbreuk op het grondrecht met alle risico's van dien. Hoe zwaarder de zwaartebepaling van vraag 4.2, hoe zwaarder het maatschappelijke doel moet wegen om het inzetten van het algoritme te rechtvaardigen?<br><br> Er is hier vaak niet een concreet en eenduidig antwoord op, leg daarom de redenering voor het antwoord dat uit de discussie volgt vast in duidelijke taal hieronder. Verwijs hierbij naar eerder ingevulde antwoorden, zoals de genoemde publieke waarden van vraag 1.3. Maak de afwegingen die gemaakt zijn expliciet in het antwoord.",
             "question_warning": "",
-            "question_phase": 5,
-            "question_number": 6,
+            "question_phase": 4,
+            "question_number": 7,
             "job_list": [
               {
                 "type": "PL",

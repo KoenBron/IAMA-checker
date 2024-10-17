@@ -5,18 +5,18 @@ from base.models import Question, Answer, Law, Phase4Answer
 
 # Crude solution but gets the job done
 def get_questions_by_phase(assesment):
-    # Get all 3 phases as dict and group them in the list
+    # Get all 4 phases as dict and group them in the list
     questions_by_phase = []
-    total_phasess = 3
+    total_phases = 5
 
     # Go through each phase
-    for phase in range(total_phasess):
+    for phase in range(1,total_phases):
         # Create a list of dicts containing the question and answer info
         question_list = []
         questions = Question.objects.filter(question_phase=phase).exclude(question_number=0).order_by("question_number")
         if questions.exists():
             for question in questions:
-                # Get the latest answer to dispaly or no answer at all
+                # Get the latest answer to display or no answer at all
                 try:
                     answer = Answer.objects.filter(question_id=question, assesment_id=assesment).latest("created").answer_content
                 except (KeyError, Answer.DoesNotExist):
@@ -43,7 +43,7 @@ def get_questions_by_phase(assesment):
 
 def get_laws(assesment):
     # Get the necessary objects from the db
-    questions = Question.objects.filter(question_phase=5)# Remember that phase_number 5 contains the questions of phase4 in the original IAMA document
+    questions = Question.objects.filter(question_phase=4)
     laws = Law.objects.filter(assesment=assesment)
     
     # Setup the list of dicts that represent all the law objects related to this assesment

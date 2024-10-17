@@ -36,7 +36,7 @@ def jobs_per_phase(phase_num):
     for question in questions:
         if question.question_number != 0:
             job = {
-                "q_number": question.question_number,
+                "q_number": question.question_number.normalize,
                 "job_list": question.jobs_as_py_list(),
             }
             jobs.append(job)

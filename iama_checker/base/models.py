@@ -66,7 +66,7 @@ class Question(models.Model):
     question_context = models.TextField(default="")# Context to question_text
     question_instruction = models.TextField(default="")# Instructions on how to answer the question
     question_phase = models.IntegerField() # Phase number of the question
-    question_number = models.IntegerField() # Question number in the phase
+    question_number = models.DecimalField(max_digits=2, decimal_places=1) # Question number in the phase
     question_warning = models.CharField(max_length=140, default=None, null=True)# Warning that tells when an answer results in question
     question_reference_text = models.CharField(max_length=400, default=None, null=True)# Text that indicates how to utulize the refernces
     job_list = models.JSONField(default=list)# All jobs associated with the question
@@ -91,6 +91,8 @@ class Answer(models.Model):
 
     # For tracking answer history
     created = models.DateTimeField(auto_now_add=True, blank=True)
+
+#TODO: restructure so phase 4 is no longer per law and remove cut-off property
 
 # The phase 4 of each assesment is structered so that all the answers and questions are assigned per
 # law. Aside form that the answer and question model remains the same

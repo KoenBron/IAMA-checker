@@ -44,28 +44,6 @@
       </table>
   </div>
 {% endfor %}
-<div class="subheader">
-    <h3>Grondrechten stappenplannen</h3>
-</div>
-{% for law in laws %}
-<div class="rights-title">
-  <b>Naam grondrecht:</b>&nbsp; {{ law.name }}
-</div>
-<div class="table-center">
-    <table class="table-wide">
-        <tr>
-            <th scope="col">Vraag</th>
-            <th scope="col">Antwoord</th>
-        </tr>
-        {% for step in law.phase4 %}
-            <tr>
-              <td>{{ step.question }}</td>
-              <td>{{ step.answer }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endfor %}
 
 </body>
 </html>

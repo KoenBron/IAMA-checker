@@ -146,11 +146,13 @@ def question_detail(request, assesment_id, question_id):
             "jobs": jobs_per_phase(question.question_phase),
         }
 
+        #TODO: clean up "phase 5" elements that are no longer used
+
         # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
         if question.question_phase == 4:
             # Gather additional context needed for fase 4
             context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
-            context["jobs"] = jobs_per_phase(5)# Again remeber that phase 5 in the file questions.json refers to the subquestions in phase 4 for convenience
+            context["jobs"] = jobs_per_phase(4)
             context["law_clusters"] = LawCluster.objects.all()
 
             if "error" in request.session:
@@ -183,7 +185,7 @@ def question_detail(request, assesment_id, question_id):
             answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
 
-        if question_id in [4, 5]:
+        if question_id == 11:
             context["law_clusters"] = LawCluster.objects.all()
 
         # Add necessary context for questions that are not in phase 4
