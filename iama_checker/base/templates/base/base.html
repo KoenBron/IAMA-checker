@@ -58,21 +58,20 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-text" style="color: grey; opacity: 0.5;">{% block navigation %}{% endblock %}
+            <div class="navbar-text" style="color: black; opacity: 0.5;">{% block navigation %}{% endblock %}
             </div>
           </div>
           <div style="margin-right:1em; margin-top:0.5em" class="navbar-wrapper">
               {% block download %}{% endblock %}
               {% block add_editor %}{% endblock %}
           </div>
-
         </div>
     </nav>
         
        <!-- End Navbar -->
        <div class="content">
          <div class="container-fluid">
- 
+          
            {% block content %}{% endblock content %}
  
          </div>

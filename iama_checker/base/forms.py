@@ -1,10 +1,10 @@
 from django.forms import Form, IntegerField, ModelForm, TextInput, Textarea, BooleanField
-from .models import Assesment, Collaborator, Law
+from .models import Assessment, Collaborator
 
-# The form to create or alter an assesment as a user
-class AssesmentForm(ModelForm):
+# The form to create or alter an assessment as a user
+class AssessmentForm(ModelForm):
     class Meta:
-        model = Assesment
+        model = Assessment
         fields = ["name", "organisation", "ultimately_responsible"]
         widgets = {
             "name": TextInput(attrs={
@@ -34,10 +34,3 @@ class CollaboratorForm(ModelForm):
 # For recieving the user id of a potential editor
 class SearchEditorForm(Form):
     editor_id = IntegerField(required=True)
-
-# For recieving law data
-class LawForm(ModelForm):
-
-    class Meta:
-        model = Law
-        fields = ["name"]

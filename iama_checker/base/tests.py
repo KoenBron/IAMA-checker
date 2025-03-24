@@ -2,9 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from .models import Assesment, Question, Answer
+from .models import Assessment, Question, Answer
 from .base_view_helper import user_has_edit_privilidge
-from .views import create_assesment
+from .views import create_assessment
 
 # Create your tests here.
 class BaseViewsTestCase(TestCase):
@@ -25,15 +25,15 @@ class BaseViewsTestCase(TestCase):
         self.client.login(username="Alice", password="password")
         return user
     
-    def create_assesment(self, user):
-        assesment = Assesment(name="testassesment", organisation="testorg", user=user)
-        assesment.save()
-        return assesment
+    def create_assessment(self, user):
+        assessment = Assessment(name="testassessment", organisation="testorg", user=user)
+        assessment.save()
+        return assessment
 
-    def create_authorised_user_assesment(self):
+    def create_authorised_user_assessment(self):
         user = self.create_authorised_user()
-        assesment = create_assesment(user)
-        return assesment
+        assessment = create_assessment(user)
+        return assessment
             
 
 class HomeViewTestCase(BaseViewsTestCase):
@@ -59,94 +59,94 @@ class DetailViewTestCase(BaseViewsTestCase):
 
     def test_detail_page_logged_in(self):
         '''
-        Test whether the detail page of a newly created assesment is shown
+        Test whether the detail page of a newly created assessment is shown
         '''
-        assesment = self.create_authorised_user_assesment()
-        response = self.client.get(reverse("base:detail", args=(assesment.id,)))
+        assessment = self.create_authorised_user_assessment()
+        response = self.client.get(reverse("base:detail", args=(assessment.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("base/detail.html")
-        self.assertEqual(response.context["assesment"], assesment)
+        self.assertEqual(response.context["assessment"], assessment)
 
     def test_unauthorised_detail_page(self):
         '''
-        Test wheter a logged in user can access the detail page of a different user's assesment
+        Test wheter a logged in user can access the detail page of a different user's assessment
         '''
-        assesment = self.create_authorised_user_assesment()
+        assessment = self.create_authorised_user_assessment()
         User.objects.create_user(username="alice", password="password")
         self.client.login(username="alice", password="password")
-        response = self.client.get(reverse("base:detail", args=(assesment.id,)))
+        response = self.client.get(reverse("base:detail", args=(assessment.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("errors/error.html")
-        self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assesment!")
+        self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assessment!")
     
 
-class CreateAssesmentTestCase(BaseViewsTestCase):
+class CreateAssessmentTestCase(BaseViewsTestCase):
 
-    def test_create_assesment(self):
+    def test_create_assessment(self):
         '''
-        Test wether an authorised user can create an assesment succesfully 
+        Test wether an authorised user can create an assessment succesfully 
         '''
         self.create_authorised_user()
-        response = self.client.post(reverse("base:create_assesment"), data={"name": "test_assesment", "organisation": "testorganisation"})
+        response = self.client.post(reverse("base:create_assessment"), data={"name": "test_assessment", "organisation": "testorganisation"})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed("base/detail.html")
-        self.assertIsNotNone(Assesment.objects.get(name="test_assesment"))
+        self.assertIsNotNone(Assessment.objects.get(name="test_assessment"))
         
 
 
-class DeleteAssesmentTestCase(BaseViewsTestCase):
+class DeleteAssessmentTestCase(BaseViewsTestCase):
 
-    def test_unauthorised_delete_assesment(self):
+    def test_unauthorised_delete_assessment(self):
         '''
-        Test wether a user can delete other users assesments
+        Test wether a user can delete other users assessments
         '''
-        assesment = self.create_authorised_user_assesment()
+        assessment = self.create_authorised_user_assessment()
         User.objects.create_user(username="Alice", password="password")
         login = self.client.login(username="Alice", password="password")
         self.assertTrue(login)
-        response = self.client.get(reverse("base:delete_assesment", args=(assesment.id,)))
+        response = self.client.get(reverse("base:delete_assessment", args=(assessment.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("errors/error.html")
-        self.assertEqual(response.context["message"], "Gebruiker is niet toegestaan om deze assesment te verwijderen!")
+        self.assertEqual(response.context["message"], "Gebruiker is niet toegestaan om deze assessment te verwijderen!")
 
-    def test_delete_assesment(self):
+    def test_delete_assessment(self):
         '''
-        Test wether an authorised user can delete their assesment
+        Test wether an authorised user can delete their assessment
         '''
-        assesment = self.create_authorised_user_assesment()
-        response = self.client.get(reverse("base:delete_assesment", args=(assesment.id,)))
+        assessment = self.create_authorised_user_assessment()
+        response = self.client.get(reverse("base:delete_assessment", args=(assessment.id,)))
         try:
-            Assesment.objects.get(pk=assesment.id)
-        except (KeyError, Assesment.DoesNotExist):
+            Assessment.objects.get(pk=assessment.id)
+        except (KeyError, Assessment.DoesNotExist):
             self.assertEqual(response.status_code, 302)
             self.assertTemplateUsed("base/home.html") 
         else:
-            raise AssertionError("Assesment wasn't deleteted from the db.")
+            raise AssertionError("Assessment wasn't deleteted from the db.")
 
 
-class UpdateAssesmentTestCase(BaseViewsTestCase):
+class UpdateAssessmentTestCase(BaseViewsTestCase):
 
-    def test_update_assesment(self):
+    def test_update_assessment(self):
         '''
-        Test wether an update of an assesment is executed correctly when used with expected behaviour
+        Test wether an update of an assessment is executed correctly when used with expected behaviour
         '''
-        assesment = self.create_authorised_user_assesment()
-        response = self.client.post(reverse("base:update_assesment", args=(assesment.id,)), data={"name": "other_name", "organisation": "other_org"})
+        assessment = self.create_authorised_user_assessment()
+        response = self.client.post(reverse("base:update_assessment", args=(assessment.id,)), data={"name": "other_name", "organisation": "other_org"})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed("base/detail.html")
-        self.assertTrue(Assesment.objects.filter(name="other_name", organisation="other_org").exists())
+        self.assertTrue(Assessment.objects.filter(name="other_name", organisation="other_org").exists())
         
-    def test_update_assesment_unauthorised(self):
+    def test_update_assessment_unauthorised(self):
         '''
-        Test wheter a user can update another users assesment
+        Test wheter a user can update another users assessment
         '''
-        assesment = self.create_authorised_user_assesment()
+        assessment = self.create_authorised_user_assessment()
         self.create_other_authorised_user()
-        response = self.client.post(reverse("base:update_assesment", args=(assesment.id,)), data={"name": "other_name", "organisation": "other_org"})
+        response = self.client.post(reverse("base:update_assessment", args=(assessment.id,)), data={"name": "other_name", "organisation": "other_org"})
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed("errors/error.html")
-        self.assertEqual(response.context["message"], "Assesment om te updaten bestaat niet!")
-        self.assertFalse(Assesment.objects.filter(name="other_name", organisation="other_org").exists())
+        self.assertEqual(response.context["message"], "Assessment om te updaten bestaat niet!")
+        self.assertFalse(Assessment.objects.filter(name="other_name", organisation="other_org").exists())
 
 
 class QuestionDetailTestCase(BaseViewsTestCase):
@@ -156,8 +156,8 @@ class QuestionDetailTestCase(BaseViewsTestCase):
         Test wether question_detail shows itself properly with expected behaviour.
         For both a phase and questin page.
         '''
-        assesment = self.create_authorised_user_assesment()
-        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 1)))
+        assessment = self.create_authorised_user_assessment()
+        response = self.client.get(reverse("base:question_detail", args=(assessment.id, 1)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("base/phase_intro.html")
         question = Question.objects.get(id=1)
@@ -168,11 +168,11 @@ class QuestionDetailTestCase(BaseViewsTestCase):
         self.assertIsNotNone(response.context["jobs"])
 
         # The same but for question instead of phase_intro  
-        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 2)))
+        response = self.client.get(reverse("base:question_detail", args=(assessment.id, 2)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("base/q_detail.html")
         question = Question.objects.get(id=2)
-        answer = Answer.objects.get(user=response.wsgi_request.user, question_id=question.id, assesment_id=assesment.id)
+        answer = Answer.objects.get(user=response.wsgi_request.user, question_id=question.id, assessment_id=assessment.id)
         self.assertEqual(response.context["question"], question)
         self.assertEqual(response.context["answer"], answer)
         self.assertIsNotNone(response.context["reference_list"])
@@ -186,12 +186,12 @@ class QuestionDetailTestCase(BaseViewsTestCase):
         Test wether an unauthorised user is blocked from accessing
         this page
         '''
-        assesment = self.create_authorised_user_assesment()
+        assessment = self.create_authorised_user_assessment()
         self.create_other_authorised_user()
-        response = self.client.get(reverse("base:question_detail", args=(assesment.id, 1)))
+        response = self.client.get(reverse("base:question_detail", args=(assessment.id, 1)))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("errors/error.html")
-        self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assesment!")
+        self.assertEqual(response.context["message"], "Gebruiker heeft geen toegang tot deze assessment!")
 
 
 class EditPrivilidgeTestCase(BaseViewsTestCase):
@@ -199,56 +199,56 @@ class EditPrivilidgeTestCase(BaseViewsTestCase):
     def test_with_author(self):
         '''
         Test wether function user_has_edit_priviliged() works as intended
-        By testing if the user that created the assesment gets edit privilidges
+        By testing if the user that created the assessment gets edit privilidges
         '''
         user = self.create_authorised_user()
-        assesment = self.create_assesment(user)
-        self.assertTrue(user_has_edit_privilidge(user.id, assesment))
+        assessment = self.create_assessment(user)
+        self.assertTrue(user_has_edit_privilidge(user.id, assessment))
         
     def test_with_user_in_user_group(self):
         '''
         Test wether the function works as excpected with a user that is in the user group of the asssesment 
         '''
         user = self.create_authorised_user()
-        assesment = self.create_assesment(user)
+        assessment = self.create_assessment(user)
         user2 = self.create_other_authorised_user()
-        assesment.user_group.add(user2)
-        self.assertTrue(user_has_edit_privilidge(user2.id, assesment))
+        assessment.user_group.add(user2)
+        self.assertTrue(user_has_edit_privilidge(user2.id, assessment))
 
     def test_with_unauthorised_user(self):
         '''
-        Test wether the function works as excpected when the user isn't the author or part of the assesments user_group
+        Test wether the function works as excpected when the user isn't the author or part of the assessments user_group
         '''
         user = self.create_authorised_user()
-        assesment = self.create_assesment(user)
+        assessment = self.create_assessment(user)
         user2 = self.create_other_authorised_user()
-        self.assertFalse(user_has_edit_privilidge(user2.id, assesment))
+        self.assertFalse(user_has_edit_privilidge(user2.id, assessment))
 
 
 class EditorAPITestCase(BaseViewsTestCase):
 
     def test_adding_editor(self):
         '''
-        Test wether the api succesfully adds an editor to an assesments usergroup when added by authorised user
+        Test wether the api succesfully adds an editor to an assessments usergroup when added by authorised user
         '''
         editor = self.create_other_authorised_user()
         user = self.create_authorised_user()
-        assesment = self.create_assesment(user)
-        response = self.client.get(reverse("base:add_editor", args=(assesment.id, editor.id,)))
+        assessment = self.create_assessment(user)
+        response = self.client.get(reverse("base:add_editor", args=(assessment.id, editor.id,)))
         self.assertTemplateUsed("base/detail.html")
         self.assertEqual(response.status_code, 302)
-        self.assertIn(editor, assesment.user_group.all())
+        self.assertIn(editor, assessment.user_group.all())
 
     def test_adding_editor_with_unauthorised_user(self):
         '''
         Test whether the api denies adding an editor when it's done by an unauthorised user
         '''
         user = self.create_authorised_user()
-        assesment = self.create_assesment(user)
+        assessment = self.create_assessment(user)
         unauthorised_user = self.create_other_authorised_user() # Login as another user that has no editing privilidges
-        response = self.client.get(reverse("base:add_editor", args=(assesment.id, unauthorised_user.id,)))
+        response = self.client.get(reverse("base:add_editor", args=(assessment.id, unauthorised_user.id,)))
         self.assertTemplateUsed("errors/error.html")
-        self.assertEqual(response.context["message"], "Alleen de maker van een assesment kan editors toevoegen!")
+        self.assertEqual(response.context["message"], "Alleen de maker van een assessment kan editors toevoegen!")
 
 
 

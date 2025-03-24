@@ -1,23 +1,23 @@
 {% extends 'base/base.html' %}
 
 {% block navigation %}
-<a href="{% url 'base:detail' assesment.id %}" style="color: grey">IAMA-Assesment - {{ assesment.name }}</a>
+<a href="{% url 'base:detail' assessment.id %}" style="color: black"><b>IAMA-Assessment - {{ assessment.name }}</b></a>
 {% endblock %}
 
 {% block add_editor %}
-    <a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round btn-info">Voeg editor toe aan assesment +</a>
+    <a href="{% url 'base:search_editor' assessment.id %}?next={{ request.path }}" style="justify-content-end" class="btn btn-primary btn-round btn-info">Voeg editor toe aan assessment +</a>
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-7 text-center">
-    <h2>Onderdeel {{ question.question_phase }}: {{ question.question_title }}</h2>
+    <h2>Fase {{ question.question_phase }}: {{ question.question_title }}</h2>
     </div>
     <div class="col"></div>
 </div>
 <div class="row">
-    <div class="col-md-8 offset-md-1">
+    <div class="col">
         <div class="card" style="margin-bottom: 4em">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="card" style="margin-top: 30px">
-          <div class="card-header card-header-rose">
+          <div class="card-header card-header-primary">
             <h4 class="card-title">Beroepen/specialisaties betrokken bij vragen</h4>
           </div>
           <div class="card-body">
@@ -49,9 +49,9 @@
                       <td>
                         {% for dicipline in job.job_list %}
                           {% if dicipline.priority == 1 %}
-                            <span class="badge badge-danger" style="font-size: 15px;">{{ dicipline.description }}</span>
+                            <span class="badge badge-secondary" style="font-size: 15px;">{{ dicipline.description }}</span>
                           {% else %}
-                            <span class="badge badge-warning" style="font-size: 15px;">{{ dicipline.description }}</span>
+                            <span class="badge badge-secondary" style="font-size: 15px;">{{ dicipline.description }}</span>
                           {% endif %}
                         {% endfor %} 
                       </td>
@@ -65,16 +65,13 @@
         <div class="row">
           <div class="col text-center">
             {% if question.id != 1 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+                <a href="{% url 'base:question_detail' assessment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
             {% endif %}
             {% if question.id != 10 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
+                <a href="{% url 'base:question_detail' assessment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
             {% endif %}
           </div>
         </div>
       </div>
-    <div class="col-md-3" style="padding-top: 30px">
-        {% include "base/q_index.html" with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
-    </div>
 </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.template import ContextPopException
-from .forms import AssesmentForm, AnswerForm, CollaboratorForm, SearchEditorForm, LawForm
-from .models import Assesment, LawCluster, Phase4Answer, Question, Answer, Collaborator, Reference, Law
+from .forms import AssessmentForm, AnswerForm, CollaboratorForm, SearchEditorForm
+from .models import Assessment, LawCluster, Question, Answer, Collaborator, Reference
 from django.contrib.auth.models import User 
 from django.http import HttpResponseRedirect 
 from django.urls import reverse
@@ -11,118 +11,118 @@ from .base_view_helper import *
 # Create your views here.
 @login_required
 def home(request):
-    # Get all the assesments associated to the logged in user en present them descendingly
-    assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
-    assesments_editor_list = request.user.related_assesment.all()
-    return render(request, "base/home.html", {"assesments_list": assesments_list, "assesments_editor_list": assesments_editor_list})
+    # Get all the assessments associated to the logged in user en present them descendingly
+    assessments_list = Assessment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
+    assessments_editor_list = request.user.related_assessment.all()
+    return render(request, "base/home.html", {"assessments_list": assessments_list, "assessments_editor_list": assessments_editor_list})
 
-# Create a new assesment
+# Create a new assessment
 @login_required
-def create_assesment(request):
+def create_assessment(request):
     # Make sure it's a post request
     if request.method == "POST":
-        form = AssesmentForm(request.POST)# Create a form to extract information from
+        form = AssessmentForm(request.POST)# Create a form to extract information from
         # Make sure all the typed in fields contain valid data
         if form.is_valid():
-            # Create assesment object and save to database
-            assesment = Assesment(name=form.cleaned_data['name'].strip(), organisation=form.cleaned_data['organisation'].strip(), ultimately_responsible=form.cleaned_data['ultimately_responsible'].strip(), user=request.user)
-            assesment.save()
+            # Create assessment object and save to database
+            assessment = Assessment(name=form.cleaned_data['name'].strip(), organisation=form.cleaned_data['organisation'].strip(), ultimately_responsible=form.cleaned_data['ultimately_responsible'].strip(), user=request.user)
+            assessment.save()
             
             # Create empty answers to ensure correct and predictable behaviour
-            generate_empty_answers(assesment, request.user)
+            generate_empty_answers(assessment, request.user)
             
             # Go to the detail page of the new assignment
-            return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+            return HttpResponseRedirect(reverse("base:detail", args=(assessment.id,)))
 
         else:
-            # Get all the assesments associated to the logged in user en present them descendingly
-            assesments_list = Assesment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
-            return render(request, "base/home.html", {"assesments_list": assesments_list, "error": "Voer valide data in!"})
+            # Get all the assessments associated to the logged in user en present them descendingly
+            assessments_list = Assessment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
+            return render(request, "base/home.html", {"assessments_list": assessments_list, "error": "Voer valide data in!"})
     
 @login_required
-def delete_assesment(request, assesment_id):
+def delete_assessment(request, assessment_id):
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment om te verwijderen bestaat niet!"})
+        assessment = Assessment.objects.get(pk=assessment_id)
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment om te verwijderen bestaat niet!"})
 
-    # Check if the user is autorised to delete the assesment
-    if not user_has_edit_privilidge(request.user.pk, assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assesment te verwijderen!"})    
+    # Check if the user is autorised to delete the assessment
+    if not user_has_edit_privilidge(request.user.pk, assessment):
+        return render(request, "errors/error.html", {"message": "Gebruiker is niet toegestaan om deze assessment te verwijderen!"})    
 
     else:
-        assesment.delete()
+        assessment.delete()
         return HttpResponseRedirect(reverse("base:home"))
 
-# Update the info of a single assesment
+# Update the info of a single assessment
 @login_required
-def update_assesment(request, assesment_id):
+def update_assessment(request, assessment_id):
     # Make sure it's a post request
     if request.method == "POST":
-        # Check whether the assesment exists and if so make sure the user has edit privilidges
+        # Check whether the assessment exists and if so make sure the user has edit privilidges
         try:
-            assesment = Assesment.objects.get(pk=assesment_id)
-        except (KeyError, Assesment.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Assesment om te updaten bestaat niet!"})
+            assessment = Assessment.objects.get(pk=assessment_id)
+        except (KeyError, Assessment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assessment om te updaten bestaat niet!"})
 
-        if not user_has_edit_privilidge(request.user.pk, assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om deze assesment te updaten!"})
+        if not user_has_edit_privilidge(request.user.pk, assessment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om deze assessment te updaten!"})
 
         # Create a form to easily validate and extract the data
-        form = AssesmentForm(request.POST)
+        form = AssessmentForm(request.POST)
         if form.is_valid():
-            # We don't use the update() method so the assesment.date_last_saved value is newly set
-            assesment.name = form.cleaned_data['name'].strip()
-            assesment.organisation = form.cleaned_data['organisation'].strip()
-            assesment.ultimately_responsible = form.cleaned_data['ultimately_responsible'].strip()
-            assesment.save()
+            # We don't use the update() method so the assessment.date_last_saved value is newly set
+            assessment.name = form.cleaned_data['name'].strip()
+            assessment.organisation = form.cleaned_data['organisation'].strip()
+            assessment.ultimately_responsible = form.cleaned_data['ultimately_responsible'].strip()
+            assessment.save()
             # Return back to the detail page
-            return HttpResponseRedirect(reverse("base:detail", args=(assesment_id,)))
+            return HttpResponseRedirect(reverse("base:detail", args=(assessment_id,)))
         # No valid data in the form so need to add error as argument to render
         else:
-            return render(request, "errors/error.html", {"message": "Geen valide invoer om de assesment te update!"})
+            return render(request, "errors/error.html", {"message": "Geen valide invoer om de assessment te update!"})
 
-# Retreives the desired assignment and global assesment info
+# Retreives the desired assignment and global assessment info
 @login_required
-def detail(request, assesment_id):
+def detail(request, assessment_id):
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
-    # Couldn't retrieve the assesment from the db
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+        assessment = Assessment.objects.get(pk=assessment_id)
+    # Couldn't retrieve the assessment from the db
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment bestaat niet!"})
     
-    if not user_has_edit_privilidge(request.user.pk, assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+    if not user_has_edit_privilidge(request.user.pk, assessment):
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
 
     # Get the lists with the context for the pages
     index_context_objects = {
         "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
-        "status_list": get_complete_status(request, assesment),
-        "editor_list": assesment.user_group.all(),
+        "status_list": get_complete_status(request, assessment),
+        "editor_list": assessment.user_group.all(),
     }
 
-    return render(request, "base/detail.html", {"assesment": assesment, "index_context_objects": index_context_objects})
+    return render(request, "base/detail.html", {"assessment": assessment, "index_context_objects": index_context_objects})
 
 # Retrieves the details of a question or phase introduction
-# TODO: At some point fix this clusterfuck of a function
+# TODO: At some point restructure this function
 @login_required
-def question_detail(request, assesment_id, question_id):
-    # Get the desired question and assesment
+def question_detail(request, assessment_id, question_id):
+    # Get the desired question and assessment
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
+        assessment = Assessment.objects.get(pk=assessment_id)
         question = Question.objects.get(pk=question_id)
 
-    # Couldn't retrieve the assesment from the db
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+    # Couldn't retrieve the assessment from the db
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment bestaat niet!"})
     
     # Couldn't retrieve the question from the db
     except (KeyError, Question.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assesment bestaat niet!"})
+        return render(request, "errors/error.html", {"message": "Verzochte vraag van deze assessment bestaat niet!"})
      
     # Check user authority 
-    if not user_has_edit_privilidge(request.user.pk, assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+    if not user_has_edit_privilidge(request.user.pk, assessment):
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
 
     # Id's of next and next questions
     buttons = {
@@ -133,24 +133,23 @@ def question_detail(request, assesment_id, question_id):
     # Objects need te render the question index correctly
     index_context_objects = {
         "question_list": Question.objects.exclude(question_phase=5).order_by("pk"),
-        "status_list": get_complete_status(request, assesment),
+        "status_list": get_complete_status(request, assessment),
     }
 
     # Render phase intro page
     if question.question_number == 0:
         context = {
-            "assesment": assesment, 
+            "assessment": assessment, 
             "question": question, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
             "jobs": jobs_per_phase(question.question_phase),
         }
 
-        # Phase 4 intro is special and needs to list all the laws that are endangered according to the assesment
+        # Phase 4 intro is special and needs to list all the laws that are endangered according to the assessment
         if question.question_phase == 4:
             # Gather additional context needed for fase 4
-            context["law_list"] = Law.objects.filter(assesment=assesment).order_by("name")
-            context["jobs"] = jobs_per_phase(5)# Again remeber that phase 5 in the file questions.json refers to the subquestions in phase 4 for convenience
+            context["jobs"] = jobs_per_phase(4)
             context["law_clusters"] = LawCluster.objects.all()
 
             if "error" in request.session:
@@ -162,12 +161,8 @@ def question_detail(request, assesment_id, question_id):
     
     # Render question_detail page
     else:
-        # Make sure the questions of phase 5 are not rendered using with this template and context
-        if question.question_phase == 5:
-            return render(request, "errors/error.html", {"message": "Deze vraag bestaat niet zonder bijbehorend grondrecht!"})
-
         context = {
-            "assesment": assesment, 
+            "assessment": assessment, 
             "question": question, 
             "index_context_objects": index_context_objects, 
             "buttons": buttons,
@@ -177,46 +172,46 @@ def question_detail(request, assesment_id, question_id):
 
         # Check if there is already an answer
         try:
-            answer = Answer.objects.filter(question_id=question.pk, assesment_id=assesment.pk).latest("created")
+            answer = Answer.objects.filter(question_id=question.pk, assessment_id=assessment.pk).latest("created")
             # Create an empty answer and save it, NOTE: not really necessary, but afraid of possible unexpected behaviour if removed
         except (KeyError, Answer.DoesNotExist):
-            answer = Answer(assesment_id=assesment, question_id=question, user=request.user, status=Answer.Status.UA)
+            answer = Answer(assessment_id=assessment, question_id=question, user=request.user, status=Answer.Status.UA)
             answer.save()
 
-        if question_id in [4, 5]:
+        if question_id == 11:
             context["law_clusters"] = LawCluster.objects.all()
 
         # Add necessary context for questions that are not in phase 4
         context["answer"] = answer
         context["collab_list"] = Collaborator.objects.filter(answers=answer)
-        context["collab_options"] = get_collab_options(assesment, answer)
-        context["question_history"] = get_answers_sorted(assesment, question)
+        context["collab_options"] = get_collab_options(assessment, answer)
+        context["question_history"] = get_answers_sorted(assessment, question)
 
         return render(request, "base/q_detail.html", context)
 
 # Save an answer to the database and alter it's completion status
 @login_required
-def save_answer(request, assesment_id, question_id):    
+def save_answer(request, assessment_id, question_id):    
 
     if request.method == "POST":
-        # Retrieve answer and assesment from the database
+        # Retrieve answer and assessment from the database
         try:
-            assesment = Assesment.objects.get(pk=assesment_id)
+            assessment = Assessment.objects.get(pk=assessment_id)
             question = Question.objects.get(pk=question_id)
-            answer = Answer.objects.filter(assesment_id=assesment, question_id=question).latest("created")
+            answer = Answer.objects.filter(assessment_id=assessment, question_id=question).latest("created")
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})
         
-        except (KeyError, Assesment.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+        except (KeyError, Assessment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assessment kan niet gevond worden!"})
 
         except (KeyError, Question.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Vraag kan niet gevond worden!"})
 
         # Check if user is autorised
-        if not user_has_edit_privilidge(request.user.pk, assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+        if not user_has_edit_privilidge(request.user.pk, assessment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
         
         # Put the POST request data into form
         answer_form = AnswerForm(request.POST)
@@ -226,10 +221,12 @@ def save_answer(request, assesment_id, question_id):
 
             # Only create a new answer if the answers content has been updated
             if answer_form.data["answer_content"].strip() != answer.answer_content:
-                answer = Answer(assesment_id=assesment, user=request.user, question_id=question)
+                answer = Answer(assessment_id=assessment, user=request.user, question_id=question)
 
                 # Update answer data
                 answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
+            
+            #TODO: implement error for definitively saving empty answer:
 
             # Check the state of the question
 
@@ -238,7 +235,7 @@ def save_answer(request, assesment_id, question_id):
                 answer.status = Answer.Status.UA
 
             # Reviewed
-            elif answer_form.cleaned_data["reviewed"]:
+            elif "reviewed" in request.POST:
                 answer.status = Answer.Status.RV
 
             # Answered
@@ -248,11 +245,11 @@ def save_answer(request, assesment_id, question_id):
             answer.save()
 
             # Only reverse the stored completion status when the return value indicates a change in completion
-            assesment.complete_status = all_answers_reviewed(assesment)
-            assesment.save()
+            assessment.complete_status = all_answers_reviewed(assessment)
+            assessment.save()
                  
             # Return to question detail page with updated answer
-            return HttpResponseRedirect(reverse("base:question_detail", args=(assesment_id, question_id,)))
+            return HttpResponseRedirect(reverse("base:question_detail", args=(assessment_id, question_id,)))
 
         # Error
         else:
@@ -263,11 +260,11 @@ def save_answer(request, assesment_id, question_id):
 # Add an existing collaborator to a question
 @login_required
 def add_collab(request, answer_id, collab_id):
-    # Get the answer, assesment and collaborator
+    # Get the answer, assessment and collaborator
     try:
         answer = Answer.objects.get(pk=answer_id)
         collab = Collaborator.objects.get(pk=collab_id)
-        assesment = Assesment.objects.get(pk=answer.assesment_id.id)
+        assessment = Assessment.objects.get(pk=answer.assessment_id.id)
 
     except (KeyError, Answer.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
@@ -275,16 +272,16 @@ def add_collab(request, answer_id, collab_id):
     except (KeyError, Collaborator.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker aan toe te voegen kan niet in database gevonden worden!"})
     
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment kan niet gevond worden!"})
 
     # Check if user is autorised
-    if not user_has_edit_privilidge(request.user.pk, assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+    if not user_has_edit_privilidge(request.user.pk, assessment):
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
 
     # Add it to the many-to-many relation
     answer.collaborator_set.add(collab)
-    next = request.GET.get("next", reverse('base:question_detail', args=(answer.assesment_id.id, answer.question_id.id,)))
+    next = request.GET.get("next", reverse('base:question_detail', args=(answer.assessment_id.id, answer.question_id.id,)))
 
     return HttpResponseRedirect(next)
 
@@ -292,20 +289,20 @@ def add_collab(request, answer_id, collab_id):
 @login_required
 def create_add_collab(request, answer_id):
     if request.method == "POST":
-        # Get the answer and assesment
+        # Get the answer and assessment
         try:
             answer = Answer.objects.get(pk=answer_id)
-            assesment = Assesment.objects.get(pk=answer.assesment_id.id)
+            assessment = Assessment.objects.get(pk=answer.assessment_id.id)
 
         except (KeyError, Answer.DoesNotExist):
             return render(request, "errors/error.html", {"message": "Kan vraag om medewerker aan toe te voegen niet vinden in de database!"})
 
-        except (KeyError, Assesment.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+        except (KeyError, Assessment.DoesNotExist):
+            return render(request, "errors/error.html", {"message": "Assessment kan niet gevond worden!"})
 
         # Check if user is autorised
-        if not user_has_edit_privilidge(request.user.pk, assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+        if not user_has_edit_privilidge(request.user.pk, assessment):
+            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
         
         # Create a form for validation
         form = CollaboratorForm(request.POST)
@@ -328,7 +325,7 @@ def delete_collab(request, answer_id, collab_id):
     try:
         answer = Answer.objects.get(pk=answer_id)
         collab = Collaborator.objects.get(pk=collab_id)
-        assesment = Assesment.objects.get(pk=answer.assesment_id.id)
+        assessment = Assessment.objects.get(pk=answer.assessment_id.id)
 
     except (KeyError, Answer.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Vraag om medewerker van te verwijderen bestaat niet in de database!"})
@@ -336,12 +333,12 @@ def delete_collab(request, answer_id, collab_id):
     except (KeyError, Collaborator.DoesNotExist) :
         return render(request, "errors/error.html", {"message": "Medewerker om van de vraag te verwijderen bestaat niet in de database!"})
 
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment kan niet gevond worden!"})
 
     # Check if user is autorised
-    if not user_has_edit_privilidge(request.user.pk, assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
+    if not user_has_edit_privilidge(request.user.pk, assessment):
+        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assessment!"})
 
     else:
         # Delete relation and go back to next page
@@ -355,43 +352,44 @@ def delete_collab(request, answer_id, collab_id):
 
 @login_required
 def info(request):
-    return render(request, "base/info.html") 
+    assessments_list = Assessment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
+    return render(request, "base/info.html" ,{"assessments_list": assessments_list}) 
 
 @login_required
-def add_editor(request, assesment_id, editor_id):
+def add_editor(request, assessment_id, editor_id):
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+        assessment = Assessment.objects.get(pk=assessment_id)
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment bestaat niet!"})
     
-    if user_has_edit_privilidge(request.user.pk, assesment):
+    if user_has_edit_privilidge(request.user.pk, assessment):
         editor = User.objects.get(pk=editor_id)
-        assesment.user_group.add(editor)
+        assessment.user_group.add(editor)
 
         # TODO make it so that the page where the user came from is remembered and that the user returns to it
-        return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+        return HttpResponseRedirect(reverse("base:detail", args=(assessment.id,)))
     
     else:
-        return render(request, "errors/error.html", {"message": "Alleen de maker van een assesment kan editors toevoegen!"})
+        return render(request, "errors/error.html", {"message": "Alleen de maker van een assessment kan editors toevoegen!"})
 
-# Add an editor with editing priviledges to an assesment
+# Add an editor with editing priviledges to an assessment
 @login_required 
-def search_editor(request, assesment_id):
-    # Find the assesment
+def search_editor(request, assessment_id):
+    # Find the assessment
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+        assessment = Assessment.objects.get(pk=assessment_id)
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment bestaat niet!"})
 
-    if user_has_edit_privilidge(request.user.id, assesment):
+    if user_has_edit_privilidge(request.user.id, assessment):
 
         # Get request shows only the search_page with an form to search for users by id
         if request.method == "GET":
-            next = request.GET.get("next", reverse("base:detail", args=(assesment.id,)))
-            return render(request, "base/search_editor.html", {"assesment": assesment, "next": next})
+            next = request.GET.get("next", reverse("base:detail", args=(assessment.id,)))
+            return render(request, "base/search_editor.html", {"assessment": assessment, "next": next})
 
         """
-        This version of adding editors to an assesment is for prototyping only in a controlled environment.
+        This version of adding editors to an assessment is for prototyping only in a controlled environment.
         When creating a more complete software solution, an inbox system should be put into place as to
         prevent people from spam adding them to projects.
         Also the adding of editors now goes by id, which may be subject to change but it will do for the purposes of this prototype.
@@ -400,14 +398,14 @@ def search_editor(request, assesment_id):
         # Post request contains the user id and reverts the user to a confirmation screen on wether they really want to add that user
         if request.method == "POST":
             form = SearchEditorForm(request.POST) 
-            next = request.POST.get("next", reverse("base:detail", args=(assesment.id,)))
+            next = request.POST.get("next", reverse("base:detail", args=(assessment.id,)))
 
             # First check wether the given value is an integer
             if form.is_valid():
 
                 # Make sure the editor added isn't the same user as the user sending the request
                 if request.user.pk == form.cleaned_data["editor_id"]:
-                    return render(request, "base/search_editor.html", {"assesment": assesment, "next": next, "error": "Kan jezelf niet als editor toevoegen!"})
+                    return render(request, "base/search_editor.html", {"assessment": assessment, "next": next, "error": "Kan jezelf niet als editor toevoegen!"})
 
                 # Find an editor
                 try:
@@ -415,237 +413,39 @@ def search_editor(request, assesment_id):
 
                 # No user found with entered id
                 except (KeyError, User.DoesNotExist):
-                    return render(request, "base/search_editor.html", {"assesment": assesment, "next": next ,"error": "Kan geen editor vinden met dit id!"})
+                    return render(request, "base/search_editor.html", {"assessment": assessment, "next": next ,"error": "Kan geen editor vinden met dit id!"})
 
                 # User found
-                return render(request, "base/confirm_editor.html", {"assesment": assesment, "next": next, "editor": editor})
+                return render(request, "base/confirm_editor.html", {"assessment": assessment, "next": next, "editor": editor})
             
             # No integer entered
             else:
-                return render(request, "base/search_editor.html", {"assesment": assesment, "next": next, "error": "Ingevoerde waarde moet een heel nummer zijn!"})
+                return render(request, "base/search_editor.html", {"assessment": assessment, "next": next, "error": "Ingevoerde waarde moet een heel nummer zijn!"})
                 
 @login_required
-def delete_editor(request, assesment_id, editor_id):
-    # Find the assesment
+def delete_editor(request, assessment_id, editor_id):
+    # Find the assessment
     try:
-        assesment = Assesment.objects.get(pk=assesment_id)
+        assessment = Assessment.objects.get(pk=assessment_id)
         editor = User.objects.get(pk=editor_id)
 
-    except (KeyError, Assesment.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
+    except (KeyError, Assessment.DoesNotExist):
+        return render(request, "errors/error.html", {"message": "Assessment bestaat niet!"})
     
     except (KeyError, User.DoesNotExist):
         return render(request, "errors/error.html", {"message": "Editor bestaat niet!"})
 
     # Check user privilidges
-    if user_has_edit_privilidge(request.user.pk, assesment):
+    if user_has_edit_privilidge(request.user.pk, assessment):
         
-        # Delete the editor from the assesment en return to detail page
-        assesment.user_group.remove(editor)
-        return HttpResponseRedirect(reverse("base:detail", args=(assesment.id,)))
+        # Delete the editor from the assessment en return to detail page
+        assessment.user_group.remove(editor)
+        return HttpResponseRedirect(reverse("base:detail", args=(assessment.id,)))
     
     else:
         return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om editors te verwijderen!"})
 
 @login_required
 def landing_page(request):
-    return render(request, "base/landing_page.html")
-
-@login_required
-def create_law(request, assesment_id):
-    if request.method == "POST":
-        # Find the assesment
-        try:
-            assesment = Assesment.objects.get(pk=assesment_id)
-
-        except (KeyError, Assesment.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Assesment bestaat niet!"})
-        
-        if not user_has_edit_privilidge(request.user.pk, assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om grondrechten toe te voegen!"})
-        
-        # Retrieve the post data and make it usable 
-        form = LawForm(request.POST)
-        next = request.POST.get("next", reverse("base:question_detail", args=(assesment.id, 10,)))
-
-        # Validate form data
-        if form.is_valid():
-            # Create the Law object
-            law = Law(name=form.cleaned_data["name"])
-            law.assesment = assesment
-            law.save()
-            generate_empty_law_answers(law)
-            return HttpResponseRedirect(next)
-
-        # Form error
-        else:
-            request.session["error"] = "Gebruiker heeft geen valide data ingevoerd!"
-            return HttpResponseRedirect(next)
-
-    else:
-        render(request, "errrors/error.html", {"message": "Alleen POST requests zijn toegestaan voor de actie!"})
-
-@login_required
-def delete_law(request, law_id):
-    if request.method == "GET":
-        # Get the law object
-        try:
-            law = Law.objects.get(pk=law_id)
-
-        except (KeyError, Law.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
-
-        # Check user privilidges
-        if not user_has_edit_privilidge(request.user.pk, law.assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen permissie om grondrechten te verwijderen!"})
-        
-        # Get the next address to go to after deletion
-        next = request.GET.get("next", reverse("base:question_detail", args=(law.assesment.id, 11,)))
-
-        # Delete law object
-        law.delete()
-        return HttpResponseRedirect(next)
-
-    else:
-        render(request, "errrors/error.html", {"message": "Alleen GET requests zijn toegestaan voor de actie!"})
-
-            
-@login_required
-def law_detail(request, law_id, law_question_id):
-    try:
-        law = Law.objects.get(pk=law_id)
-        question = Question.objects.get(pk=law_question_id) 
-
-    # No law object found in db
-    except (KeyError, Law.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
-
-    # No question object found in db
-    except (KeyError, Question.DoesNotExist):
-        return render(request, "errors/error.html", {"message": "Grondrecht bestaat niet!"})
-
-    # Check user authority 
-    if not user_has_edit_privilidge(request.user.pk, law.assesment):
-        return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
-
-    # All the context send to the template goes in this dict
-    context = {}
-
-    # Id's of next and next questions
-    context["buttons"]= {
-        "next": question.id + 1,
-        "prev": question.id - 1
-    }
-
-    # Objects need te render the question index correctly
-    context["index_context_objects"] = {
-        "question_list": Question.objects.filter(question_phase=5).order_by("pk"),
-        "status_list": get_law_complete_status(request, law.assesment)
-    }
-
-    # Get context that helps display question information
-    context["assesment"] = law.assesment
-    context["law"] = law
-    context["question"] = question
-    context["reference_list"] = Reference.objects.filter(questions=question)
-    context["jobs"] = question.jobs_as_py_list()
-
-    # Get the newest answer
-    try:
-        answer = Phase4Answer.objects.filter(question_id=question, assesment_id=law.assesment, law=law).latest("created")
-    # Maybe remove this, don't know could break but there is definitely a better way to do this
-    except (KeyError, Phase4Answer.DoesNotExist):
-        answer = Phase4Answer(assesment_id=law.assesment, law=law, question_id=question, user=request.user, status=Answer.Status.UA)
-        answer.save()
-    context["answer"] = answer
-
-    # Context for the collaborators function
-    context["collab_list"] = Collaborator.objects.filter(answers=answer)
-    context["collab_options"] = get_collab_options(law.assesment, answer)
-
-    # Context for the question history
-    context["question_history"] = get_answers_sorted(law.assesment, question)
-
-    # Check if fase 4 can be cut off due to finding limiting legislation, this is assessed in qustion 4.1
-    if question.question_number == 1:
-        context["cut_off"] = True
-    
-    # Make sure the appendix containing the risk image appears in question 4.2
-    elif question.question_number == 2:
-        context["risk_appendix"] = True
-
-    # Add appendix containing mitigating measures to question 4.6
-    elif question.question_number == 6:
-        context["measure_appendix"] = True
-
-    return render(request, "base/law_detail.html", context)
-    
-@login_required
-def save_law_answer(request, law_id, law_question_id):
-    if request.method == "POST":
-        try:
-            law = Law.objects.get(pk=law_id)
-            answer = Phase4Answer.objects.filter(law=law, question_id=law_question_id).latest("created")
-            question = Question.objects.get(pk=law_question_id)
-
-        except (KeyError, Answer.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Opgeslagen antwoord is niet gevonden in de db!"})
-        
-        except (KeyError, Law.DoesNotExist):
-            return render(request, "errors/error.html", {"message": "Assesment kan niet gevond worden!"})
-
-
-        # Check if user is autorised
-        if not user_has_edit_privilidge(request.user.pk, law.assesment):
-            return render(request, "errors/error.html", {"message": "Gebruiker heeft geen toegang tot deze assesment!"})
-        
-        # Put the POST request data into form
-        answer_form = AnswerForm(request.POST)
-
-        # Make sure the data is valid
-        if answer_form.is_valid():
-
-            # Only create a new answer if the answers content has been updated
-            if answer_form.data["answer_content"].strip() != answer.answer_content:
-                answer = Phase4Answer(assesment_id=law.assesment, user=request.user, question_id=question, law=law)
-
-                # Update answer data
-                answer.answer_content = answer_form.data["answer_content"].strip()# is_valid drops answer content from cleaned data?????
-
-            # Unanswered
-            if answer.answer_content == "":# is_valid drops answer content from cleaned data?????
-                answer.status = Answer.Status.UA
-
-            # Reviewed
-            elif answer_form.cleaned_data["reviewed"]:
-                answer.status = Answer.Status.RV
-
-            # Answered
-            else:
-                answer.status = Answer.Status.AW
-
-            answer.save()
-
-
-            # Check if the law is limiting, this can only be checked at question 4.1
-            if question.question_number == 1: 
-                if answer_form.cleaned_data["cut_off"]:
-                    law.status = Law.Status.CO
-                else:
-                    # Determine if the law is complete if t
-                    law.status = is_law_complete(law)
-            # Only on question 1 can the cut off be determined, but answering another question shouldn't undo the cut-off setting
-            elif law.status != Law.Status.CO:
-                # Determine if the law is complete if t
-                law.status = is_law_complete(law)
-
-            law.save()
-
-            # Check the completion status of the law answering
-            
-            # Return to question detail page with updated answer
-            return HttpResponseRedirect(reverse("base:law_detail", args=(law_id, law_question_id,)))
-
-        # Error
-        else:
-            return render(request, "errors/error.html", {"message": "Voer valide data in!"})
+    assessments_list = Assessment.objects.filter(user__pk=request.user.pk).order_by("-date_last_saved")
+    return render(request, "base/landing_page.html", {"assessments_list": assessments_list})

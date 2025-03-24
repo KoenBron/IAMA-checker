@@ -14,17 +14,17 @@ def reference_sentinel():
     return Reference.objects.get_or_create(description="Example description of reference", url="www.example.com")[0]
 
 # Create your models here.
-class Assesment(models.Model):
-    name = models.CharField(max_length=40)# Name of the assesment
-    organisation = models.CharField(max_length=50)# Name of the organisation performing the assesment
+class Assessment(models.Model):
+    name = models.CharField(max_length=40)# Name of the assessment
+    organisation = models.CharField(max_length=50)# Name of the organisation performing the assessment
     complete_status = models.BooleanField(default=False)# Complete when all questions have been answered 
     date_last_saved = models.DateField(auto_now=True)# Automatically saves new value when this object is saved
-    ultimately_responsible = models.CharField(max_length=50, default="")# The person who is responsible in the end for the assesment
-    # User that created the assesment, TODO: rename field to author
+    ultimately_responsible = models.CharField(max_length=50, default="")# The person who is responsible in the end for the assessment
+    # User that created the assessment, TODO: rename field to author
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)
     # Many-to-many field to create user groups
-    # With this field we track each user that can edit the assesment
-    user_group = models.ManyToManyField(User, related_name="related_assesment")
+    # With this field we track each user that can edit the assessment
+    user_group = models.ManyToManyField(User, related_name="related_assessment")
 
 
 # IMPORTANT NOTE: questions in the context of this project are both phase introductions
@@ -66,7 +66,7 @@ class Question(models.Model):
     question_context = models.TextField(default="")# Context to question_text
     question_instruction = models.TextField(default="")# Instructions on how to answer the question
     question_phase = models.IntegerField() # Phase number of the question
-    question_number = models.IntegerField() # Question number in the phase
+    question_number = models.DecimalField(max_digits=2, decimal_places=1) # Question number in the phase
     question_warning = models.CharField(max_length=140, default=None, null=True)# Warning that tells when an answer results in question
     question_reference_text = models.CharField(max_length=400, default=None, null=True)# Text that indicates how to utulize the refernces
     job_list = models.JSONField(default=list)# All jobs associated with the question
@@ -85,33 +85,15 @@ class Answer(models.Model):
     answer_content = models.TextField(default="") # Content of the answer
 
     # Attributes to identify the corresponding answer
-    assesment_id = models.ForeignKey(Assesment, on_delete=models.CASCADE, default=0)# Related assesment
+    assessment_id = models.ForeignKey(Assessment, on_delete=models.CASCADE, default=0)# Related assessment
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, default=0) # Related question
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=user_pk_sentinel)# User that answers
 
     # For tracking answer history
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
-# The phase 4 of each assesment is structered so that all the answers and questions are assigned per
-# law. Aside form that the answer and question model remains the same
-class Law(models.Model):
-    assesment = models.ForeignKey(Assesment, on_delete=models.CASCADE)
 
-    # Law content
-    class Status(models.TextChoices):
-        CP = "CP", "complete"
-        ICP = "ICP", "incomplete"
-        CO = "CO", "cut-off"# Answering the questions for a law can be cutoff due to the content of the law
-
-    name = models.CharField(max_length=100)
-    status = models.CharField(max_length=4, choices=Status.choices, default=Status.ICP)
- 
-
-# Special model for the answers of phase 4 as they have to be referenced by the law they are linked to
-class Phase4Answer(Answer):
-    law = models.ForeignKey(Law, on_delete=models.CASCADE)
-
-# Could also have a relation to Assesment, but would be redundant info since the answer is already related
+# Could also have a relation to Assessment, but would be redundant info since the answer is already related
 # Don't know what is best practice here, so could be revisited later.
 class Collaborator(models.Model):
     name = models.CharField(max_length=60)

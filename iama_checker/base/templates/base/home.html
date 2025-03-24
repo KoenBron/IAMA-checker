@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block navigation %}
-Overzicht assessments
+<b>Overzicht assessments</b>
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@ Overzicht assessments
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Jouw Assesements</h4>
+                    <h4 class="card-title ">Jouw Assessments</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -36,7 +36,7 @@ Overzicht assessments
                         </th>
                         </thead>
                         <tbody>
-                        {% for item in assesments_list %}
+                        {% for item in assessments_list %}
                         <tr>
                             <td>
                             <a href="{% url 'base:detail' item.id %}" class="btn btn-primary">{{ item.name }}</a> 
@@ -78,7 +78,7 @@ Overzicht assessments
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
-                                    <a href="{% url 'base:delete_assesment' item.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
+                                    <a href="{% url 'base:delete_assessment' item.id %}"><button type="button" class="btn btn-primary">Verwijder</button></a>
                                 </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ Overzicht assessments
                     </table>
                     </div>
                     <h4 class="text-primary pt-4">Vul hieronder informatie in om een nieuwe assessment te maken!</h4>
-                    <form action="{% url 'base:create_assesment' %}" method="post">
+                    <form action="{% url 'base:create_assessment' %}" method="post">
                         {% csrf_token %}
                         {% if error %}
                         <span class="text-danger">{{ error }}</span>
@@ -152,7 +152,7 @@ Overzicht assessments
                         </th>
                         </thead>
                         <tbody>
-                        {% for editor_item in assesments_editor_list %}
+                        {% for editor_item in assessments_editor_list %}
                         <tr>
                             <td>
                             <a href="{% url 'base:detail' editor_item.id %}">{{ editor_item.name }}</a> 
@@ -200,7 +200,7 @@ Overzicht assessments
                             </div>
                         </div>
                         {% endfor %}
-                        {% if not assesments_editor_list %}
+                        {% if not assessments_editor_list %}
                     <tr>
                         <td>Geen assessments</td>
                         <td></td>

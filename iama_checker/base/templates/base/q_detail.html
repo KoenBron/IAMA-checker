@@ -3,55 +3,54 @@
 {% load base_extra %}
 
 {% block navigation %}
-  <a href="{% url 'base:detail' assesment.id %}" style="color:grey">IAMA-Assesment - {{ assesment.name }}</a>
+  <a href="{% url 'base:detail' assessment.id %}" style="color:black"><b>IAMA-Assessment - {{ assessment.name }}</b></a>
 {% endblock %}
 
+
 {% block add_editor %}
-{% include "includes/question_history.html" with question=question question_history=question_history %}
-<a href="{% url 'base:search_editor' assesment.id %}?next={{ request.path }}" class="btn btn-info btn-round">Voeg editor toe aan assemsent +</a>
+{% if question.question_number == 0 %}
+<a href="{% url 'base:search_editor' assessment.id %}?next={{ request.path }}" class="btn btn-info btn-round">Voeg editor toe aan assessment +</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-2"></div>
-    <div class="col-md-7 text-center">
-        <h2 class="text-primary">Vraag {{ question.question_phase }}.{{ question.question_number }} </h2>
+    <div class="col-md-9 text-center">
+        <h2 class="text-primary">Vraag {{ question.question_phase }}.{{ question.question_number.normalize }}: {{ question.question_title }} </h2>
     </div>
     <div class="col"></div>
 </div>
 <div class="row">
   <div class="col-md-7 offset-md-2">
-    <div class="card">
-      <div class="card-body">
-        <h6 class="text-primary"><b>Betrokken beroepen:</b></h6>
-        {% for job in jobs %}
-            {% if job.priority == 1 %}
-                <span class="badge badge-danger" style="font-size: 13px">{{ job.description }}</span>
-            {% else %}
-                <span class="badge badge-warning" style="font-size: 13px">{{ job.description }}</span>
-            {% endif %}
-        {% endfor %}
-      </div>
-    </div>
+    {% if law_clusters %}
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
+                Klik voor grondrechtenclusters overzicht
+            </button>
+            {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
+        </div>
+    {% else %}
+    {% endif %}
   </div>
   <div class="col">
   </div>
 </div>
 <div class="row">
     <div class="col-md-2" style="padding: 0;">
-        {% include 'base/collaborators.html' with collab_list=collab_list assesment_id=assesment.id question_id=question.id answer_id=answer.id collab_options=collab_options %}
+        {% include 'base/collaborators.html' with collab_list=collab_list assessment_id=assessment.id question_id=question.id answer_id=answer.id collab_options=collab_options %}
     </div>
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title"> {{ question.question_title }} </h4>
+                <center>
+                <h4 class="card-title"> {{ question.question_text|safe }}</h4>
+                {% include "includes/question_history.html" with question=question question_history=question_history %}
+                </center>
             </div>
             <div class="card-body">
-                <form action="{% url 'base:save_answer' assesment.id question.id %}" method="post">
+                <form action="{% url 'base:save_answer' assessment.id question.id %}" method="post">
                     {% csrf_token %}
-                    <center>
-                        <p><h4 style="color: black"><i>{{ question.question_text|safe }}</i></h4></p>
-                    </center>
                     {% if answer.answer_content %}
                         <textarea class="form-control rounded px-1" name="answer_content" rows="15" style="background-color: #E8E8E8" placeholder="Vul hier uw antwoord in"> {{ answer.answer_content }} </textarea>
                     {% else %}
@@ -59,38 +58,24 @@
                     {% endif %}
                     <div class="row mb-2">
                         <div class="col-md-3"></div>
-                        <div class="col-md-3 d-flex justify-content-center align-items-center">
-                            <div class="form-check align-items-center">
-                                <label class="form-check-label" for="reviewed"> Reviewed en Compleet
-                                {% if answer.status|is_reviewed %}
-                                    <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed" checked>
-                                {% else %}
-                                    <input class="form-check-input" id="reviewed" name="reviewed" type="checkbox" value="reviewed">
-                                {% endif %}
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                                </label>
-                            </div>
+                        <div class="d-flex justify-content-around">
+                            <button type="submit" name="save_answer" class="btn btn-primary">Concept opslaan</button>
+                            <button type="submit" name="reviewed" class="btn btn-primary">Definitief opslaan</button>
                         </div>
-                        <div class="col-md-3"><button type="submit" name="save_answer" class="btn btn-primary">Save/Update Antwoord</button></div>
-                        <div class="col-md-3"></div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Klik hier voor vraag context en uitleg</button>
+                        <button class="btn btn-secundary" style="padding-left:5em;padding-right:5em;" type="button" data-bs-toggle="collapse" data-bs-target="#question_context">Vraag instructies, context en uitleg</button>
                     </div>
                     <div class="collapse border rounded" id="question_context" style="border-color: grey; background-color: #F5F5F5">
-                      <p style="margin: 1em; font-size: 17px"> {{ question.question_context|safe }} </p>
+                        <p style="margin: 1em; font-size:18px"><b>Instructies:</b></p>
+                        <p style="margin: 1em; font-size:17px"> {{ question.question_instruction|safe }} </p>
+                        {% if question.question_context %}
+                        <p style="margin: 1em; font-size:18px"><b>Context:</b></p>
+                        <p style="margin: 1em; font-size: 17px"> {{ question.question_context|safe }} </p>
+                        {% endif %}
                     </div>
-                    <p style="margin-top: 0.5em; font-size:17px"> {{ question.question_instruction|safe }} </p>
-                    {% if law_clusters %}
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#law_clusters">
-                              Klik voor bijlage
-                            </button>
-                            {% include 'includes/law_clusters_appendix.html' with law_clusters=law_clusters %}
-                        </div>
-                    {% endif %}
+                    
+                    
                     <br>
                     {% if question.question_reference_text %}
                       <div class="rounded text-highlight-blue">
@@ -110,17 +95,14 @@
         <div class="row mb-4">
           <div class="col text-center">
             {% if question.id != 1 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
+                <a href="{% url 'base:question_detail' assessment.id buttons.prev %}" class="btn btn-primary btn-round">Vorige</a>
             {% endif %}
-            {% if question.id != 9 %}
-                <a href="{% url 'base:question_detail' assesment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
+            {% if question.id != 17 %}
+                <a href="{% url 'base:question_detail' assessment.id buttons.next %}" class="btn btn-primary btn-round">Volgende</a>
             {% endif %}
           </div>
         </div>
         {% include 'includes/reference_list.html' with reference_list=reference_list %}
-    </div>
-    <div class="col-md-3">
-        {% include 'base/q_index.html' with assesment=assesment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
     </div>
 </div>
 {% endblock %}

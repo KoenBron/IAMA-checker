@@ -1,5 +1,5 @@
 from django.test import TestCase
-# from base.models import Assesment, Answer
+# from base.models import Assessment, Answer
 from .forms import RegisterForm
 from django.urls import reverse
 from django.contrib.auth.models import User

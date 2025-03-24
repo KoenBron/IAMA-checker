@@ -1,5 +1,5 @@
 from django import template
-from ..models import Answer, Law
+from ..models import Answer
 
 register = template.Library()
 
@@ -17,19 +17,5 @@ def cluster(cluster, mode):
 @register.filter
 def is_reviewed(status):
     return status == Answer.Status.RV
-
-@register.filter
-def is_cut_off(status):
-    return status == Law.Status.CO
-
-@register.filter
-def get_law_status(status):
-    match status:
-        case Law.Status.CP:
-            return "<i class='material-icons' style='color: green'>done</i>"
-        case Law.Status.ICP:
-            return "<i class='material-icons' style='color: red'>close</i>"
-        case Law.Status.CO:
-            return "<i class='material-icons' style='color: orange'>remove</i>"
 
 

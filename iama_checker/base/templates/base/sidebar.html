@@ -1,39 +1,19 @@
 <div class="sidebar" data-color="purple" data-background-color="white">
-    <div class="logo">
-    <div class="simple-text logo-normal"><a href="{% url 'base:landing_page' %}">IAMA Home</a></div>
-    </div>
     <div class="sidebar-wrapper">
+      <div class="d-flex justify-content-around align-items-center" style="margin-top:1em; margin-left: 0.5em; margin-right: 0.5em">
+        <a href="{% url 'base:landing_page' %}"><i class="material-icons">home</i></a>
+          {% if request.user.is_authenticated %}
+            <div class="vr"></div>
+            <a href="{% url 'base:info' %}"><i class="material-icons">info</i></a>
+            <div class="vr"></div>
+            <a href="{% url 'accounts:info' %}"><i class="material-icons">person</i></a>
+            <div class="vr"></div>
+            <a href="#" onclick="myFunction()"><i class="material-icons">logout</i></a>
+          {% endif %}
+      </div>
       <ul class="nav">
       {% if request.user.is_authenticated %}
-
-        <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-        <a class="nav-link" href="{% url 'base:home' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Assessments</p>
-          </a>
-        </li>
-
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'base:info' %}" >
-            <i class="material-icons">info</i>
-            <p>Informatie</p>
-          </a>
-        </li>      
-
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'accounts:info' %}" >
-            <i class="material-icons">person</i>
-            <p>Account</p>
-          </a>
-        </li>      
-
-        <li class="nav-item ">
-          <a class="nav-link" href="#" onclick="myFunction()" >
-            <i class="material-icons">directions_run</i>
-            <p>Logout</p>
-          </a>
-        </li>      
-
+        {% include 'base/q_index.html' with assessment=assessment question_list=index_context_objects.question_list current_question=question.id status_list=index_context_objects.status_list %}
       {% endif %}
       </ul>
     </div>

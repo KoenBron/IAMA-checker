@@ -33,8 +33,8 @@
         "model": "base.reference",
         "pk": "4",
         "fields": {
-            "title": "Data Protection Impact Assesment (DPIA)",
-            "description": "Het instrument om privacy-risico's te identificeren bij de inzet van algoritmes die omgaan met persoongegevens. De DPIA is een smallere en op persoonsgevens gerichte impact assesment, die is gebruikt voor het ontwikkelen van IAMA. Dit betekent dat vragen overeenkomen tussen de twee en dat sommige antwoorden uitgewisseld kunnen worden.",
+            "title": "Data Protection Impact Assessment (DPIA)",
+            "description": "Het instrument om privacy-risico's te identificeren bij de inzet van algoritmes die omgaan met persoongegevens. De DPIA is een smallere en op persoonsgevens gerichte impact assessment, die is gebruikt voor het ontwikkelen van IAMA. Dit betekent dat vragen overeenkomen tussen de twee en dat sommige antwoorden uitgewisseld kunnen worden.",
             "url": "https://autoriteitpersoonsgegevens.nl/themas/basis-avg/praktisch-avg/data-protection-impact-assessment-dpia",
             "questions": [3,11]
         }

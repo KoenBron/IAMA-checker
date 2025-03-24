@@ -1,8 +1,8 @@
 {% load static %}
 <div class="col">
     <div class="card">
-        <div class="card-header card-header-danger">
-            <h4 class="card-title">Doe deze tutorial voordat je begint!</h4>
+        <div class="card-header card-header-info">
+            <h4 class="card-title"><b>Tutorial</b></h4>
             <p class="card-category">Loop door deze functionaliteiten van IAMA Checker heen om een betere assessment te doen! Daarna kun je beginnen onderaan deze pagina of door te klikken op een vraag of onderdeel in de index rechts van het scherm!</p>
         </div>
         <div class="card-body">
@@ -16,7 +16,7 @@
               </div>
             </div>
             <p style="font-size: 17px">
-                  Met deze knop kun je een editor toevoegen aan de assessment op basis van hun gebruikers id, die gevonden kan worden op de <i class="material-icons" style="position: relative; top:5px; color: grey">person</i> account pagina te kijken. Wanneer je toegevoegd bent aan een assessment kun je deze bewerken. De assessments waar jij een editor bent zijn te vinden op de <i class="material-icons" style="position: relative; top:5px; color: grey">dashboard</i> assessment pagina en de editors van deze assessment zijn te zien en verwijderen onderaan deze pagina in de editor lijst.
+                  Met deze knop kun je een editor toevoegen aan de assessment op basis van hun gebruikers id, die gevonden kan worden op de <i class="material-icons" style="position: relative; top:5px; color: purple">person</i> account pagina te kijken. Wanneer je toegevoegd bent aan een assessment kun je deze bewerken. De assessments waar jij een editor bent zijn te vinden op de <i class="material-icons" style="position: relative; top:5px; color: purple">list</i> assessment pagina en de editors van deze assessment zijn te zien en verwijderen in de editor lijst boven deze tutorial.
             </p>
             <hr/>
             <h6>Download overzicht</h6>
@@ -39,28 +39,30 @@
             </p>
             <div class="row justify-content-center" align="center" style="padding-top:15px;padding-bottom:15px">
             <div class="col">
-                    <span class='badge badge-danger badge-pill'>Onbeantwoord</span> <span class='badge badge-warning badge-pill'>Beantwoord</span><span class='badge badge-success badge-pill'>Reviewed</span>
+                    <span class='badge badge-danger badge-pill'>Nog beantwoorden</span> <span class='badge badge-warning badge-pill'>Concept</span><span class='badge badge-success badge-pill'>Definitief</span>
                 </div>
-            </div>
+              </div>
             <p style="font-size: 17px">
-                Wat belangrijk is om te weten is dat <span class='badge badge-danger badge-pill'>Onbeantwoord</span> <span class='badge badge-warning badge-pill'>Beantwoord</span> automatisch wordt bijgehouden door de tool en dat het aan de gebruiker is om de vraag als <span class='badge badge-success badge-pill'>Reviewed</span> te markeren door de checkbox onderaan de vraag te markeren of demarkeren.
+                <b>Het is aan de gebruiker zelf om te bepalen wanneer een vraag "definitief" is</b>, maar het wordt aangeraden om een vraag als <span class='badge badge-success badge-pill'>Definitief</span> te beschouwen wanneer iedereen die mee heeft gewerkt aan het antwoord (idealiter is dit een groep mensen met alle aangeraden beroepen/specialisaties bij de vraag) het antwoord goedkeurt. Het markeren als "definitief" kan met onderstaand knop:
+                <div class="text-center">
+                  <span class='btn btn-primary'>Definitief antwoord opslaan</span>
+                </div>
+              </p>
+            <p style="font-size: 17px">
+                Als een antwoord nog niet af is, nog door iemand bekeken moet worden, of als <span class='badge badge-success badge-pill'>Definitief</span> gemarkeerd staat terwijl dit niet (meer) klopt, kan het antwoord als <span class='badge badge-warning badge-pill'>Concept</span> gemarkeerd worden, door op deze knop te drukken:
+                <div class="text-center">
+                  <span class='btn btn-primary'>Concept antwoord opslaan</span>
+                </div>
             </p>
-            <br><br>
             <p style="font-size: 17px">
-                <b>Het is aan de gebruiker zelf om te bepalen wanneer een vraag "reviewed" is</b>, maar het wordt aangeraden om een vraag als <span class='badge badge-success badge-pill'>Reviewed</span> te beschouwen wanneer iedereen die mee heeft gewerkt aan het antwoord (idealiter is dit een groep mensen met alle aangeraden beroepen/specialisaties bij de vraag) het antwoord goedkeurt. Tot slot, het is belangrijk om te weten dat een assessment als compleet wordt gemarkeerd als alle antwoorden in de assessment een <span class='badge badge-success badge-pill'>Reviewed</span> status hebben.
+                Tot slot, het is belangrijk om te weten dat een assessment als compleet wordt gemarkeerd als alle antwoorden in de assessment een <span class='badge badge-success badge-pill'>Definitief</span> status hebben.
             </p>
             <hr/>
             <h6>Beroepen/Specialisaties</h6>
             <p style="font-size: 17px">
-                Bij iedere vraag onder de titel of in een tabel bij de introductie van een onderdeel staat vermeld welke beroepen/specialisaties (sterk) aangeraden zijn om te betrekken bij het formuleren van een antwoord.
-                Hoewel de tool niet kan forceren om bepaalde beroepen/specialisaties betrokken te hebben in het gegeven antwoord, <b>zijn deze beroepen/specialisaties wel nodig volgens IAMA om een goed geïnformeerd en compleet antwoord te geven</b>.
-                Er wordt onderscheid gemaakt tussen 2 verschillende categoriëen in beroepen/specialisaties: 
+                Bij iedere fase onder de introductie van het onderdeel staat vermeld welke beroepen/specialisaties (sterk) aangeraden zijn om te betrekken bij het formuleren van een antwoord.
+                Hoewel de tool niet kan forceren om bepaalde beroepen/specialisaties betrokken te hebben in het gegeven antwoord, <b>zijn deze beroepen/specialisaties wel aangeraden volgens IAMA om een goed geïnformeerd en compleet antwoord te geven</b>.
             </p>
-            <div class="row justify-content-center" align="center" style="padding-top:10px;padding-bottom:10px">
-                <div class="col">
-                    <span class="badge badge-danger">Benodigd</span> <span class="badge badge-warning">Eventueel handig</span>
-                </div>
-            </div>
             <p style="font-size: 17px">
                 De genoemde beroepen/specialisaties kunnen in titels en functie verschillen van organisatie tot organisatie, daarom wordt er een beroep gedaan op de organisatie die de assessment uitvoert om een groep samen te stellen die zoveel mogelijk van de functionaliteiten en kennis omslaat van de aangeraden beroepen/specialisaties. 
             </p>
@@ -112,11 +114,11 @@
           <hr/>
           <h6>Vraag context en instructie</h6>
           <p style="font-size: 17px">
-              Bijna alle vragen in IAMA Checker hebben een knop genaamd vraag context zoals hieronder. Wanneer er op deze knop gedrukt wordt opent dit een venster met hierin alle nodige informatie over waarom deze vraag belangrijk is en extra uitleg die gebruikt kan worden om de vraag goed te beantwoorden. Deze context is optioneel en handig als je voor het eerst deze vraag tegenkomt, maar als je al eerder deze vraag hebt behandelt hoeft er alleen maar gekeken te worden naar de text eronder: de vraag instructies. Deze instructie benoemd wat er verwacht wordt van een goed antwoord.
+              Alle vragen in IAMA Checker hebben een knop genaamd vraag context zoals hieronder. Wanneer er op deze knop gedrukt wordt opent dit een venster met hierin alle nodige informatie over waarom deze vraag belangrijk is en extra uitleg die gebruikt kan worden om de vraag goed te beantwoorden. In de instructie wordt benoemd wat er verwacht wordt van een goed antwoord.
           </p>
           <div class="row d-flex justify-content-center">
             <div class="col text-center">
-              <a href="#" style="padding-left:5em;padding-right:5em;" class="btn btn-secundary">Klik hier voor vraag context en uitleg</a>
+              <a href="#" style="padding-left:5em;padding-right:5em;" class="btn btn-secundary">Vraag instructies, context en uitleg</a>
             </div>
           </div>
           <hr/>
@@ -142,7 +144,7 @@
           </p>
           <div class="row d-flex justify-content-center">
             <div class="col text-center">
-              <a href="#" style="margin-right:1em;" class="btn btn-info btn-round ">Open vraag geschiedenis</a>
+              <a href="#" style="margin-right:1em;" class="btn btn-outline-primary btn-sm"><i class="material-icons">history</i></a>
             </div>
           </div>
           <hr/>
@@ -151,12 +153,6 @@
               IAMA heeft meerdere functies. Naast het doen van een assessment om te bepalen of het alogiritme in gebruik genomen moet worden, functioneert het ook als naslagwerk dat laat zien welke beslissingen waarom zijn genomen.
               Daarom is het ook beter om zo grondig mogelijk te zijn in het opschrijven van een antwoord, schrijf liever te veel dan te weinig.
               Een persoon die niks te maken heeft gehad met de ontwikkelen van het algoritme en gemiddelde technische kennis moet de antwoorden kunnen lezen en achteraf zonder belangrijke vragen komen te zitten, zoals "Waarom hebben ze hiervoor gekozen?" of "Wie is verantwoordelijk voor de beslissing?".
-          </p>
-          <br>
-          <br>
-          <p style="font-size: 17px">
-              Om deze tutorial mee af te sluiten, als blijkt dat er een probleem is volgens IAMA betekent dit niet meteen dat het algoritme afgeschreven hoeft te worden.
-              Het is goed mogelijk om mitigerende maatregelen te treffen die het algoritme nog steeds acceptabel maken, zolang deze maatregelen goed worden vastgelegd in het IAMA document.
           </p>
         </div>
     </div>

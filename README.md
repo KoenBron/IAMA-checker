@@ -10,7 +10,7 @@ IAMA Checker boasts a number of features to assist its users and expand on the f
 
 ## Installation
 
-First make sure you have Python 3.10 installed and then clone this repository, afterwards install the dependencies in requirements.txt.
+First make sure you have Python 3.10 and [wkhtmltopdf](https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf) installed and then clone this repository, afterwards install the dependencies in requirements.txt.
 
     $ pip install -r requirements.txt
 
